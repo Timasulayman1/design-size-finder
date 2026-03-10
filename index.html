@@ -40,9 +40,10 @@
       --shadow-card: 0 2px 12px rgba(0,0,0,0.08);
     }
 
-    /* Smooth theme transition on all elements */
-    *, *::before, *::after {
-      transition: background-color 0.35s ease, border-color 0.35s ease, color 0.2s ease, box-shadow 0.35s ease;
+    /* Smooth theme transition — exclude pseudo-elements to avoid grid flicker */
+    * {
+      transition: background-color 0.35s ease, border-color 0.35s ease,
+                  color 0.2s ease, box-shadow 0.35s ease;
     }
 
     /* === THEME TOGGLE === */
@@ -73,14 +74,16 @@
       border-radius: 50%;
       background: var(--accent);
       box-shadow: 0 0 8px var(--accent);
-      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.3s;
+      /* !important ensures global * rule doesn't strip out transform */
+      transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1), background 0.3s, box-shadow 0.3s !important;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.65rem;
+      will-change: transform;
     }
 
-    :root[data-theme="light"] .theme-thumb {
+    .theme-thumb.is-light {
       transform: translateX(24px);
     }
 
@@ -116,7 +119,7 @@
       z-index: 0;
     }
 
-    [data-theme="light"] body::before {
+    body.light-theme::before {
       background-image:
         linear-gradient(rgba(0,0,0,0.055) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0,0,0,0.055) 1px, transparent 1px);
@@ -870,6 +873,209 @@
       .action-row { flex-direction: column; }
       .btn { justify-content: center; }
     }
+  
+    /* === RECENTLY USED === */
+    .recent-section {
+      margin-top: 32px;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--transition) 0.6s forwards;
+    }
+
+    .recent-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .recent-clear {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text-3);
+      background: none;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 0;
+      transition: color 0.2s;
+    }
+
+    .recent-clear:hover { color: var(--accent); }
+
+    .recent-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .recent-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s var(--transition);
+      font-size: 0;
+    }
+
+    .recent-chip:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      background: var(--bg-3);
+    }
+
+    .recent-chip-name {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-1);
+    }
+
+    .recent-chip-dim {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-3);
+      padding-left: 8px;
+      border-left: 1px solid var(--border);
+    }
+
+    .recent-chip-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .recent-chip-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .recent-chip-row1 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* === CHEAT SHEET BANNER === */
+    .cheatsheet-banner {
+      margin-top: 28px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--transition) 0.65s forwards;
+    }
+
+    .cheatsheet-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent), transparent);
+    }
+
+    .cheatsheet-glow {
+      position: absolute;
+      right: -40px; top: -40px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(247,201,72,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cheatsheet-text { flex: 1; min-width: 220px; }
+
+    .cheatsheet-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 6px;
+    }
+
+    .cheatsheet-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-1);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .cheatsheet-desc {
+      font-size: 0.82rem;
+      color: var(--text-2);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .cheatsheet-desc strong {
+      color: var(--text-1);
+      font-weight: 500;
+    }
+
+    .btn-download {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 24px;
+      background: var(--accent-2);
+      color: #1a1200;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.87rem;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s var(--transition);
+      flex-shrink: 0;
+    }
+
+    .btn-download:hover {
+      background: #ffd95c;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(247,201,72,0.3);
+    }
+
+    .cheatsheet-pages {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-3);
+      margin-top: 8px;
+      letter-spacing: 0.06em;
+    }
+
+  
+    /* Popular section hide animation */
+    .popular-section {
+      transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.4s ease !important;
+      overflow: hidden;
+    }
+
+    .popular-section.hidden {
+      opacity: 0;
+      max-height: 0 !important;
+      margin-top: 0 !important;
+      pointer-events: none;
+      transform: translateY(-8px);
+    }
   </style>
 </head>
 <body>
@@ -886,7 +1092,7 @@
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">
         <div class="theme-thumb" id="themeThumb">🌙</div>
       </button>
-      <span class="badge">100+ sizes</span>
+      <span class="badge">200+ sizes</span>
     </div>
   </header>
 
@@ -907,8 +1113,34 @@
     </div>
   </section>
 
+  <!-- RECENTLY USED -->
+  <section class="recent-section" id="recentSection" style="display:none">
+    <div class="recent-label-row">
+      <p class="section-label">Recently Viewed</p>
+      <button class="recent-clear" onclick="clearRecent()">Clear</button>
+    </div>
+    <div class="recent-chips" id="recentChips"></div>
+  </section>
+
+  <!-- CHEAT SHEET BANNER -->
+  <section class="cheatsheet-banner">
+    <div class="cheatsheet-glow"></div>
+    <div class="cheatsheet-text">
+      <div class="cheatsheet-eyebrow">✦ Free Download</div>
+      <div class="cheatsheet-title">Social Media Design Size Cheat Sheet</div>
+      <div class="cheatsheet-desc">
+        A <strong>2-page quick reference PDF</strong> with all major social media, video, and print design dimensions — unit conversions, safe zones, color mode guide, and pro tips included.
+      </div>
+      <div class="cheatsheet-pages">2 pages &nbsp;·&nbsp; Social Media &nbsp;·&nbsp; Video &nbsp;·&nbsp; Print &nbsp;·&nbsp; Web &amp; UI &nbsp;·&nbsp; Tips</div>
+    </div>
+    <a class="btn-download" href="data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQ29udGVudHMgOSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCA4IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago1IDAgb2JqCjw8Ci9Db250ZW50cyAxMCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCA4IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago2IDAgb2JqCjw8Ci9QYWdlTW9kZSAvVXNlTm9uZSAvUGFnZXMgOCAwIFIgL1R5cGUgL0NhdGFsb2cKPj4KZW5kb2JqCjcgMCBvYmoKPDwKL0F1dGhvciAoYW5vbnltb3VzKSAvQ3JlYXRpb25EYXRlIChEOjIwMjYwMzEwMTE0MzIzKzAwJzAwJykgL0NyZWF0b3IgKGFub255bW91cykgL0tleXdvcmRzICgpIC9Nb2REYXRlIChEOjIwMjYwMzEwMTE0MzIzKzAwJzAwJykgL1Byb2R1Y2VyIChSZXBvcnRMYWIgUERGIExpYnJhcnkgLSBcKG9wZW5zb3VyY2VcKSkgCiAgL1N1YmplY3QgKHVuc3BlY2lmaWVkKSAvVGl0bGUgKHVudGl0bGVkKSAvVHJhcHBlZCAvRmFsc2UKPj4KZW5kb2JqCjggMCBvYmoKPDwKL0NvdW50IDIgL0tpZHMgWyA0IDAgUiA1IDAgUiBdIC9UeXBlIC9QYWdlcwo+PgplbmRvYmoKOSAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAzOTQ2Cj4+CnN0cmVhbQpHYiIvKz5CQU9XKDRRIl1eZi4vdTJEIjdyNGsjaCwqQlZlRiZwbDJmbUknVThPbS81UD5zKzsqLU4hLSdKLnQ7IiZrLEBwcVVCViUoY1hccWkmZUZpJi1RRzpOdGFmKzFQQEFOa2Y0V28jWHRMWTchUVNya1VqQGVTTCdYUi81aF4/XyxGI048TFBecVFDbEliImdeYGc2QyFYJ0YtOjQtQzopNDNqN2c/Zi4yKissO0dOJDskKSZJQmg3a3JQZm1kbixCQ05bdFMiXyY/O2RQXFVkTkVMNyYwUFp1J0owVFAxXkwnMyNjVlZRI1ZEPTJacTk4UklabFpdWkYlRUM5aT4wS0ArJlk4ODgzY0xcI1A8RUZrcHA9XFMyOFlBSHBcXSkoJzNeKGIqXWBCcDZKLTFKSExKYWpMVF0yRyhKOl9rXiFkbi0wRTlBSGxlRCkoJzNgNnRsaUE+QHFpNjJaUmNhK2BNLk04WGd1L1JVT1ZrOFgqaFNacTQvbCkoJzNeLFZJPXFCbktAdFhNXE9QJSpuLiY2YHFWYFpUODRxJE5hc2AjYHUobWkyZENoRVlaRmNXXkFMRDlCKU9sUEkyXCM9XlxQJFBeNTZUWEs8JCdYPiY+PVduPU1VZGdGTkEjJElGKEkrOVAtZydtI0IlYHI2NU0wV14jWDxnSGElJFMoRW0/cUNnKChUXWtKU1InI1lJWXVbUnBnXXAsbWlob01nXitrMVE4THUsYTVWXWxCdShkUTZcUks5XCxBa0I4NE4vLGlicDhhXmQhRnBKJ20zVnRAWiQzcG5HRnMtL09yOSZFIjRqLmFcPzs8Pjxkbm0sM1QvdWo6ODxLO3RlaGFOZ2pVPXNmZ21DOStnPnVXbTxXZFBdNildKTU5Mk5ua0piWUpTMCpEQ2BUO0dEMiNXSCZpU0pbVWM0aWRyOjdmK0ZgJjx1JT8qVXFuRWlgT0pGdSkuUTNJPGpMI25TNG9gL1QjI0I/LGlMR0tAOXE9K1laTGNlM01XNyZDI1A6UkxSVT5GaUdWR05ecEwwXFpAIi4oamtBVD5CMykyZkBoKEhoakk0ZWouM0pJJGRVTElfOGhGYykvQidBc19Ea0xHMVhecW9RNU5MbzJDZkNyKTFvaF1bKl07MXFgN3NDVEI5Z1NzIj9fdXE+O0M/SVlVRG03QUs9MGpiX21zX11MMyxnKVlmOD1ZPFcmPDxSJDIuOEFrdTc0TWxWVT5dUkVPL00ySXA1az5iNVRmUVBDazk7ZEdLWUJKN2QsJmonTE1oR2FYPF8uSUowJFtaaFlrNj0mN0xvTko6NTNbV1tZMWVrLz1xYEVCVkAuQnFuX1lGTzhpJSg4KztWR0lKVixJIj5vS09XSj1XP2BjcGVnMjZgV3FFakVWSls4Mlo0dEBlZjsudWFhb2twKFdEMGQzZGtlL1VLT0hZRz0oUFZFP2FzJEJYa0dDc2VuKTlSPGssOidHJidndFNkR3VRKW5dVj9MQlQsIUJTbSopNzpwaEVianQ+bkwoO1NXSFVsKE09JnUySkJ0SV9rcVxQMzs+JmBcV1IrSyQxQC9MTmwqO251Rz1FVVg1cXMvJSxwQ01zJjBuVW9SPDdrTVYlJnNHSCg3UE4lJEg9cyMxYTtkSDs6VC9mI090Yk45TExVaUN0QjVROmFOSilLJXNaQTAmRT1IZjw1RHE6cUxaN0lmJygqRGQ2dEovVz1oMjIoUVpyLDwoKVosNytkXEFuMz9NMlhca0poOipNRkBKPiF0Yjo4Kk5tQU05PVA7ISRDV2ZpIzFDLURSJyo3KiFmQGNcJkcqQSdrVldaX0ckIl07dWhKbWg3RCJlITxYPDtfQyowMi1fY0tVODFYPipETDdFRjIlNEdMVkcjWk5FaWZlTiNZMCRSdEtLPFhYQldZYjYvJF8tNCIuaiNkTlJZLzFOIi1EQ00mV29FNCRMc0NdUzVKMTFwIjVqPWJyIXBBb2xjJkYxIkwpLUonailvRSFnXWw6NFhdZlZtTmtmZyRhKURlcmJ0RzIhVWtSKTUwS2heZElOT0A3RVxXWzZ1LjswUCdVbjU0cT1ZMHJXJD9CZGA1RFJBaiIxIS9mKCcoYyEtYmw2RiJAIVo3Jk9wUlVBXjJlQkI1OG1ZPWdOSWZRaGloMT0vLWlYXk9eKEMyV3BSQUwwPzdWRTQ7PlhdPzFiWFxfL0NDL0IhWDs6ZDhAIzh0MT1IUjJJOktjYXVjckc1VFhNbm08WnMqNSxUWihKSlgzbVI4SENaWDtyJTZKamtVTlcmNjckKWtqXzluQGtuLSg6VlohYDZpPUNHUm0sTjdzb2xFJD9MYl1PUWxBLWs4SnRGZEVFXSgsXi03cEc9VSIuIiUhJWxqRWZoL3Mma0ZdKTlfKXRjPUVja0EmTWxJVWpIKCkxLShgY2xpcEgtSDBpc3UsKjxdZSsuKjcqZUZIQnRVayNnTFU0LEYoIkFFXSpCXkhCcSwhKkZ1UElwQk8/ZWM9WykvVD5OQE1YayFjLCRQL04jTXI6PUJPWjksL1ZpJShQX3UjXXFyUVsrTnBdRWRYU1pWbD5zI2JuMD9rR1lcSjxeJlYlUFUiRjdrT3RpM0lgXWA+NS8yLS0xciRTT25NbktXbFM7YVBFLkI4RyFQIkdXKjhydTVVRHFbcmJ0Jk1TaWlFW0EiNV1KVl5zVCpZLFl0bSg7bWUkaUkrImInVzJqaicsaURoS1xXcD1EXEtucmlwNydXMHU+RVY6LWUkXGk6WmFwXHBKY1ldIixNKDJgcmlCPCNhUj4xPVJiTFZrNV9yLyxASTdqUFBsXmRFQlE9TkxqSGcrNlZcPjN1bVgka1BZbjZcUEJZMEdwQFcmJFxxXypyRGFDYiMobUhfUk1zcilfdS1vPFw+Vz11MEVnNSQ4cWwzc2w4VD8mWHRoSjsxIz9qaiJbPVksRm5kW1doPSxpZTgiRVAwXzwyIy0uZXAwPCUiOywzUW43QTM1XWcja0BiSWhNWSpzLDNdc3VWTzN1bSNNXWNwKD47RjNcNTc6QFlPTEpOaWlINS5MNnBzQ0FxaGw1IyJdJkVQKVFvXyZISz9vUCRJKW9zUiwzQiRcTGNAaG4hLkBTPjlSc2dOOjdZOjdpVEozcWJnR2I7LkdGXl9rcV8nKWQsUTpRXF5daVJSZVhdSEgkLTFeI3NyYywkJjR1aVxDazg2MmtGWTozaEVDMCghJHQpIlpdV3I0Xzw0MSc5VlJFJmUpP2BGOitcUUk9LlJJby4wcmY/SGZBN0dAQnMsZWFWcjY6TltbI2RCLD0xcFNoXlMtWWchWFZlLD5RQFYjZjdGUkV1cCItSTwyWDFjK2VdSDxEYz1uR01aJnJeL1MlP0EhYC11ZE1NWW5tPD0tU0YlU1ZkKzFfMV0/I0VxdEUmMFRrPnNbKVRtdStSbUNKQVpQSFdtIy0wIShPSmkkZWE0Zz1jNlkzRDpmMi48KzpqSGYzaVluSmE2MERxaVEpQUAlPDtTYGw9OGhSW1suK0FkOGl1QCIkV1tDI1VIbXIrMSM5c1FXNSxyUjVpbnQrXi9yRipmNlowRyIoM0ZHKCEjRlokRHViMyQ9L1hYJWhcO29oUTdocktYN0dsZ2NTPE9wRk9fXD4jLSllITQ3RWNfIl9Kc2hJYm9VOEA1KTtlT0R1WShMcUZiRiZlZFheS0E3bzRgMSl0JkVEJVYoYyledVRQR19NNzdNZ048Q1AnSjNISm1bIyRlPTJqODBZW0dJYVcyNTYrbTJcSFssYz5ZTF9xNWppPFJeTnMtWUB1UTVINSsnL2NgNVJKL2xNKURpcVZDW1VpdCRZWEVJcChCTXM5bGFiT19sKFMxb0soYXNgSVxcPDMmUjBgWjhwKj04K2hhbVt0YU1EQiI8Q2QpMCJRMlBIPyM8dDsnbmFOS1ZcJWhrNnFAXDQvSU1uWG8wKCQnW20kJi5KZCk0VipyTC8uPmptLTNnW2YpMjRpMGZAdUNOSlZNRkpXUTA0RkJsT3MkWi9xKFtcV2ptJCYraTRgQE90RjEsPkhANV85T0laLGlhRzVfXTFGK1thOiJacChUND1CcFZUJUBgZ2cqbjxiRzQrTVtFazslUUlLKGApRWlwSC1FQ0FsODlkZGtsSEw0NmJWJCcwMmg4YGdJYHFhX3NbSjJILlxYSC5TSmhFVTBrZSslXm5cTFciUyd0K11fMTZWJEYxOUtLKjUsTDhUOmFKPDJaQXFwIz5hXl0hJSReKEdWc2Y9VlA/Pm9YNHRBN0Iha1EwMEVnMmBoVGJoVkhrS3Fsb0NlO1kxIUtjS1AjbkZAbT5PailGKyNzSlNQayVfazNoXmtTdENvazVkNycwRGhuPVwzWGcsNTJNKkEyX0o1PVVKQnEvOjhycjtFSDBwaC8kcFNzUmtNVVA9SW9uPm9MRFVqQG9wOSlYZzdSNF1XIWhTcihGbjE4Ikc3N0koRCNDUyg4JUhISF5bMDBYNzRjUFdoTmYobmhsdURmT1IlXUZpbFRrVHRrMDtGNjJuL1JCPGRqSD5MJDdXKi9ALSEuKnFpaEZtPzwqSUp0JiR1QkFtZ1hpZjNvdSg8PkFtVzokTStEKDVZW3VyQVJhIzNFNm4lMTU4R2VkPy9aVideUkNacmpUaWRhclwxNkk7Jm9MRkI4Z103U2FyM1tgMilNQltDXz5YNl51QlFFMHEpP1lkXjc1YCgwX1lWU19TQ20mIUY/dFhYRzU5cW4pQkEyZFg2aGBbSXNrLiJZanEjOiI+NXF1NE0rckdaYFFJTCxRLEUzZF1uaVxmWFVGJXRjT0VWP2o/ZyRdPzxSXydRSThIXzIrbk9BRz4tT11ZVFFlMyxSJz5iJiZSJXFaJk9vIz1pSF0hZiwjYnQ6amZ1dU4sbidNbj1uN0gyKkxBIz9qbzREajchZUBUNmcnPiJnQVFzYmIhLVxoJiY2LWhiNlZNKy4pTTFpQ1ssOE4hSDpoKyREZWIuUjMrLCptVTQpaiw6XjI1KCVySW1DQ0QtNTRuITwuMVQ4TXJMLVN1MyxcJj9PJytPN1hGZlQ6a2tDMGpUOj9WWnNXY1RWXiVdVTAwMjdKLWpuZj1XYFpITD8jMVBxXGNlJ0g0QTlDXHROaGxDI1ZMa25IO0FaWVtALS0tUV5VNXJJInI8cFNsIT0wKSI9cmE1ZlRYNjQ8KVddMm09azZiYiVkKiFvbiUmIkVISGw5PmhEVEFSImcmRCdSXSc4ZX4+ZW5kc3RyZWFtCmVuZG9iagoxMCAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAzNjMwCj4+CnN0cmVhbQpHYiIvKT1gYD1XJnE5U1lrYzFiUVJgIjghLFhASV9BaWsxVTIqJj04cDZfdHA6X1tHWzlvMT9fTVc9TypnQzk1ZTg0VHBhZiJPalYkLk5YX2Q2TjIwSjA0cTlzImFQJltLPHQrX0NzTEw9OS1lUjBeYHFKXjRXS05NPEFzRU1aYy5MbkFHakFQcWBkZTw7LmJVNF1pdUgkYCZTJGswL2JELF9lcS1pWzVdXyNHREVDNWYrQ3NfLipMPEpAaTk8Li9VN2ldWV0vQT5RR04pJV8xcklCI05XNEFtZEUoYT9WUGMpKTc6RjFRbEZxQCJGYDlnK2VNVHE1R0NALCw1MUhAb2QmXFRRW3NoQiFlNilmaSVjbFhqOzI3Qzo+QDRWRkQrOTI1aFAjNj4iYD9HMEM7USlVc2RNT1xwYmIwZTUuczpjZ1JqaHFHdHRWP1JRailVc2RNX1BrO2kxR3NGRFtnJTtZTEBDMEBlO2RbXzsxbVJXOSxLT2IqT0RQPUtBJG5mbnI0UjtOYF8kRSFVbmNcIktVIjQ8NiU4LjNYampRNkVpS1pVY0peM2VSOVROMGFPZmlMSWZWSktEQ0EyWEQiNy1PZDs3QEY8SyM3TENMVTVaPHNVcj5jWTE9ZDtVJiE/NEZjT2JETFgoI2NlR244QlY+RkMoUCleZDZKLWIvTHFtQDYpNkFuNUk/NCdYJEtqMT1eZUs8QEZccUdhS19wNTFpVFcmQEZcY3VCaiY4OyUzZEFzJStIRUpaSys3WywhLVFLZVI5Jig9W1IhcCVRTDQsM1s0bSRkMURxNCI0MV87ZCleZDoqKCFVYyY9I1Y9OGREKTIjWjloTzwiOickKkpoXiZMcktvbWl1cGcjI0dVYCJVMl5RPDA4cT5fSk9mX0ZSLVpOZ0A4RTZOaV9aJ3RjbDpbYzNRVkYsUypMb1QmWFY8NS5HOEI+J1FqTW0xI2toQjZMOUo+a2ZRX2EoQ0JfbWQuXyhoMzYhYT0yTEdqWWg9J1xVXmozZSEzLjY/NjNjTzA+WlU/TkFiQWRmMlM0bjc+cDMxW2hrSSNgMzFISE1zVjpBR2M3c25kSENQRipsVUhpYVUvaSpRZjZiOks0XVYkaTRZYi88PCNwaHNnPUEsLWRpLmo3a2NMOUA9YW8+PVpTWmg0VnFAVFYpTCQ7Q0U0OnRpbnBuMCFSaGdNIkwxMWEnOiduX2xjOSJhQWcnP01OZC1ecDkmU2VnZyVjMUNRQXJnRCk0JC9gWDtRKjItVzpKPUIyXk1pYDEhVWVIKDxHSidSXDZRJkBKXVVmaGBgOSU+USdmQEBMTCcvPkQ5RVVMSl89M0RGV144a2ZTPnFAcjQpMi8xQDFUcT9HXnM6cFZfTy1tSmNea19YMF01N2ZvZF1RdXJdJTwzU01nWUgkdD86M2A6UlRoZkM0bGY1NWUkP25QNDxtVVojXjxgdCYkRmFmIl4wQjo0O0JxLi5wO1kxNyJZIlteaVxNITM8KmkwSDBFOWJpLEFkITIsQGcmXlA1SGk9azY5SlAwXj9XL1VDNnEycEcxbi41SnVSRTU/RiZvV05QXW1ZJENGKEE0XTgsMW1FUXE/RE4zJzZfL3FlOSVmTERyWjRwWjBKcVIjOVk4MG8nMDk9bT9dLnFjOFdFVy9oOzNSNTJjbDM0W2ldIihGJCUyPDEtKitgSyleNXJFJkFNZEx1IW8/J1pHU2I+LCs1Xls/ImNuXydockJgb3A0PiYsIWQoKXJrOXJGbWQ+ZFJJVig4I2EhMCErRkNHdFMrT0VlPSlfQnBic0BJM0YrVGc3STNrOTA0SUR1MzRNTkRTSkh0aU49aC9EYTdkdGQ3YnUtaV5eSyN1THIha21vUiQwRi5cXT4tXnBKakRcK2ZpYHBXOzQtLDRucU9MQCRScWUoJDowPUk7LD9aX2xQRU8wTUFhLXFsOEdTa0kjTDZEUEtWNmIsMmVqXk1IaDFucV0yOGliTEhDMWhIPyU+YmNJXk4kYGtLZGEmOFknZCM+QFRLdU0pTnR1R3VFV29VPmRMKy1OW1poIj1kYS5gO2c+bHFRKiEmbCdcdDZnSjxuMDY6LjRARV1XXm8oKUxEIkolQj1WJjE2W21jSyxFMWxqWkskdThIZT5TQkdzIi9YWjBcc29PKWQ+PGM0aXM9Z1hZWWg8ZkVpPCFRX08zcT5LbEM+ZEkmZyMoQiY9VGRlOXEpZCZvKG8mLCx0OUtRT1ZkV21sQCNLOGBeY0ZkaWM4JCdvczM8KjdHb0BFaFAnb0hlYmRnbzBlO01gPEJrMG9AclxMKWZsO0BZTUlOcSVJYFpsPTlZUERcRzM4TUFOYnFTOXVEN0BTPXE4PXVbY2olNyIvJlhFX1MxcWl0MUBnOllnP0MkWDA3RjhDaUAnMl1WKTI2X09abzk1VCgzcm49VmtAJ0g8PjlfbENdajIuVCNuayRSO3A6QjRqO1E8NEpFXVxlbzEiN0hHdXM6Ky0pc00sOFE/J1ZLVFInU1s1N2NxTXAuV2subD85NWtJS0lQU0whXXB1Ikw5Z2FSPj9TP01ET0c+VkJ1VEVlcjkvW21lKi9zSkNKOlEicGlbRWwjRzAzY2hhNEpFUj1WdFBEJlk5MjlsQXBvJVdNU3NfZm5ZM3M8XU5PQmI4VVUtOjheQGAkTFgxN1o5b0dINlpWX0krRVdubkdea2hmPiFFTC9NSDg6MyMwTCJmdV0iXTxvbltfPipmRCVLWy4jcVd1I2pHO0xlLDNYMz9EdWBqKjdvXyc7cyhUaFhmSFYvclFwZl9eTFpTYC5bczN1Qz8mMjBgOlBpRFNzIy87W1otYEpfST9eYEI2QDYoWzc5Sl84K2I1XkhuZmtPWGc7Z0AqZ1I0cD9MJW1iZTJrJyFqVyZxO2kzMjEwMTNAOSUuSFMyIj01NlpRN1VfS2ovVUZUPUkyI2dtJ1ZQOkw+QEtIR1Q+TTo3U0tfRyw7P3M9TSRCSFg5XDRXZSxXNDArMUdUcWwuYD9FT2peVFAjdTIxPyZMcUZAYCsiRVM9SUY1RlgkXS5UXDg+aF1QWSJYTWJKS1tnRjYlKWo+XSg5SzprP2sxXV4xMStuQCQ4WiF1Ty4oWUE3U0RjL2NyQmhgSzwkWnQkc15PSGoqKjdma2tqbDNwPnVvXmpSUkgkYyokUmlTJ2Q2WVNmKWg1ZTJBLHQpRjdgXkUxJ2J1VUtXZidHWjpDJSZnamUqbi5NZnNSNCRCVWgsLldbVV9zbiVdKUkhIVJqQWgnZz9fb0FbQkJdY2I7Qz1dKVtydDpWRkRaKDZxU01JODxNJ2psY1BdJmo3YjVRNUMuVW0sSCYzTTlpV0xwOl9kdFQuZ2kyX0VBQU5vPlxEJW9lc1U4WURmSihSM0E4dFFMYU5JTEBaOXQ5UFVKbUpGSFg5aFphPjZXOFdhKiplWWZ1QUojTjAvcmxBRElqNlJdIUxEZWRtQ0UrQlYyOXNgJWMmO1ZCSldVMTROVW8/YSNQaHUyRF8mcF5rSlxZYCxGcWJoRDlmTC1sO3IpLkZTdT5GT1hrSWA9XSZjQVZILS5GJC4iY21GQmUqOVNYb3QrWCI8WGRKQCZEJFpAQFdPSFFpY0BoXjttYTUvaHFHYU8nPVkwP2E3LFxBKTUycXA8PzM2bC0wI25AMSEtWDlyNi9WTnBNSGllMGEsJ1NmITNgSFglNHMwYk4yYFUzO2QxKWFAN2g0ISxJWVpFOzlASmVaam1GakxAZkNqNzZQSD4ycyMnUztqXzlPIkArUiQzVVZtdVsibWMsPiNzN2tfayFwPEtBTFVaYHQ1P3RkZCw8SzJVJz85KEdwP0ZBcHJMSUZgNCJgU1NZcVlUOz4tNzVzTjoqIkQ1Ll1uZFl1WmxxKjQ4Ml9taENxSm9uLyteJ0oscG9lPUUhITlIQjcwMjVIZCUjXGg+TCNELThdaShTYV8qIjw2QltFO1ZpMlI+Q28yPEsyOyJ1bl9jX1ZhMihNbzI4MThYPF9zKUZEUV9PWllBPVlqXk9GSVwvUTVpRCgnTzVOI0UyanF0Xz9xPEg3IWlzSGQ9Rk9NJldWZyxHYGohWXJiZUVkbC1HYyI+aiIza18yWSJ0RkA/ImFBaEdHLFZpP2opSFNFYkcsKGQ8Y3N0NFohVCNnPSREN2Boby9NQlA5UFRDYlhZUStaUGtRVjQkNUIrM1JyOyhwWk40J2tHL0pZJzxgdVlmSW5xS14vPVdKT0lcKTsuPlBCW29HSEdBb3U2XShhV0BbJFBScU5XWSQub2hVRmMlPyxcc2dySl89Y0sjRGtBX1lxOSgkMj02JC1KWFouKV02SC83JEJjLSR1JC4pJF4rT2UwU2dqLjU2ckRMYnNzSzZtXFE/L0kyJU81NW8+RyEnbWk0XmtqRj8mTj9oKExLTHBVMT1AMDwhUi9CViU/cGE8Yjd1KnU/IVhWRz4rYGFLZEVqXGcyM00oMF4pZFlTY2w+U1Y6LGNKRSZsJ2knVTU6Oy1ScDpIVjVFJDZEbG1RczxwZDBMcF9COydNSyU6TEVTYVc7WFwxZS1qOThMb1YvJkNHZ3ImRSwvWDYlbFJOUmViY2hMVltGOSwpNUdcQ14hdCddLjtfTywrTTdCKEYkViJyVksra2RBIlllcSNyQXUnME5fT0NcYFRbVSpbQiFxOmpgXWdVQHQ4VkNMS1NMX1cjckJCPENHcS5gYFZMQyZBYmc0KTEqaT8uciJTRmF1YkRJSWE+cTNGSydwa0NINyxYRUdwSTRzMCJCSlMyMClBcnE9bWlnb143am5YZDNtbFImWnI1XyZaKlBjOnEmZTlETW4mfj5lbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCAxMQowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwNjEgMDAwMDAgbiAKMDAwMDAwMDEwMiAwMDAwMCBuIAowMDAwMDAwMjA5IDAwMDAwIG4gCjAwMDAwMDAzMjEgMDAwMDAgbiAKMDAwMDAwMDUyNCAwMDAwMCBuIAowMDAwMDAwNzI4IDAwMDAwIG4gCjAwMDAwMDA3OTYgMDAwMDAgbiAKMDAwMDAwMTA1NyAwMDAwMCBuIAowMDAwMDAxMTIyIDAwMDAwIG4gCjAwMDAwMDUxNTkgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8YWRiM2E3NzM5ZmZkNWVhNzllYTFlNjcxOGQ5ODA3ZjE+PGFkYjNhNzczOWZmZDVlYTc5ZWExZTY3MThkOTgwN2YxPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA3IDAgUgovUm9vdCA2IDAgUgovU2l6ZSAxMQo+PgpzdGFydHhyZWYKODg4MQolJUVPRgo=" download="design-size-cheatsheet.pdf">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Cheat Sheet
+    </a>
+  </section>
+
   <!-- POPULAR CHIPS -->
-  <section class="popular-section">
+  <section class="popular-section" id="popularSection">
     <p class="section-label" style="text-align:center;margin-bottom:14px;">Popular Sizes</p>
     <div class="popular-chips">
       <div class="chip" onclick="quickSearch('Instagram Post')"><span class="chip-icon">📸</span> Instagram Post</div>
@@ -917,6 +1149,8 @@
       <div class="chip" onclick="quickSearch('A4 Flyer')"><span class="chip-icon">📄</span> A4 Flyer</div>
       <div class="chip" onclick="quickSearch('Business Card')"><span class="chip-icon">💳</span> Business Card</div>
       <div class="chip" onclick="quickSearch('Facebook Post')"><span class="chip-icon">👍</span> Facebook Post</div>
+      <div class="chip" onclick="quickSearch('TikTok Cover')"><span class="chip-icon">🎵</span> TikTok Cover</div>
+      <div class="chip" onclick="quickSearch('Pinterest Pin')"><span class="chip-icon">📌</span> Pinterest Pin</div>
     </div>
   </section>
 
@@ -1016,6 +1250,88 @@ const designDB = [
   { id: 43, name: 'Presentation Slide (16:9)', category: 'Presentations', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'The standard widescreen format for modern presentations. Design at 1920×1080 for crispness on HD projectors and screens.' },
   { id: 44, name: 'Presentation Slide (4:3)', category: 'Presentations', w: 1024, h: 768, ratio: '4:3', colorMode: 'RGB', tip: 'Classic presentation ratio. Still used for older projectors and conference rooms. Content-heavy slides work well here.' },
   { id: 45, name: 'Google Slides', category: 'Presentations', w: 1280, h: 720, ratio: '16:9', colorMode: 'RGB', tip: 'Google Slides default is 1280×720px. Use master slides for consistent branding across your presentation deck.' },
+
+  // TIKTOK EXTRA
+  { id: 99,  name: 'TikTok Post (Feed)',   category: 'Social Media', w: 1080, h: 1350, ratio: '4:5',  colorMode: 'RGB', tip: 'TikTok feed images display at 4:5. For maximum real estate, use the tall format. Keep text away from edges.' },
+  { id: 100, name: 'TikTok Cover Photo',   category: 'Social Media', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'TikTok covers show as a still frame on your profile. Pick a frame or design one where your subject is clearly centered.' },
+  { id: 101, name: 'TikTok Profile Photo', category: 'Social Media', w: 200,  h: 200,  ratio: '1:1',  colorMode: 'RGB', tip: 'TikTok profile photos are circular. Keep your face or logo centered and leave plenty of breathing room at the edges.' },
+  // FACEBOOK EXTRA
+  { id: 102, name: 'Facebook Cover Photo (Page)', category: 'Social Media', w: 1640, h: 624, ratio: '2.63:1', colorMode: 'RGB', tip: 'Facebook Page covers display differently on desktop (820×312) vs mobile (640×360). Design for mobile crop first.' },
+  { id: 103, name: 'Facebook Event Cover', category: 'Social Media', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'Facebook event covers are cropped to 470×174px in listings. Put the event name in the center third.' },
+  // LINKEDIN EXTRA
+  { id: 104, name: 'LinkedIn Company Page Banner', category: 'Social Media', w: 1128, h: 191, ratio: '5.9:1', colorMode: 'RGB', tip: 'LinkedIn company banners are very wide and thin. Use a minimal, horizontal layout — avoid portrait-oriented elements.' },
+  // WEB EXTRAS
+  { id: 105, name: 'Landing Page Hero', category: 'Web & UI', w: 1440, h: 800, ratio: '9:5', colorMode: 'RGB', tip: 'Design your hero at 1440px wide, but ensure it looks great at 1280px and 375px too. Use flexible, centered layouts.' },
+  { id: 106, name: 'Full-Width Website Banner', category: 'Web & UI', w: 1920, h: 500, ratio: '1.92:1', colorMode: 'RGB', tip: 'Wide banners are usually background images. Use subtle, low-contrast imagery so foreground text stays readable.' },
+
+  // GAMING & STREAMING
+  { id: 46, name: 'Twitch Panel', category: 'Gaming & Streaming', w: 320, h: 160, ratio: '2:1', colorMode: 'RGB', tip: 'Twitch panels appear below your stream. Keep them simple and consistent for a professional channel look.' },
+  { id: 47, name: 'Twitch Offline Banner', category: 'Gaming & Streaming', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'Your offline banner is the first thing new visitors see. Make it eye-catching and include your schedule.' },
+  { id: 48, name: 'Discord Server Banner', category: 'Gaming & Streaming', w: 960, h: 540, ratio: '16:9', colorMode: 'RGB', tip: 'Discord banners are animated-friendly (GIF/MP4). A subtle animated banner makes your server feel alive.' },
+  { id: 49, name: 'Discord Server Icon', category: 'Gaming & Streaming', w: 512, h: 512, ratio: '1:1', colorMode: 'RGB', tip: 'Discord icons are displayed at tiny sizes. Use a single bold symbol or letter — avoid complex logos.' },
+  { id: 50, name: 'Steam Game Cover', category: 'Gaming & Streaming', w: 920, h: 430, ratio: '2.14:1', colorMode: 'RGB', tip: 'The Steam header capsule is your game\'s most seen image. Use dramatic lighting and bold title typography.' },
+  { id: 51, name: 'Steam Vertical Capsule', category: 'Gaming & Streaming', w: 600, h: 900, ratio: '2:3', colorMode: 'RGB', tip: 'Steam\'s vertical capsule appears in the store sidebar. Ensure the game title is readable at small sizes.' },
+  { id: 52, name: 'Itch.io Game Cover', category: 'Gaming & Streaming', w: 630, h: 500, ratio: '1.26:1', colorMode: 'RGB', tip: 'Itch.io covers appear on search and browse pages. Use contrasting colors that pop against the site background.' },
+  { id: 53, name: 'YouTube Gaming Thumbnail', category: 'Gaming & Streaming', w: 1280, h: 720, ratio: '16:9', colorMode: 'RGB', tip: 'Gaming thumbnails perform best with a reaction face, game title text, and a bold background. Contrast is key.' },
+  { id: 54, name: 'Xbox Achievement Icon', category: 'Gaming & Streaming', w: 1080, h: 1080, ratio: '1:1', colorMode: 'RGB', tip: 'Achievement icons should be instantly recognizable at 64×64px. Design for silhouette clarity first.' },
+
+  // E-COMMERCE
+  { id: 55, name: 'Amazon Product Image', category: 'E-Commerce', w: 2000, h: 2000, ratio: '1:1', colorMode: 'RGB', tip: 'Amazon requires a pure white background for main product images. Use 2000px minimum to enable zoom.' },
+  { id: 56, name: 'Shopify Product Image', category: 'E-Commerce', w: 2048, h: 2048, ratio: '1:1', colorMode: 'RGB', tip: 'Consistent square product images create a clean, professional storefront grid. Use consistent backgrounds.' },
+  { id: 57, name: 'Etsy Listing Photo', category: 'E-Commerce', w: 2700, h: 2025, ratio: '4:3', colorMode: 'RGB', tip: 'Etsy crops listing thumbnails to square. Keep your product centered. Lifestyle shots outperform plain white.' },
+  { id: 58, name: 'Etsy Shop Banner', category: 'E-Commerce', w: 3360, h: 840, ratio: '4:1', colorMode: 'RGB', tip: 'The Etsy shop banner is ultrawide. Design the center 1200px as your primary focus area for all devices.' },
+  { id: 59, name: 'WooCommerce Product Image', category: 'E-Commerce', w: 800, h: 800, ratio: '1:1', colorMode: 'RGB', tip: 'WooCommerce themes vary, but square products work best universally. Enable lightbox for detail views.' },
+  { id: 60, name: 'eBay Listing Image', category: 'E-Commerce', w: 1600, h: 1600, ratio: '1:1', colorMode: 'RGB', tip: 'eBay recommends 1600px+ for best zoom quality. Avoid borders, watermarks, or text over images.' },
+  { id: 61, name: 'Product Infographic', category: 'E-Commerce', w: 800, h: 2000, ratio: '2:5', colorMode: 'RGB', tip: 'Vertical infographic images rank well in Amazon and Pinterest search. Use a clear visual hierarchy and bold headlines.' },
+  { id: 62, name: 'Shopify Email Banner', category: 'E-Commerce', w: 600, h: 200, ratio: '3:1', colorMode: 'RGB', tip: 'E-commerce email headers should be 600px wide. Keep CTA above the fold and repeat it as a text link below.' },
+
+  // ADVERTISING
+  { id: 63, name: 'Google Display Ad — Leaderboard', category: 'Advertising', w: 728, h: 90, ratio: '8.09:1', colorMode: 'RGB', tip: 'The leaderboard is one of the highest-traffic ad slots. Keep text large and CTA minimal — 3 seconds to read.' },
+  { id: 64, name: 'Google Display Ad — Rectangle', category: 'Advertising', w: 300, h: 250, ratio: '6:5', colorMode: 'RGB', tip: 'The 300×250 rectangle is the most widely used web ad unit. Design works well across desktop and mobile placements.' },
+  { id: 65, name: 'Google Display Ad — Half Page', category: 'Advertising', w: 300, h: 600, ratio: '1:2', colorMode: 'RGB', tip: 'The half-page (300×600) ad has high visibility and large creative space. Use bold imagery and single-focus messaging.' },
+  { id: 66, name: 'Google Display Ad — Billboard', category: 'Advertising', w: 970, h: 250, ratio: '3.88:1', colorMode: 'RGB', tip: 'Billboard ads appear at the top of pages above the fold. Horizontal composition with left-to-right reading flow works best.' },
+  { id: 67, name: 'Instagram Ad (Feed)', category: 'Advertising', w: 1080, h: 1080, ratio: '1:1', colorMode: 'RGB', tip: 'Instagram feed ads blend with organic content. Avoid overly "ad-like" designs — native-style images perform better.' },
+  { id: 68, name: 'Facebook Ad — Stories', category: 'Advertising', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Stories ads take over the full screen. Use motion if possible — video Stories ads see 3× more engagement.' },
+  { id: 69, name: 'LinkedIn Sponsored Content', category: 'Advertising', w: 1200, h: 628, ratio: '1.91:1', colorMode: 'RGB', tip: 'LinkedIn ads reach professionals — use data-driven headlines and industry-specific language for best CTR.' },
+  { id: 70, name: 'YouTube Video Ad', category: 'Advertising', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'For skippable ads, put your brand and core message in the first 5 seconds before viewers can skip.' },
+
+  // PODCAST & AUDIO
+  { id: 71, name: 'Podcast Cover Art', category: 'Podcast & Audio', w: 3000, h: 3000, ratio: '1:1', colorMode: 'RGB', tip: 'Apple Podcasts requires minimum 1400×1400px. Design at 3000px for future-proofing. Text must be readable at 55px.' },
+  { id: 72, name: 'Spotify Podcast Cover', category: 'Podcast & Audio', w: 3000, h: 3000, ratio: '1:1', colorMode: 'RGB', tip: 'Spotify shows podcast art at very small sizes in most views. Test legibility at 60×60px before publishing.' },
+  { id: 73, name: 'SoundCloud Banner', category: 'Podcast & Audio', w: 2480, h: 520, ratio: '4.77:1', colorMode: 'RGB', tip: 'SoundCloud banners are cropped on mobile to a square crop from the left. Put key content in the left-center area.' },
+  { id: 74, name: 'Podcast Episode Thumbnail', category: 'Podcast & Audio', w: 1280, h: 720, ratio: '16:9', colorMode: 'RGB', tip: 'Episode thumbnails appear in video podcast feeds (YouTube, Spotify). Include episode number and guest name clearly.' },
+  { id: 75, name: 'Spotify Canvas (Loop)', category: 'Podcast & Audio', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Spotify Canvas is a looping visual that plays behind a track. Keep it abstract and atmospheric — 3–8 second loops work best.' },
+  { id: 76, name: 'Apple Music Artist Image', category: 'Podcast & Audio', w: 1200, h: 1200, ratio: '1:1', colorMode: 'RGB', tip: 'Artist images should be clean, high-resolution photography. Avoid text or logos — Apple may reject those images.' },
+
+  // MOBILE & APP
+  { id: 77, name: 'iOS Splash Screen', category: 'Mobile & App', w: 1290, h: 2796, ratio: '19.5:9', colorMode: 'RGB', tip: 'Design iPhone 14 Pro Max at 1290×2796 as your master — scale down for older devices. Keep it branded and brief.' },
+  { id: 78, name: 'Android Splash Screen', category: 'Mobile & App', w: 1080, h: 2400, ratio: '20:9', colorMode: 'RGB', tip: 'Android splash screens vary by device. Use a centered logo on a solid brand color for the safest cross-device result.' },
+  { id: 79, name: 'App Store Screenshot (iOS)', category: 'Mobile & App', w: 1290, h: 2796, ratio: '19.5:9', colorMode: 'RGB', tip: 'App Store screenshots are your sales pitch. Show the core feature in the first screenshot with a bold headline.' },
+  { id: 80, name: 'Google Play Screenshot', category: 'Mobile & App', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Play Store screenshots display at small sizes in search results. Use clear UI mockups with descriptive captions above.' },
+  { id: 81, name: 'App Store Feature Graphic', category: 'Mobile & App', w: 1024, h: 500, ratio: '2.05:1', colorMode: 'RGB', tip: 'The Google Play feature graphic is the large banner at the top of your store listing. Bold, clean branding works best.' },
+  { id: 82, name: 'Mobile Push Notification Image', category: 'Mobile & App', w: 1440, h: 720, ratio: '2:1', colorMode: 'RGB', tip: 'Push notification images appear at very small sizes. Use a single strong visual element and no text in the image itself.' },
+  { id: 83, name: 'Apple Watch Face', category: 'Mobile & App', w: 396, h: 484, ratio: '0.82:1', colorMode: 'RGB', tip: 'Watch faces need extreme simplicity. Design for 44mm case. Only essential information should be visible at a glance.' },
+
+  // DOCUMENT & RESUME
+  { id: 84, name: 'Resume / CV (US Letter)', category: 'Documents', w: 2550, h: 3300, ratio: '17:22', colorMode: 'RGB', tip: 'Design resumes at 300 DPI for print quality. Keep margins 0.5in minimum and use PDF export for distribution.' },
+  { id: 85, name: 'Resume / CV (A4)', category: 'Documents', w: 2480, h: 3508, ratio: '√2:1', colorMode: 'RGB', tip: 'A4 is the global standard outside North America. Single-page resumes perform better for most roles under 10 years experience.' },
+  { id: 86, name: 'Invoice Template', category: 'Documents', w: 2550, h: 3300, ratio: '17:22', colorMode: 'RGB', tip: 'Keep invoice layouts clean: company info top-right, bill-to top-left, line items center, totals bottom-right.' },
+  { id: 87, name: 'Certificate (Landscape)', category: 'Documents', w: 3300, h: 2550, ratio: '22:17', colorMode: 'CMYK', tip: 'Certificates benefit from ornate borders, formal serif fonts, and gold/navy color schemes for a prestigious feel.' },
+  { id: 88, name: 'Ebook Cover', category: 'Documents', w: 1600, h: 2560, ratio: '5:8', colorMode: 'RGB', tip: 'Amazon KDP recommends a 1.6:2.56 ratio. High contrast and bold typography are essential for small thumbnail visibility.' },
+  { id: 89, name: 'Report Cover Page', category: 'Documents', w: 2480, h: 3508, ratio: '√2:1', colorMode: 'CMYK', tip: 'Corporate report covers use bold geometric design and brand colors. The company name and report title must be clear.' },
+
+  // WALLPAPERS & BACKGROUNDS
+  { id: 90, name: 'Desktop Wallpaper (1080p)', category: 'Wallpapers', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'Keep main subject in the center-right — most desktop UIs have icons on the left. Leave space for dock/taskbar.' },
+  { id: 91, name: 'Desktop Wallpaper (4K)', category: 'Wallpapers', w: 3840, h: 2160, ratio: '16:9', colorMode: 'RGB', tip: 'Design 4K wallpapers at full 3840px — low-res images look terrible on high-DPI screens when stretched.' },
+  { id: 92, name: 'Desktop Wallpaper (Ultrawide)', category: 'Wallpapers', w: 3440, h: 1440, ratio: '21:9', colorMode: 'RGB', tip: 'Ultrawide wallpapers need a panoramic composition. Design with the center 16:9 area as the visual focus.' },
+  { id: 93, name: 'iPhone Wallpaper', category: 'Wallpapers', w: 1290, h: 2796, ratio: '19.5:9', colorMode: 'RGB', tip: 'iOS blurs wallpaper edges for depth effect. Design with the center 80% as your focal area. Avoid busy patterns.' },
+  { id: 94, name: 'Android Phone Wallpaper', category: 'Wallpapers', w: 1080, h: 2400, ratio: '20:9', colorMode: 'RGB', tip: 'Android launchers pan wallpapers horizontally. Add extra width (2160px) so the image looks great while panning.' },
+
+  // NFT & DIGITAL ART
+  { id: 95, name: 'NFT Square Art', category: 'Digital Art & NFT', w: 3000, h: 3000, ratio: '1:1', colorMode: 'RGB', tip: 'Most NFT marketplaces display square images. Maximize resolution for collector appeal and zoomed detail viewing.' },
+  { id: 96, name: 'OpenSea Banner', category: 'Digital Art & NFT', w: 1400, h: 400, ratio: '3.5:1', colorMode: 'RGB', tip: 'OpenSea collection banners are cropped on mobile. Keep your collection name and key art in the center 600px.' },
+  { id: 97, name: 'Digital Art Print (A2)', category: 'Digital Art & NFT', w: 4961, h: 7016, ratio: '√2:1', colorMode: 'CMYK', tip: 'For gallery-quality prints, export at 300 DPI minimum. Use Photoshop\'s soft-proof feature to preview CMYK output.' },
+  { id: 98, name: 'Sticker Sheet', category: 'Digital Art & NFT', w: 3300, h: 2550, ratio: '22:17', colorMode: 'CMYK', tip: 'Design sticker sheets on US Letter or A4 landscape. Add 3mm bleed and cut lines for professional printing.' },
 ];
 
 // ═══════════════════════════════════════
@@ -1047,35 +1363,197 @@ function getDimensions(design) {
 }
 
 // ═══════════════════════════════════════
+// ALIAS / ABBREVIATION MAP
+// ═══════════════════════════════════════
+const ALIASES = {
+  // Instagram
+  'ig': 'instagram', 'insta': 'instagram', 'gram': 'instagram',
+  'ig post': 'instagram post', 'ig story': 'instagram story',
+  'ig reel': 'instagram reel', 'ig portrait': 'instagram portrait',
+  'insta post': 'instagram post', 'insta story': 'instagram story',
+  'insta reel': 'instagram reel', 'insta portrait': 'instagram portrait',
+  'reels': 'reel', 'stories': 'story',
+  // YouTube
+  'yt': 'youtube', 'tube': 'youtube',
+  'yt thumbnail': 'youtube thumbnail', 'yt thumb': 'youtube thumbnail',
+  'yt banner': 'youtube banner', 'yt shorts': 'youtube shorts',
+  'yt channel': 'youtube channel',
+  'thumb': 'thumbnail', 'thumbs': 'thumbnail',
+  // TikTok
+  'tt': 'tiktok', 'tik tok': 'tiktok', 'tik-tok': 'tiktok',
+  'tt post': 'tiktok post', 'tt cover': 'tiktok cover',
+  // Facebook
+  'fb': 'facebook', 'fb post': 'facebook post', 'fb cover': 'facebook cover',
+  'fb story': 'facebook story', 'fb ad': 'facebook ad',
+  // Twitter / X
+  'tw': 'twitter', 'x post': 'twitter post', 'tweet': 'twitter post',
+  'x banner': 'twitter header', 'twitter banner': 'twitter header',
+  // LinkedIn
+  'li': 'linkedin', 'ln': 'linkedin',
+  'li post': 'linkedin post', 'li banner': 'linkedin banner',
+  // Pinterest
+  'pin': 'pinterest pin', 'pins': 'pinterest pin',
+  // Snapchat
+  'snap': 'snapchat',
+  // Print / Flyers
+  'a4': 'a4 flyer', 'a5': 'a5 flyer', 'a3': 'a3 poster',
+  'flyer a4': 'a4 flyer', 'flyer a5': 'a5 flyer', 'a4 flyer': 'a4 flyer',
+  'biz card': 'business card', 'bizcard': 'business card',
+  'namecard': 'business card', 'name card': 'business card',
+  'tri fold': 'brochure', 'trifold': 'brochure',
+  'rollup': 'roll-up', 'roll up': 'roll-up', 'pull up': 'roll-up',
+  'pullup': 'roll-up', 'banner stand': 'roll-up',
+  // Web / UI
+  'hero': 'hero section', 'banner': 'banner',
+  'og': 'open graph', 'og image': 'open graph',
+  'favicon ico': 'favicon',
+  'app icon': 'app icon', 'ios icon': 'app icon (ios)',
+  'android icon': 'app icon (android)',
+  // Presentations
+  'slide': 'presentation', 'slides': 'presentation',
+  'ppt': 'presentation', 'keynote': 'presentation',
+  'deck': 'presentation', 'pitch deck': 'presentation',
+  'google slides': 'google slides',
+  // Streaming / Gaming
+  'twitch': 'twitch', 'discord': 'discord', 'stream': 'twitch',
+  // Misc
+  'wallpaper': 'wallpaper', 'wp': 'wallpaper',
+  'nft': 'nft', 'digital art': 'digital art',
+  'email': 'email', 'newsletter': 'email newsletter',
+  'portrait': 'portrait', 'landscape': 'landscape', 'square': 'square',
+};
+
+
+// ═══════════════════════════════════════
+// RECENTLY USED
+// ═══════════════════════════════════════
+const RECENT_KEY = 'dsf_recent_v1';
+const RECENT_MAX = 5;
+
+function getRecent() {
+  try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+
+function saveRecent(id) {
+  let recent = getRecent().filter(x => x !== id);
+  recent.unshift(id);
+  if (recent.length > RECENT_MAX) recent = recent.slice(0, RECENT_MAX);
+  try { localStorage.setItem(RECENT_KEY, JSON.stringify(recent)); }
+  catch(e) {}
+  renderRecent();
+}
+
+function clearRecent() {
+  try { localStorage.removeItem(RECENT_KEY); }
+  catch(e) {}
+  renderRecent();
+}
+
+function renderRecent() {
+  const recent = getRecent();
+  const section = document.getElementById('recentSection');
+  const chips   = document.getElementById('recentChips');
+  if (!recent.length) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  section.style.opacity = '1';
+  chips.innerHTML = recent.map(id => {
+    const d = designDB.find(x => x.id === id);
+    if (!d) return '';
+    return `<div class="recent-chip" onclick="recentClick(${d.id})">
+      <div class="recent-chip-inner">
+        <div class="recent-chip-row1">
+          <span class="recent-chip-name">${d.name}</span>
+          <span class="recent-chip-dim">${d.w} × ${d.h}</span>
+        </div>
+        <span class="recent-chip-cat">${d.category}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function recentClick(id) {
+  const design = designDB.find(d => d.id === id);
+  if (!design) return;
+  document.getElementById('searchInput').value = design.name;
+  search(design.name);
+  scrollToResults();
+  setTimeout(() => showDetail(id), 120);
+}
+
+// ═══════════════════════════════════════
 // SEARCH
 // ═══════════════════════════════════════
 let activeId = null;
 
+function normalizeQuery(raw) {
+  let q = raw.trim().toLowerCase();
+  // Try full-phrase alias first
+  if (ALIASES[q]) return ALIASES[q];
+  // Try replacing sub-phrases
+  const sortedKeys = Object.keys(ALIASES).sort((a,b) => b.length - a.length);
+  for (const key of sortedKeys) {
+    if (q.includes(key)) {
+      q = q.replace(key, ALIASES[key]);
+      break;
+    }
+  }
+  return q;
+}
+
+function scoreResult(design, tokens) {
+  const nameLow = design.name.toLowerCase();
+  const catLow  = design.category.toLowerCase();
+  const haystack = nameLow + ' ' + catLow;
+  let score = 0;
+  for (const t of tokens) {
+    if (!haystack.includes(t)) return -1; // must include all tokens
+    if (nameLow.startsWith(t)) score += 3;
+    else if (nameLow.includes(t)) score += 2;
+    else score += 1;
+  }
+  return score;
+}
+
 function search(query) {
-  query = query.trim().toLowerCase();
-  if (!query) return;
+  const raw = query.trim();
+  if (!raw) return;
 
-  const tokens = query.split(/\s+/);
-  const results = designDB.filter(d => {
-    const haystack = `${d.name} ${d.category}`.toLowerCase();
-    return tokens.every(t => haystack.includes(t));
-  });
+  const normalized = normalizeQuery(raw);
+  const tokens = normalized.toLowerCase().split(/\s+/).filter(Boolean);
 
-  renderResults(query, results);
+  const scored = designDB
+    .map(d => ({ d, score: scoreResult(d, tokens) }))
+    .filter(x => x.score >= 0)
+    .sort((a, b) => b.score - a.score);
+
+  renderResults(raw, scored.map(x => x.d));
+}
+
+function scrollToResults() {
+  setTimeout(() => {
+    const section = document.getElementById('resultsSection');
+    const offset  = section.getBoundingClientRect().top + window.scrollY - 24;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }, 60); // brief delay so DOM is painted before scrolling
 }
 
 function quickSearch(term) {
   document.getElementById('searchInput').value = term;
   search(term);
-  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  scrollToResults();
 }
 
 function renderResults(query, results) {
-  const section = document.getElementById('resultsSection');
-  const grid = document.getElementById('resultsGrid');
-  const label = document.getElementById('resultsLabel');
-  const count = document.getElementById('resultsCount');
-  const detail = document.getElementById('detailPanel');
+  const section  = document.getElementById('resultsSection');
+  const grid     = document.getElementById('resultsGrid');
+  const label    = document.getElementById('resultsLabel');
+  const count    = document.getElementById('resultsCount');
+  const detail   = document.getElementById('detailPanel');
+  const popular  = document.getElementById('popularSection');
+
+  // Hide popular sizes while results are showing
+  if (popular) popular.classList.add('hidden');
 
   section.classList.add('visible');
   detail.classList.remove('visible');
@@ -1122,6 +1600,7 @@ function showDetail(id) {
   const activeCard = document.getElementById(`card-${id}`);
   if (activeCard) activeCard.classList.add('active');
   activeId = id;
+  saveRecent(id);
 
   const dims = getDimensions(design);
   const isprint = design.colorMode === 'CMYK';
@@ -1289,26 +1768,37 @@ function browseItem(id) {
   const design = designDB.find(d => d.id === id);
   document.getElementById('searchInput').value = design.name;
   search(design.name);
-  setTimeout(() => showDetail(id), 100);
-  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  scrollToResults();
+  setTimeout(() => showDetail(id), 120);
 }
 
 // ═══════════════════════════════════════
 // EVENT LISTENERS
 // ═══════════════════════════════════════
 document.getElementById('searchBtn').addEventListener('click', () => {
-  search(document.getElementById('searchInput').value);
+  const val = document.getElementById('searchInput').value.trim();
+  if (val) { search(val); scrollToResults(); }
 });
 
 document.getElementById('searchInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') search(e.target.value);
+  if (e.key === 'Enter' && e.target.value.trim()) {
+    search(e.target.value);
+    scrollToResults();
+  }
 });
 
 document.getElementById('searchInput').addEventListener('input', e => {
   const val = e.target.value.trim();
-  if (val.length >= 2) search(val);
-  else if (!val) {
+  if (val.length >= 2) {
+    search(val);
+    // Only auto-scroll on first character that triggers results
+    if (val.length === 2) scrollToResults();
+  } else if (!val) {
+    // Cleared — hide results, show popular
     document.getElementById('resultsSection').classList.remove('visible');
+    document.getElementById('detailPanel').classList.remove('visible');
+    const popular = document.getElementById('popularSection');
+    if (popular) popular.classList.remove('hidden');
   }
 });
 
@@ -1319,15 +1809,23 @@ let isDark = true;
 
 function toggleTheme() {
   isDark = !isDark;
-  const root = document.documentElement;
+  const root  = document.documentElement;
+  const body  = document.body;
   const label = document.getElementById('themeLabel');
   const thumb = document.getElementById('themeThumb');
+
   if (!isDark) {
+    // Switch to LIGHT
     root.setAttribute('data-theme', 'light');
+    body.classList.add('light-theme');
+    thumb.classList.add('is-light');
     label.textContent = 'Light';
     thumb.textContent = '☀️';
   } else {
+    // Switch to DARK
     root.removeAttribute('data-theme');
+    body.classList.remove('light-theme');
+    thumb.classList.remove('is-light');
     label.textContent = 'Dark';
     thumb.textContent = '🌙';
   }
@@ -1338,6 +1836,7 @@ function toggleTheme() {
 // ═══════════════════════════════════════
 renderCategoryTabs();
 renderCategoryItems();
+renderRecent();
 </script>
 </body>
 </html>
