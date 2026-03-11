@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DK38F94YKZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DK38F94YKZ');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Design Size Finder</title>
@@ -26,9 +17,11 @@
       --accent: #63d2b4;
       --accent-dim: rgba(99,210,180,0.12);
       --accent-2: #f7c948;
-      --text-1: #f0f2f7;
-      --text-2: #8b90a7;
-      --text-3: #555a72;
+      --text-1: #f5f7ff;          /* brighter white — was #f0f2f7 */
+      --text-2: #a8adc4;          /* lifted mid-tone — was #8b90a7 */
+      --text-3: #6b7190;          /* lifted muted — was #555a72 */
+      --text-value: #e2e8ff;      /* dedicated high-contrast dimension values */
+      --text-label: #7f859e;      /* dedicated label color (sits above bg-3) */
       --card-radius: 16px;
       --transition: cubic-bezier(0.23,1,0.32,1);
       --shadow-card: 0 2px 12px rgba(0,0,0,0.4);
@@ -40,12 +33,14 @@
       --bg-3: #eef0f4;
       --border: rgba(0,0,0,0.08);
       --border-hover: rgba(22,163,120,0.35);
-      --accent: #0f9e78;
+      --accent: #0a8a68;          /* darker for better contrast on white */
       --accent-dim: rgba(22,163,120,0.09);
-      --accent-2: #d97706;
-      --text-1: #111318;
-      --text-2: #4b5063;
-      --text-3: #9199b0;
+      --accent-2: #b45309;        /* darker amber — was #d97706 */
+      --text-1: #0d1017;          /* near-black — was #111318 */
+      --text-2: #363b50;          /* darker mid — was #4b5063 */
+      --text-3: #717799;          /* slightly darker muted — was #9199b0 */
+      --text-value: #0d1017;      /* same as text-1 in light mode */
+      --text-label: #5a607a;      /* clear label on bg-3 */
       --shadow-card: 0 2px 12px rgba(0,0,0,0.08);
     }
 
@@ -105,7 +100,11 @@
       min-width: 34px;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;          /* prevent iOS Safari bounce-scroll overflow */
+      -webkit-text-size-adjust: 100%; /* prevent font inflation on orientation change */
+    }
 
     body {
       background: var(--bg);
@@ -113,6 +112,8 @@
       font-family: 'DM Sans', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* === GRID BACKGROUND === */
@@ -241,7 +242,7 @@
       margin-top: 16px;
       font-size: 1.1rem;
       color: var(--text-2);
-      font-weight: 300;
+      font-weight: 400;            /* was 300 — thin hurts readability */
       opacity: 0;
       animation: fadeUp 0.7s var(--transition) 0.3s forwards;
     }
@@ -317,8 +318,9 @@
       font-size: 0.68rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text-3);
+      color: var(--text-label);    /* was text-3 — lifted */
       margin-bottom: 16px;
+      font-weight: 500;
     }
 
     .popular-section {
@@ -347,6 +349,8 @@
       color: var(--text-2);
       transition: all 0.2s var(--transition);
       font-weight: 400;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
     .chip:hover {
@@ -395,6 +399,8 @@
       transition: all 0.25s var(--transition);
       position: relative;
       overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
     .result-card::before {
@@ -423,11 +429,13 @@
 
     .card-category {
       font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.65rem;          /* was 0.62rem */
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 10px;
+      font-weight: 600;            /* was unset — bolder accent label */
+      opacity: 0.9;
     }
 
     .card-name {
@@ -435,7 +443,8 @@
       font-size: 1.1rem;
       font-weight: 700;
       color: var(--text-1);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
     }
 
     .card-dims {
@@ -461,8 +470,9 @@
       padding: 4px 10px;
       border-radius: 100px;
       background: var(--bg-3);
-      color: var(--text-3);
+      color: var(--text-label);    /* was text-3 — higher contrast */
       letter-spacing: 0.04em;
+      font-weight: 500;
     }
 
     .meta-pill.ratio { color: var(--accent-2); background: rgba(247,201,72,0.08); }
@@ -522,7 +532,7 @@
       font-family: 'DM Mono', monospace;
       font-size: 1rem;
       color: var(--text-2);
-      font-weight: 300;
+      font-weight: 400;            /* was 300 */
     }
 
     .detail-visual {
@@ -571,35 +581,43 @@
     }
 
     .unit-block {
-      background: var(--bg-3);
+      background: rgba(255,255,255,0.035); /* slightly lighter than bg-3 */
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 16px;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    :root[data-theme="light"] .unit-block {
+      background: #f8f9fc;
+      border-color: rgba(0,0,0,0.1);
     }
 
     .unit-block:hover { border-color: var(--border-hover); }
 
     .unit-label {
       font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
+      font-size: 0.65rem;           /* was 0.6rem — slightly larger */
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-3);
+      color: var(--text-label);     /* dedicated label var, higher contrast */
       margin-bottom: 8px;
+      font-weight: 500;
     }
 
     .unit-value {
       font-family: 'DM Mono', monospace;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--text-1);
+      font-size: 1rem;              /* was 0.95rem */
+      font-weight: 600;             /* was 500 — bolder for readability */
+      color: var(--text-value);     /* high-contrast dedicated var */
       line-height: 1.4;
+      letter-spacing: -0.01em;
     }
 
     .unit-value small {
-      font-size: 0.75rem;
-      color: var(--text-3);
+      font-size: 0.78rem;           /* was 0.75rem */
+      color: var(--text-label);     /* was text-3 — lifted for readability */
+      font-weight: 400;
     }
 
     .detail-meta-row {
@@ -615,11 +633,12 @@
 
     .dmi-label {
       font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
+      font-size: 0.65rem;          /* was 0.6rem */
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-3);
+      color: var(--text-label);    /* dedicated label var */
       margin-bottom: 4px;
+      font-weight: 500;
     }
 
     .dmi-value {
@@ -650,8 +669,8 @@
     .tip-text {
       font-size: 0.875rem;
       color: var(--text-2);
-      line-height: 1.6;
-      font-weight: 300;
+      line-height: 1.65;
+      font-weight: 400;            /* was 300 — thin weight hurts readability */
     }
 
     .tip-text strong {
@@ -751,6 +770,8 @@
       font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.2s;
+      min-height: 38px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .cat-tab.active, .cat-tab:hover {
@@ -791,9 +812,10 @@
 
     .cat-item-dims {
       font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--text-3);
+      font-size: 0.72rem;          /* was 0.7rem */
+      color: var(--text-label);    /* was text-3 */
       margin-top: 2px;
+      font-weight: 400;
     }
 
     .cat-item-arrow {
@@ -871,16 +893,212 @@
 
     .toast.show { transform: translateY(0); opacity: 1; }
 
-    /* === RESPONSIVE === */
-    @media (max-width: 640px) {
+    /* ════════════════════════════════════════════════════
+       RESPONSIVE — mobile-first, no horizontal scroll
+       Breakpoints: 480 · 600 · 768 · 1024
+    ════════════════════════════════════════════════════ */
+
+    /* ── Base overrides: prevent overflow on any screen ── */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    img, svg, video, canvas { max-width: 100%; }
+
+    /* ── PHONE ≤ 480px (320 / 375 / 390 / 414) ─────────── */
+    @media (max-width: 480px) {
+
+      /* Container: tighter gutters on narrow screens */
+      .container { padding: 0 16px; }
+
+      /* Header: shrink logo text + hide badge on very small */
+      header { padding: 18px 0 0; flex-wrap: wrap; gap: 8px; }
+      .logo { font-size: 0.95rem; }
+      .logo-dot { width: 8px; height: 8px; }
+      .badge { font-size: 0.6rem; padding: 2px 8px; }
+      .theme-toggle { gap: 7px; }
+      .theme-label { display: none; }   /* save space on phones */
+
+      /* Hero: tighter vertical rhythm */
+      .hero { padding: 44px 0 32px; }
+      .hero-eyebrow { font-size: 0.62rem; gap: 6px; }
+      .hero-eyebrow::before, .hero-eyebrow::after { width: 20px; }
+      .hero h1 { font-size: clamp(1.9rem, 9vw, 2.6rem); letter-spacing: -0.02em; }
+      .hero-sub { font-size: 0.9rem; margin-top: 12px; padding: 0 4px; }
+
+      /* Search box: stack search icon + shrink button */
+      .search-wrap { margin-top: 28px; }
+      .search-box { border-radius: 12px; }
+      .search-icon { padding: 0 10px 0 14px; }
+      .search-icon svg { width: 15px; height: 15px; }
+      #searchInput {
+        font-size: 0.88rem;
+        padding: 15px 0;
+        min-width: 0;    /* allow flex shrink */
+      }
+      #searchBtn {
+        font-size: 0.8rem;
+        padding: 0 14px;
+        margin: 5px;
+        border-radius: 8px;
+        min-height: 40px; /* tap-friendly */
+      }
+
+      /* Popular chips: scroll horizontally rather than wrap oddly */
+      .popular-section { margin-top: 36px; }
+      .popular-chips {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chip {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+        min-height: 38px; /* tap target */
+      }
+
+      /* Recently used chips: allow scroll on narrow */
+      .recent-chips { gap: 6px; }
+      .recent-chip { padding: 8px 12px; }
+      .recent-chip-name { font-size: 0.78rem; }
+      .recent-chip-dim { font-size: 0.6rem; }
+
+      /* Cheat sheet banner: stack vertically */
+      .cheatsheet-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 18px 18px;
+        gap: 16px;
+        margin-top: 20px;
+      }
+      .cheatsheet-title { font-size: 0.95rem; }
+      .cheatsheet-desc { font-size: 0.78rem; }
+      .btn-download {
+        width: 100%;
+        justify-content: center;
+        padding: 13px 20px;
+      }
+
+      /* Results header: stack label + unit selector */
+      .results-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .unit-selector-wrap { width: 100%; justify-content: space-between; }
+      .unit-select { flex: 1; max-width: 120px; }
+
+      /* Results grid: single column on narrowest phones */
+      .results-grid { grid-template-columns: 1fr; gap: 12px; }
+
+      /* Result card: compact */
+      .result-card { padding: 18px; }
+      .card-name { font-size: 1rem; }
+      .card-dim-primary { font-size: 1.15rem; }
+
+      /* Detail panel */
+      .detail-card { border-radius: 14px; }
+      .detail-header {
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+      }
+      .detail-name { font-size: 1.4rem; }
+      .detail-body { padding: 20px; }
+      .units-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .unit-block { padding: 12px; }
+      .unit-value { font-size: 0.82rem; }
+      .detail-meta-row { gap: 12px; flex-wrap: wrap; }
+      .dmi-value { font-size: 0.9rem; }
+      .tip-block { padding: 14px 16px; }
+      .tip-text { font-size: 0.8rem; }
+
+      /* Action buttons: full width + tap-friendly */
+      .action-row { flex-direction: column; gap: 10px; }
+      .btn { justify-content: center; width: 100%; padding: 14px 20px; min-height: 48px; }
+
+      /* Categories */
+      .categories-section { margin-top: 48px; margin-bottom: 48px; }
+      .cats-title { font-size: 1.15rem; }
+      .category-tabs { gap: 6px; }
+      .cat-tab { padding: 7px 14px; font-size: 0.78rem; min-height: 36px; }
+      .cat-items-grid { grid-template-columns: 1fr; gap: 8px; }
+      .cat-item { padding: 14px 16px; min-height: 56px; }
+      .cat-item-name { font-size: 0.85rem; }
+      .cat-item-dims { font-size: 0.65rem; }
+
+      /* Toast: full-width on phone */
+      .toast {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        text-align: center;
+        font-size: 0.72rem;
+      }
+
+      /* Canvas preview in detail: don't overflow */
+      .canvas-preview { max-width: 100% !important; }
+    }
+
+    /* ── PHONE LANDSCAPE / SMALL TABLET 481–767px ───────── */
+    @media (min-width: 481px) and (max-width: 767px) {
+
+      .container { padding: 0 20px; }
+      header { padding: 22px 0 0; }
+
       .hero { padding: 56px 0 40px; }
-      .detail-header { flex-direction: column; padding: 24px; }
+      .hero h1 { font-size: clamp(2.2rem, 6vw, 3rem); }
+      .hero-sub { font-size: 0.95rem; }
+
+      #searchInput { font-size: 0.93rem; padding: 16px 0; }
+      #searchBtn { min-height: 44px; }
+
+      .results-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+      .detail-header { flex-direction: column; padding: 24px; gap: 16px; }
       .detail-body { padding: 24px; }
       .units-grid { grid-template-columns: repeat(2, 1fr); }
       .detail-meta-row { gap: 14px; }
-      .results-header { flex-direction: column; gap: 6px; }
       .action-row { flex-direction: column; }
-      .btn { justify-content: center; }
+      .btn { justify-content: center; width: 100%; min-height: 46px; }
+
+      .cat-items-grid { grid-template-columns: 1fr; }
+      .categories-section { margin-top: 56px; margin-bottom: 56px; }
+
+      .cheatsheet-banner { flex-direction: column; align-items: flex-start; }
+      .btn-download { width: 100%; justify-content: center; }
+
+      .results-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .unit-selector-wrap { width: 100%; justify-content: space-between; }
+    }
+
+    /* ── TABLET 768–1023px ──────────────────────────────── */
+    @media (min-width: 768px) and (max-width: 1023px) {
+
+      .container { padding: 0 28px; }
+
+      .hero h1 { font-size: clamp(2.8rem, 5vw, 3.6rem); }
+
+      .results-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .units-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .detail-header { padding: 28px 32px; }
+      .detail-body { padding: 28px 32px; }
+
+      .cat-items-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .action-row { flex-wrap: wrap; }
+      .btn { min-height: 44px; }
+    }
+
+    /* ── DESKTOP ≥ 1024px: restore desktop-only features ── */
+    @media (min-width: 1024px) {
+      .units-grid { grid-template-columns: repeat(5, 1fr); }
+      .results-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+      .cat-items-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
     }
   
     /* === RECENTLY USED === */
@@ -946,9 +1164,10 @@
     .recent-chip-dim {
       font-family: 'DM Mono', monospace;
       font-size: 0.65rem;
-      color: var(--text-3);
+      color: var(--text-label);    /* was text-3 */
       padding-left: 8px;
       border-left: 1px solid var(--border);
+      font-weight: 500;
     }
 
     .recent-chip-cat {
@@ -1085,6 +1304,78 @@
       pointer-events: none;
       transform: translateY(-8px);
     }
+  
+    /* === UNIT SELECTOR === */
+    .unit-selector-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .unit-selector-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      white-space: nowrap;
+    }
+
+    .unit-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-1);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 7px 28px 7px 12px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555a72' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      min-width: 72px;
+    }
+
+    .unit-select:hover, .unit-select:focus {
+      border-color: var(--border-hover);
+      background-color: var(--bg-2);
+    }
+
+    /* Card primary dim */
+    .card-dim-primary {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.35rem;
+      font-weight: 700;            /* was 500 — much bolder */
+      color: var(--text-value);    /* dedicated high-contrast var */
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .card-dim-primary span {
+      color: var(--text-label);    /* was text-3 — lifted */
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    /* Card px reference below */
+    .card-dim-px {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.74rem;          /* was 0.72rem */
+      color: var(--text-label);    /* was text-3 — lifted for readability */
+      margin-top: 4px;
+      letter-spacing: 0.01em;
+      font-weight: 400;
+    }
+
+    /* Hide old card-dims when we use new system */
+    .card-dims { display: none; }
+
   </style>
 </head>
 <body>
@@ -1167,7 +1458,19 @@
   <section id="resultsSection">
     <div class="results-header">
       <p class="section-label" id="resultsLabel">Results</p>
-      <span class="results-count" id="resultsCount"></span>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <span class="results-count" id="resultsCount"></span>
+        <div class="unit-selector-wrap">
+          <span class="unit-selector-label">Display Unit</span>
+          <select class="unit-select" id="unitSelect" onchange="onUnitChange()">
+            <option value="px">px</option>
+            <option value="mm">mm</option>
+            <option value="cm" selected>cm</option>
+            <option value="in">in</option>
+            <option value="ft">ft</option>
+          </select>
+        </div>
+      </div>
     </div>
     <div class="results-grid" id="resultsGrid"></div>
 
@@ -1358,17 +1661,28 @@ function pxToInchScreen(px) { return (px / PPI).toFixed(2); }
 function pxToMmScreen(px)   { return (px / PPI * INCH_TO_MM).toFixed(2); }
 function pxToCmScreen(px)   { return (px / PPI * INCH_TO_CM).toFixed(2); }
 
+function pxToFtPrint(px)  { return (px / PRINT_DPI / 12).toFixed(4); }
+function pxToFtScreen(px) { return (px / PPI / 12).toFixed(4); }
+
 function getDimensions(design) {
   const isprint = design.colorMode === 'CMYK';
   const convert = isprint
-    ? { inch: pxToInchPrint, mm: pxToMmPrint, cm: pxToCmPrint }
-    : { inch: pxToInchScreen, mm: pxToMmScreen, cm: pxToCmScreen };
+    ? { inch: pxToInchPrint, mm: pxToMmPrint, cm: pxToCmPrint, ft: pxToFtPrint }
+    : { inch: pxToInchScreen, mm: pxToMmScreen, cm: pxToCmScreen, ft: pxToFtScreen };
   return {
-    px:   `${design.w} × ${design.h} px`,
-    mm:   `${convert.mm(design.w)} × ${convert.mm(design.h)} mm`,
-    cm:   `${convert.cm(design.w)} × ${convert.cm(design.h)} cm`,
-    inch: `${convert.inch(design.w)} × ${convert.inch(design.h)} in`,
+    px:   `${design.w} × ${design.h}`,
+    mm:   `${convert.mm(design.w)} × ${convert.mm(design.h)}`,
+    cm:   `${convert.cm(design.w)} × ${convert.cm(design.h)}`,
+    in:   `${convert.inch(design.w)} × ${convert.inch(design.h)}`,
+    ft:   `${convert.ft(design.w)} × ${convert.ft(design.h)}`,
   };
+}
+
+function getDisplayDim(design) {
+  const unit = (document.getElementById('unitSelect') || { value: 'px' }).value;
+  const dims = getDimensions(design);
+  if (unit === 'px') return { primary: dims.px, unit: 'px', showPx: false };
+  return { primary: dims[unit], unit, showPx: true };
 }
 
 // ═══════════════════════════════════════
@@ -1582,16 +1896,16 @@ function renderResults(query, results) {
   }
 
   grid.innerHTML = results.map((d, i) => {
-    const dims = getDimensions(d);
+    const { primary, unit, showPx } = getDisplayDim(d);
     return `
       <div class="result-card" style="animation-delay:${i * 0.05}s" onclick="showDetail(${d.id})" id="card-${d.id}">
         <div class="card-category">${d.category}</div>
         <div class="card-name">${d.name}</div>
-        <div class="card-dims">${d.w} × ${d.h}<span> px</span></div>
+        <div class="card-dim-primary">${primary}<span> ${unit}</span></div>
+        ${showPx ? `<div class="card-dim-px">${d.w} × ${d.h} px</div>` : ''}
         <div class="card-meta">
           <span class="meta-pill ratio">${d.ratio}</span>
           <span class="meta-pill">${d.colorMode}</span>
-          <span class="meta-pill">${dims.inch}</span>
         </div>
       </div>`;
   }).join('');
@@ -1642,22 +1956,16 @@ function showDetail(id) {
     <div class="detail-body">
       <p class="section-label" style="margin-bottom:14px">Dimensions in all units${dpiNote}</p>
       <div class="units-grid">
-        <div class="unit-block">
-          <div class="unit-label">Pixels</div>
-          <div class="unit-value">${design.w} × ${design.h} <small>px</small></div>
-        </div>
-        <div class="unit-block">
-          <div class="unit-label">Millimeters</div>
-          <div class="unit-value">${dims.mm.replace(' mm','').replace(' mm','')} <small>mm</small></div>
-        </div>
-        <div class="unit-block">
-          <div class="unit-label">Centimeters</div>
-          <div class="unit-value">${dims.cm.replace(' cm','').replace(' cm','')} <small>cm</small></div>
-        </div>
-        <div class="unit-block">
-          <div class="unit-label">Inches</div>
-          <div class="unit-value">${dims.inch.replace(' in','').replace(' in','')} <small>in</small></div>
-        </div>
+        ${['px','mm','cm','in','ft'].map(u => {
+          const labels = {px:'Pixels',mm:'Millimeters',cm:'Centimeters',in:'Inches',ft:'Feet'};
+          const val = u === 'px' ? `${design.w} × ${design.h}` : dims[u];
+          const sel = (document.getElementById('unitSelect')||{value:'px'}).value;
+          const highlight = u === sel ? 'border-color:var(--border-hover);background:var(--accent-dim)' : '';
+          return `<div class="unit-block" style="${highlight}">
+            <div class="unit-label">${labels[u]}</div>
+            <div class="unit-value">${val} <small>${u}</small></div>
+          </div>`;
+        }).join('')}
       </div>
 
       <div class="detail-meta-row">
@@ -1779,6 +2087,37 @@ function browseItem(id) {
   search(design.name);
   scrollToResults();
   setTimeout(() => showDetail(id), 120);
+}
+
+// ═══════════════════════════════════════
+// UNIT CHANGE
+// ═══════════════════════════════════════
+function onUnitChange() {
+  // Re-render all visible result cards with new unit
+  const grid = document.getElementById('resultsGrid');
+  if (!grid || !document.getElementById('resultsSection').classList.contains('visible')) return;
+  grid.querySelectorAll('.result-card').forEach(card => {
+    const id = parseInt(card.id.replace('card-', ''));
+    const d = designDB.find(x => x.id === id);
+    if (!d) return;
+    const { primary, unit, showPx } = getDisplayDim(d);
+    const dimPrimary = card.querySelector('.card-dim-primary');
+    const dimPx      = card.querySelector('.card-dim-px');
+    if (dimPrimary) dimPrimary.innerHTML = `${primary}<span> ${unit}</span>`;
+    if (showPx) {
+      if (dimPx) dimPx.textContent = `${d.w} × ${d.h} px`;
+      else {
+        const px = document.createElement('div');
+        px.className = 'card-dim-px';
+        px.textContent = `${d.w} × ${d.h} px`;
+        dimPrimary.after(px);
+      }
+    } else {
+      if (dimPx) dimPx.remove();
+    }
+  });
+  // Also refresh detail panel if open
+  if (activeId) showDetail(activeId);
 }
 
 // ═══════════════════════════════════════
