@@ -1,22 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- SEO description -->
-  <meta name="description" content="Find the correct dimensions for social media, print, video, and web designs instantly. Includes Instagram, YouTube, business card, flyer, and more design sizes.">
-  
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DK38F94YKZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DK38F94YKZ');
-</script>
-  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Design Size Finder – Social Media, Print & Web Design Dimensions</title>
+  <title>Design Size Finder</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1389,6 +1376,507 @@
     /* Hide old card-dims when we use new system */
     .card-dims { display: none; }
 
+  
+    /* === DPI SELECTOR === */
+    .dpi-selector-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .dpi-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-label);
+      white-space: nowrap;
+    }
+    .dpi-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+    .dpi-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--bg-3);
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.18s;
+      min-height: 32px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dpi-btn:hover { border-color: var(--border-hover); color: var(--text-1); }
+    .dpi-btn.active {
+      background: var(--accent-dim);
+      border-color: rgba(99,210,180,0.4);
+      color: var(--accent);
+    }
+
+    /* === NATIVE TAG badge === */
+    .native-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(99,210,180,0.2);
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* === BLEED NOTE === */
+    .bleed-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(247,201,72,0.06);
+      border: 1px solid rgba(247,201,72,0.18);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-2);
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+    .bleed-note svg { color: var(--accent-2); flex-shrink: 0; }
+    .bleed-note strong { color: var(--accent-2); }
+
+    /* === EXTRA NOTE === */
+    .extra-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-3);
+      margin-top: 4px;
+      letter-spacing: 0.03em;
+      font-style: italic;
+    }
+
+    /* === PACKAGING WARNING === */
+    .pkg-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(232,93,117,0.06);
+      border: 1px solid rgba(232,93,117,0.22);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 0.82rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+    .pkg-note svg { color: #e85d75; flex-shrink: 0; margin-top: 2px; }
+    .pkg-note strong { color: #e85d75; display: block; margin-bottom: 4px; font-size: 0.8rem; }
+
+    /* === DESIGNING AT SCALE === */
+    .scale-section {
+      background: rgba(129,140,248,0.05);
+      border: 1px solid rgba(129,140,248,0.18);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+    .scale-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin-bottom: 8px;
+    }
+    .scale-title svg { color: rgba(129,140,248,0.9); }
+    .scale-intro {
+      font-size: 0.8rem;
+      color: var(--text-2);
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+    .scale-intro strong { color: var(--text-1); }
+    .scale-table { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 12px; }
+    .scale-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .scale-row:last-child { border-bottom: none; }
+    .scale-row span {
+      padding: 8px 10px;
+      border-right: 1px solid var(--border);
+      color: var(--text-2);
+    }
+    .scale-row span:last-child { border-right: none; }
+    .scale-head { background: var(--bg-3); }
+    .scale-head span { color: var(--text-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.6rem; }
+    .scale-full { background: rgba(99,210,180,0.04); }
+    .scale-full span { color: var(--text-1); }
+    .scale-warning {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      line-height: 1.5;
+      font-style: italic;
+    }
+    @media (max-width: 540px) {
+      .scale-row { grid-template-columns: 1fr 1fr; }
+      .scale-row span:nth-child(3),
+      .scale-row span:nth-child(4) { display: none; }
+    }
+
+    /* === UNITS GRID: 5-col on desktop, responsive below === */
+    @media (min-width: 1024px) {
+      .units-grid { grid-template-columns: repeat(5, 1fr) !important; }
+    }
+
+  
+    /* ═══════════════════════════════════
+       SIZE CALCULATOR
+    ═══════════════════════════════════ */
+    .calc-section {
+      margin-top: 80px;
+      margin-bottom: 80px;
+    }
+
+    .calc-desc {
+      font-size: 0.95rem;
+      color: var(--text-2);
+      font-weight: 400;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .calc-form-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calc-form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(129,140,248,0.8), var(--accent), transparent);
+    }
+
+    /* Input row */
+    .calc-inputs {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .calc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .calc-field-unit { flex: 1.4; }
+
+    .calc-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-label);
+      font-weight: 500;
+    }
+
+    .calc-input {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-value);
+      font-family: 'DM Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+    }
+
+    .calc-input::-webkit-outer-spin-button,
+    .calc-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .calc-input::placeholder { color: var(--text-3); font-weight: 400; font-size: 0.9rem; }
+
+    .calc-input:focus {
+      border-color: rgba(99,210,180,0.5);
+      box-shadow: 0 0 0 3px rgba(99,210,180,0.08);
+    }
+
+    .calc-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-1);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 12px 32px 12px 14px;
+      cursor: pointer;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555a72' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+
+    .calc-select:focus { border-color: rgba(99,210,180,0.5); }
+
+    .calc-sep {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.4rem;
+      color: var(--text-3);
+      padding-bottom: 13px;
+      flex-shrink: 0;
+      align-self: flex-end;
+    }
+
+    /* DPI row */
+    .calc-dpi-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding: 12px 16px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .calc-dpi-hint {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-3);
+      letter-spacing: 0.05em;
+      margin-left: auto;
+    }
+
+    /* Error */
+    .calc-error {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,93,117,0.07);
+      border: 1px solid rgba(232,93,117,0.22);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: #e85d75;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .calc-error.visible { display: flex; }
+
+    .calc-lf-warning {
+      display: none;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(247,201,72,0.07);
+      border: 1px solid rgba(247,201,72,0.25);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.82rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .calc-lf-warning.visible { display: flex; }
+    .calc-lf-warning svg { color: var(--accent-2); flex-shrink: 0; margin-top: 1px; }
+
+    /* Calculate button */
+    .calc-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 14px;
+      font-size: 1rem;
+      border-radius: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Results */
+    .calc-results {
+      margin-top: 24px;
+      display: none;
+    }
+
+    .calc-results.visible { display: block; }
+
+    .calc-results-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      animation: slideDown 0.35s var(--transition);
+    }
+
+    .calc-results-header {
+      padding: 20px 28px 16px;
+      background: var(--bg-3);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .calc-results-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-label);
+    }
+
+    .calc-original {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-value);
+      letter-spacing: -0.02em;
+    }
+
+    .calc-original small {
+      font-size: 1rem;
+      color: var(--text-label);
+      font-weight: 500;
+    }
+
+    .calc-dpi-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(99,210,180,0.2);
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    .calc-results-body { padding: 24px 28px; }
+
+    /* Conversion rows */
+    .calc-conv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .calc-conv-row {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: border-color 0.2s;
+    }
+
+    .calc-conv-row.is-source {
+      border-color: var(--border-hover);
+      background: var(--accent-dim);
+    }
+
+    .calc-conv-row:hover { border-color: var(--border-hover); }
+
+    .calc-conv-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-label);
+      margin-bottom: 6px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .calc-conv-label .source-tag {
+      font-size: 0.52rem;
+      color: var(--accent);
+      background: rgba(99,210,180,0.15);
+      border-radius: 4px;
+      padding: 1px 5px;
+      letter-spacing: 0.05em;
+    }
+
+    .calc-conv-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-value);
+      letter-spacing: -0.01em;
+    }
+
+    .calc-conv-value small {
+      font-size: 0.75rem;
+      color: var(--text-label);
+      font-weight: 400;
+    }
+
+    .calc-px-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text-3);
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* Copy button row */
+    .calc-copy-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .calc-form-card { padding: 20px 18px; }
+      .calc-inputs { gap: 10px; }
+      .calc-field { min-width: 80px; }
+      .calc-sep { display: none; }
+      .calc-results-header { padding: 16px 18px 14px; }
+      .calc-results-body { padding: 18px; }
+      .calc-original { font-size: 1.2rem; }
+      .calc-conv-grid { grid-template-columns: 1fr 1fr; }
+      .calc-dpi-hint { display: none; }
+      .calc-section { margin-top: 56px; margin-bottom: 56px; }
+    }
+
+    @media (max-width: 380px) {
+      .calc-conv-grid { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
@@ -1464,6 +1952,11 @@
       <div class="chip" onclick="quickSearch('Facebook Post')"><span class="chip-icon">👍</span> Facebook Post</div>
       <div class="chip" onclick="quickSearch('TikTok Cover')"><span class="chip-icon">🎵</span> TikTok Cover</div>
       <div class="chip" onclick="quickSearch('Pinterest Pin')"><span class="chip-icon">📌</span> Pinterest Pin</div>
+      <div class="chip" onclick="quickSearch('8x10 banner')"><span class="chip-icon">🏷️</span> 8×10 ft Banner</div>
+      <div class="chip" onclick="quickSearch('Roll-up Banner')"><span class="chip-icon">📜</span> Roll-up Banner</div>
+      <div class="chip" onclick="quickSearch('A4')"><span class="chip-icon">📄</span> A4</div>
+      <div class="chip" onclick="quickSearch('Step Repeat')"><span class="chip-icon">🎬</span> Step & Repeat</div>
+      <div class="chip" onclick="scrollToCalc()"><span class="chip-icon">📐</span> Size Calculator</div>
     </div>
   </section>
 
@@ -1503,6 +1996,89 @@
     <div class="cat-items-grid" id="catItemsGrid"></div>
   </section>
 
+  <!-- SIZE CALCULATOR -->
+  <section class="calc-section" id="calcSection">
+    <div class="cats-header">
+      <h2 class="cats-title">Size Calculator</h2>
+      <div class="cats-line"></div>
+    </div>
+    <p class="calc-desc">Enter the dimensions you know and instantly see the equivalent in all other units. Works with pixels, millimetres, centimetres, inches, and feet.</p>
+
+    <div class="calc-form-card">
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label class="calc-label" for="calcWidth">Width</label>
+          <input type="number" id="calcWidth" class="calc-input" placeholder="e.g. 1080" min="0.001" step="any" onkeydown="if(event.key==='Enter') runCalculator()">
+        </div>
+        <div class="calc-sep">×</div>
+        <div class="calc-field">
+          <label class="calc-label" for="calcHeight">Height</label>
+          <input type="number" id="calcHeight" class="calc-input" placeholder="e.g. 1920" min="0.001" step="any" onkeydown="if(event.key==='Enter') runCalculator()">
+        </div>
+        <div class="calc-field calc-field-unit">
+          <label class="calc-label" for="calcUnit">Unit</label>
+          <select id="calcUnit" class="calc-select" onchange="calcUnitChanged()">
+            <option value="px">Pixels (px)</option>
+            <option value="mm">Millimeters (mm)</option>
+            <option value="cm">Centimeters (cm)</option>
+            <option value="in">Inches (in)</option>
+            <option value="ft">Feet (ft)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calc-dpi-row">
+        <span class="dpi-label">DPI:</span>
+        <div class="dpi-btns" id="calcDpiBtns">
+          <button class="dpi-btn" onclick="setCalcDPI(72)">72</button>
+          <button class="dpi-btn" onclick="setCalcDPI(96)">96</button>
+          <button class="dpi-btn" onclick="setCalcDPI(150)">150</button>
+          <button class="dpi-btn" onclick="setCalcDPI(200)">200</button>
+          <button class="dpi-btn active" onclick="setCalcDPI(300)">300</button>
+        </div>
+        <span class="calc-dpi-hint" id="calcDpiHint">Affects pixel ↔ physical conversion</span>
+      </div>
+
+      <div class="calc-lf-warning" id="calcLfWarning">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Large-format printing typically only needs <strong>72–150 DPI</strong> — at 200–300 DPI your file will be very large and may not be required by your printer. Always confirm the needed resolution before designing.</span>
+      </div>
+
+      <div class="calc-error" id="calcError">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="calcErrorMsg">Please enter a valid width and height.</span>
+      </div>
+
+      <button class="btn btn-primary calc-btn" onclick="runCalculator()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        Calculate
+      </button>
+    </div>
+
+    <div class="calc-results" id="calcResults">
+      <div class="calc-results-card">
+        <div class="calc-results-header">
+          <div>
+            <div class="calc-results-title">Your Size</div>
+            <div class="calc-original" id="calcOriginalDim"></div>
+          </div>
+          <span class="calc-dpi-badge" id="calcDpiBadge">300 DPI</span>
+        </div>
+        <div class="calc-results-body">
+          <p class="section-label" style="margin-bottom:14px">Conversions</p>
+          <div class="calc-conv-grid" id="calcConvGrid"></div>
+          <div class="calc-copy-row">
+            <button class="btn btn-primary" onclick="calcCopyAll()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              Copy Dimensions
+            </button>
+            <button class="btn btn-ghost" onclick="clearCalculator()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 <footer>
@@ -1517,146 +2093,565 @@
 // ═══════════════════════════════════════
 // DATABASE
 // ═══════════════════════════════════════
-const PPI = 96; // screen PPI for px→inch conversion
+const PPI = 96;
+let currentDPI = 300; // user-selectable for print/large-format pixel calculations
+
 const designDB = [
+
+  // ────────────────────────────────────────────────────────────────────────
   // SOCIAL MEDIA
-  { id: 1, name: 'Instagram Post (Square)', category: 'Social Media', w: 1080, h: 1080, ratio: '1:1', colorMode: 'RGB', tip: 'Keep important elements within the center safe area to avoid cropping on profile grids. Use bold visuals and minimal text.' },
-  { id: 2, name: 'Instagram Portrait Post', category: 'Social Media', w: 1080, h: 1350, ratio: '4:5', colorMode: 'RGB', tip: 'Portrait posts take up more feed real-estate, leading to higher engagement. Great for product shots and lifestyle photography.' },
-  { id: 3, name: 'Instagram Story', category: 'Social Media', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Keep UI/text 250px away from top and bottom to avoid tap zone and navigation overlap. Use stickers for extra engagement.' },
-  { id: 4, name: 'Instagram Reel Cover', category: 'Social Media', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Design your cover with the center 1:1 area in mind — only the middle square shows on your profile grid.' },
-  { id: 5, name: 'Instagram Landscape Post', category: 'Social Media', w: 1080, h: 566, ratio: '1.91:1', colorMode: 'RGB', tip: 'Landscape posts show the widest format, great for scenic shots. May appear cropped in feeds — test before posting.' },
-  { id: 6, name: 'Facebook Post', category: 'Social Media', w: 1200, h: 630, ratio: '1.91:1', colorMode: 'RGB', tip: 'Facebook recommends keeping text under 20% of image area for ads. Use bright, contrasting colors to stand out in feeds.' },
-  { id: 7, name: 'Facebook Story', category: 'Social Media', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Facebook Stories auto-play — design for silent viewing with text or captions overlaid on your visuals.' },
-  { id: 8, name: 'Facebook Cover Photo', category: 'Social Media', w: 820, h: 312, ratio: '2.63:1', colorMode: 'RGB', tip: 'Mobile crops your cover to 640×360px. Place key content in the center to ensure it shows across devices.' },
-  { id: 9, name: 'Facebook Ad (Feed)', category: 'Social Media', w: 1200, h: 628, ratio: '1.91:1', colorMode: 'RGB', tip: 'Facebook ads with less text in images tend to reach larger audiences. Keep your core message brief and visual.' },
-  { id: 10, name: 'Twitter/X Post', category: 'Social Media', w: 1200, h: 675, ratio: '16:9', colorMode: 'RGB', tip: 'Twitter crops images in the timeline — the center 16:9 area is always visible. Put your key info there.' },
-  { id: 11, name: 'Twitter/X Header', category: 'Social Media', w: 1500, h: 500, ratio: '3:1', colorMode: 'RGB', tip: 'Twitter headers are heavily cropped on mobile. Test your design on both mobile and desktop before publishing.' },
-  { id: 12, name: 'LinkedIn Post', category: 'Social Media', w: 1200, h: 627, ratio: '1.91:1', colorMode: 'RGB', tip: 'LinkedIn audiences respond to informative, professional visuals. Infographics and data visuals perform well here.' },
-  { id: 13, name: 'LinkedIn Banner', category: 'Social Media', w: 1584, h: 396, ratio: '4:1', colorMode: 'RGB', tip: 'Your LinkedIn profile photo overlaps the bottom-left of your banner. Leave ~200px of space there for important elements.' },
-  { id: 14, name: 'LinkedIn Ad (Single Image)', category: 'Social Media', w: 1200, h: 628, ratio: '1.91:1', colorMode: 'RGB', tip: 'LinkedIn ads with specific numbers and professional language outperform generic lifestyle imagery for B2B audiences.' },
-  { id: 15, name: 'Pinterest Pin', category: 'Social Media', w: 1000, h: 1500, ratio: '2:3', colorMode: 'RGB', tip: 'Tall pins perform best on Pinterest. Add a clear headline at the top and a subtle logo/watermark at the bottom.' },
-  { id: 16, name: 'TikTok Video', category: 'Social Media', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Avoid placing text in the bottom 250px (username, caption area) and top 150px. Keep core content in the center zone.' },
-  { id: 17, name: 'Snapchat Story', category: 'Social Media', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Snapchat users are mobile-first and fast scrolling. Design with bold graphics and minimal, punchy text for impact.' },
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 1,   name: 'Instagram Post (Square)',      category: 'Social Media', unit:'px', w:1080, h:1080, ratio:'1:1',     colorMode:'RGB', type:'digital',
+    tip:'Keep important elements within the center safe area to avoid cropping on profile grids. Use bold visuals and minimal text.' },
+  { id: 2,   name: 'Instagram Portrait Post',      category: 'Social Media', unit:'px', w:1080, h:1350, ratio:'4:5',     colorMode:'RGB', type:'digital',
+    tip:'Portrait posts take up more feed real-estate, leading to higher engagement. Great for product shots and lifestyle photography.' },
+  { id: 3,   name: 'Instagram Story',              category: 'Social Media', unit:'px', w:1080, h:1920, ratio:'9:16',    colorMode:'RGB', type:'digital',
+    tip:'Keep UI/text 250 px away from top and bottom to avoid tap zone and navigation overlap. Use stickers for extra engagement.' },
+  { id: 4,   name: 'Instagram Reel Cover',         category: 'Social Media', unit:'px', w:1080, h:1920, ratio:'9:16',    colorMode:'RGB', type:'digital',
+    tip:'Design your cover with the center 1:1 area in mind — only the middle square shows on your profile grid.' },
+  { id: 5,   name: 'Instagram Landscape Post',     category: 'Social Media', unit:'px', w:1080, h:566,  ratio:'1.91:1', colorMode:'RGB', type:'digital',
+    tip:'Landscape posts show the widest format, great for scenic shots. May appear cropped in feeds — test before posting.' },
+  { id: 107, name: 'Instagram Profile Picture',    category: 'Social Media', unit:'px', w:1080, h:1080, ratio:'1:1',     colorMode:'RGB', type:'digital',
+    tip:'Instagram displays profile photos as circles at 110 px. Upload at 1080 px square for sharpness. Keep subject centered with plenty of margin.' },
+  { id: 108, name: 'Instagram Highlight Cover',    category: 'Social Media', unit:'px', w:1080, h:1920, ratio:'9:16',    colorMode:'RGB', type:'digital',
+    tip:'Highlight covers are displayed as small circles from the center of the image. Design with a centered icon on a solid or simple background.' },
+  { id: 117, name: 'Instagram Carousel Post',      category: 'Social Media', unit:'px', w:1080, h:1080, ratio:'1:1',     colorMode:'RGB', type:'digital',
+    tip:'Carousel posts support 2–10 slides in square, portrait, or landscape. Keep a consistent style across all slides for a cohesive look.' },
 
-  // VIDEO
-  { id: 18, name: 'YouTube Thumbnail', category: 'Video Platforms', w: 1280, h: 720, ratio: '16:9', colorMode: 'RGB', tip: 'High-contrast thumbnails with close-up faces drive more clicks. Use large, bold text that\'s readable at small sizes.' },
-  { id: 19, name: 'YouTube Banner', category: 'Video Platforms', w: 2560, h: 1440, ratio: '16:9', colorMode: 'RGB', tip: 'The safe zone is the center 1546×423px — this shows on all devices. Design for the center first, then embellish edges.' },
-  { id: 20, name: 'YouTube Channel Icon', category: 'Video Platforms', w: 800, h: 800, ratio: '1:1', colorMode: 'RGB', tip: 'Your channel icon is circular on most surfaces. Keep your logo/icon within a centered circle to avoid clipping.' },
-  { id: 21, name: 'YouTube Shorts', category: 'Video Platforms', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'YouTube Shorts are vertical. Design covers with bold, eye-catching visuals that work at thumbnail scale.' },
-  { id: 22, name: 'Vimeo Thumbnail', category: 'Video Platforms', w: 1280, h: 720, ratio: '16:9', colorMode: 'RGB', tip: 'Vimeo audiences are design-savvy — invest in polished, cinematic thumbnail aesthetics for best results.' },
-  { id: 23, name: 'Twitch Profile Banner', category: 'Video Platforms', w: 1920, h: 480, ratio: '4:1', colorMode: 'RGB', tip: 'Twitch banners are ultrawide and often partially cropped. Put your channel name and key art in the center strip.' },
+  { id: 6,   name: 'Facebook Post',                category: 'Social Media', unit:'px', w:1200, h:630,  ratio:'1.91:1', colorMode:'RGB', type:'digital',
+    tip:'Facebook recommends keeping text under 20% of image area for ads. Use bright, contrasting colors to stand out in feeds.' },
+  { id: 7,   name: 'Facebook Story',               category: 'Social Media', unit:'px', w:1080, h:1920, ratio:'9:16',    colorMode:'RGB', type:'digital',
+    tip:'Facebook Stories auto-play — design for silent viewing with text or captions overlaid on your visuals.' },
+  { id: 8,   name: 'Facebook Cover Photo',         category: 'Social Media', unit:'px', w:820,  h:312,  ratio:'2.63:1', colorMode:'RGB', type:'digital',
+    tip:'Mobile crops your cover to 640×360 px. Place key content in the center to ensure it shows across devices.' },
+  { id: 9,   name: 'Facebook Ad (Feed)',            category: 'Social Media', unit:'px', w:1200, h:628,  ratio:'1.91:1', colorMode:'RGB', type:'digital',
+    tip:'Facebook ads with less text in images tend to reach larger audiences. Keep your core message brief and visual.' },
+  { id: 102, name: 'Facebook Cover Photo (Page)',   category: 'Social Media', unit:'px', w:1640, h:624,  ratio:'2.63:1', colorMode:'RGB', type:'digital',
+    tip:'Facebook Page covers display differently on desktop (820×312) vs mobile (640×360). Design for mobile crop first.' },
+  { id: 103, name: 'Facebook Event Cover',          category: 'Social Media', unit:'px', w:1920, h:1080, ratio:'16:9',   colorMode:'RGB', type:'digital',
+    tip:'Facebook event covers are cropped to 470×174 px in listings. Put the event name in the center third.' },
+  { id: 109, name: 'Facebook Profile Picture',      category: 'Social Media', unit:'px', w:1080, h:1080, ratio:'1:1',    colorMode:'RGB', type:'digital',
+    tip:'Facebook displays profile photos as circles at 176 px on desktop. Keep face/logo centered with no key elements near edges.' },
 
-  // PRINT
-  { id: 24, name: 'A4 Flyer', category: 'Print', w: 2480, h: 3508, ratio: '√2:1', colorMode: 'CMYK', tip: 'Work at 300 DPI for print quality. Add a 3mm bleed on all sides and keep important content 5mm from the trim edge.' },
-  { id: 25, name: 'A5 Flyer', category: 'Print', w: 1748, h: 2480, ratio: '√2:1', colorMode: 'CMYK', tip: 'A5 is half of A4 — great for handouts and inserts. Remember to use CMYK color mode for accurate print reproduction.' },
-  { id: 26, name: 'A3 Poster', category: 'Print', w: 3508, h: 4961, ratio: '√2:1', colorMode: 'CMYK', tip: 'At 300 DPI, A3 is large. Ensure all images are high-resolution. Use vector graphics where possible to stay sharp.' },
-  { id: 27, name: 'Business Card', category: 'Print', w: 1050, h: 600, ratio: '3.5:2', colorMode: 'CMYK', tip: 'Standard size is 3.5×2 in at 300 DPI. Keep text 3mm from edges. Bleed-safe zone is inside the 2.9×1.7 in area.' },
-  { id: 28, name: 'US Letter Flyer', category: 'Print', w: 2550, h: 3300, ratio: '17:22', colorMode: 'CMYK', tip: 'US Letter is the standard in North America. Always embed fonts and convert to outlines before sending to print.' },
-  { id: 29, name: 'Postcard (4×6)', category: 'Print', w: 1800, h: 1200, ratio: '3:2', colorMode: 'CMYK', tip: 'Postcards are direct-mail staples. Keep your CTA and return address on the back. Use bold front visuals.' },
-  { id: 30, name: 'Brochure Tri-fold', category: 'Print', w: 3507, h: 2480, ratio: '√2:1', colorMode: 'CMYK', tip: 'A tri-fold divides the page into three 98mm panels. Lay out your design panel by panel, not as one flat sheet.' },
-  { id: 31, name: 'Banner (Roll-up)', category: 'Print', w: 2362, h: 6299, ratio: '2:5.33', colorMode: 'CMYK', tip: 'Roll-up banners are viewed from a distance. Use large fonts (min 36pt at print size) and simple, bold layouts.' },
-  { id: 32, name: 'Square Flyer (210×210mm)', category: 'Print', w: 2480, h: 2480, ratio: '1:1', colorMode: 'CMYK', tip: 'Square formats are distinctive and memorable. Perfect for premium brands that want to stand out from A4 materials.' },
+  { id: 10,  name: 'Twitter/X Post',               category: 'Social Media', unit:'px', w:1200, h:675,  ratio:'16:9',   colorMode:'RGB', type:'digital',
+    tip:'Twitter crops images in the timeline — the center 16:9 area is always visible. Put your key info there.' },
+  { id: 11,  name: 'Twitter/X Header',             category: 'Social Media', unit:'px', w:1500, h:500,  ratio:'3:1',    colorMode:'RGB', type:'digital',
+    tip:'Twitter headers are heavily cropped on mobile. Test your design on both mobile and desktop before publishing.' },
+  { id: 110, name: 'Twitter/X Profile Picture',    category: 'Social Media', unit:'px', w:400,  h:400,  ratio:'1:1',    colorMode:'RGB', type:'digital',
+    tip:'Twitter/X profile photos display as circles. Minimum 400×400 px — upload at 1:1 ratio and keep subject centered.' },
 
+  { id: 12,  name: 'LinkedIn Post',                category: 'Social Media', unit:'px', w:1200, h:627,  ratio:'1.91:1', colorMode:'RGB', type:'digital',
+    tip:'LinkedIn audiences respond to informative, professional visuals. Infographics and data visuals perform well here.' },
+  { id: 13,  name: 'LinkedIn Banner',              category: 'Social Media', unit:'px', w:1584, h:396,  ratio:'4:1',    colorMode:'RGB', type:'digital',
+    tip:'Your LinkedIn profile photo overlaps the bottom-left of your banner. Leave ~200 px of space there for important elements.' },
+  { id: 14,  name: 'LinkedIn Ad (Single Image)',   category: 'Social Media', unit:'px', w:1200, h:628,  ratio:'1.91:1', colorMode:'RGB', type:'digital',
+    tip:'LinkedIn ads with specific numbers and professional language outperform generic lifestyle imagery for B2B audiences.' },
+  { id: 104, name: 'LinkedIn Company Page Banner', category: 'Social Media', unit:'px', w:1128, h:191,  ratio:'5.9:1',  colorMode:'RGB', type:'digital',
+    tip:'LinkedIn company banners are very wide and thin. Use a minimal, horizontal layout — avoid portrait-oriented elements.' },
+  { id: 111, name: 'LinkedIn Profile Picture',     category: 'Social Media', unit:'px', w:400,  h:400,  ratio:'1:1',    colorMode:'RGB', type:'digital',
+    tip:'LinkedIn profile photos display at 400×400 px. Use a professional headshot with a clean, uncluttered background.' },
+
+  { id: 16,  name: 'TikTok Video',                 category: 'Social Media', unit:'px', w:1080, h:1920, ratio:'9:16',   colorMode:'RGB', type:'digital',
+    tip:'Avoid placing text in the bottom 250 px (username, caption area) and top 150 px. Keep core content in the center zone.' },
+  { id: 99,  name: 'TikTok Post (Feed)',            category: 'Social Media', unit:'px', w:1080, h:1350, ratio:'4:5',    colorMode:'RGB', type:'digital',
+    tip:'TikTok feed images display at 4:5. For maximum real estate, use the tall format. Keep text away from edges.' },
+  { id: 100, name: 'TikTok Cover Photo',            category: 'Social Media', unit:'px', w:1080, h:1920, ratio:'9:16',   colorMode:'RGB', type:'digital',
+    tip:'TikTok covers show as a still frame on your profile. Pick a frame or design one where your subject is clearly centered.' },
+  { id: 101, name: 'TikTok Profile Photo',          category: 'Social Media', unit:'px', w:200,  h:200,  ratio:'1:1',    colorMode:'RGB', type:'digital',
+    tip:'TikTok profile photos are circular. Keep your face or logo centered and leave plenty of breathing room at the edges.' },
+
+  { id: 15,  name: 'Pinterest Pin',                category: 'Social Media', unit:'px', w:1000, h:1500, ratio:'2:3',    colorMode:'RGB', type:'digital',
+    tip:'Tall pins perform best on Pinterest. Add a clear headline at the top and a subtle logo/watermark at the bottom.' },
+  { id: 113, name: 'Pinterest Idea Pin',            category: 'Social Media', unit:'px', w:1080, h:1920, ratio:'9:16',   colorMode:'RGB', type:'digital',
+    tip:'Idea Pins (formerly Story Pins) are full-screen and multi-page. Use text overlays and clear step-by-step layouts.' },
+  { id: 114, name: 'Pinterest Profile Cover',       category: 'Social Media', unit:'px', w:800,  h:450,  ratio:'16:9',   colorMode:'RGB', type:'digital',
+    tip:'Pinterest profile covers display at 16:9 on desktop. Keep branding and key text in the center safe area.' },
+
+  { id: 17,  name: 'Snapchat Story',               category: 'Social Media', unit:'px', w:1080, h:1920, ratio:'9:16',   colorMode:'RGB', type:'digital',
+    tip:'Snapchat users are mobile-first and fast scrolling. Design with bold graphics and minimal, punchy text for impact.' },
+
+  { id: 115, name: 'WhatsApp Status',              category: 'Social Media', unit:'px', w:1080, h:1920, ratio:'9:16',   colorMode:'RGB', type:'digital',
+    tip:'WhatsApp Status images are shown for 5 seconds. Use large, legible text and keep important content away from edges.' },
+  { id: 116, name: 'WhatsApp Profile Picture',     category: 'Social Media', unit:'px', w:500,  h:500,  ratio:'1:1',    colorMode:'RGB', type:'digital',
+    tip:'WhatsApp displays profile photos as small circles. Keep your subject centered in a simple, uncluttered composition.' },
+  { id: 118, name: 'Threads Post',                 category: 'Social Media', unit:'px', w:1080, h:1080, ratio:'1:1',    colorMode:'RGB', type:'digital',
+    tip:'Threads images support square and portrait formats. Vertical (4:5) content performs well. Keep text minimal and bold.' },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // VIDEO & CONTENT
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 18,  name: 'YouTube Thumbnail',            category: 'Video & Content', unit:'px', w:1280, h:720,  ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'High-contrast thumbnails with close-up faces drive more clicks. Use large, bold text that\'s readable at small sizes.' },
+  { id: 19,  name: 'YouTube Banner',               category: 'Video & Content', unit:'px', w:2560, h:1440, ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'The safe zone is the center 1546×423 px — this shows on all devices. Design for the center first, then embellish edges.' },
+  { id: 20,  name: 'YouTube Channel Icon',         category: 'Video & Content', unit:'px', w:800,  h:800,  ratio:'1:1',  colorMode:'RGB', type:'digital',
+    tip:'Your channel icon is circular on most surfaces. Keep your logo/icon within a centered circle to avoid clipping.' },
+  { id: 21,  name: 'YouTube Shorts',              category: 'Video & Content', unit:'px', w:1080, h:1920, ratio:'9:16', colorMode:'RGB', type:'digital',
+    tip:'YouTube Shorts are vertical. Design covers with bold, eye-catching visuals that work at thumbnail scale.' },
+  { id: 22,  name: 'Vimeo Thumbnail',             category: 'Video & Content', unit:'px', w:1280, h:720,  ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'Vimeo audiences are design-savvy — invest in polished, cinematic thumbnail aesthetics for best results.' },
+  { id: 600, name: '16:9 Video Canvas (HD)',       category: 'Video & Content', unit:'px', w:1920, h:1080, ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'The universal HD video format. Used for YouTube, Vimeo, TV, and most streaming platforms. Export at H.264 or H.265.' },
+  { id: 601, name: '16:9 Video Canvas (4K)',       category: 'Video & Content', unit:'px', w:3840, h:2160, ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'4K is increasingly expected for premium content. Ensure all source assets are at least 4K to avoid upscaling blur.' },
+  { id: 602, name: '9:16 Vertical Video',          category: 'Video & Content', unit:'px', w:1080, h:1920, ratio:'9:16', colorMode:'RGB', type:'digital',
+    tip:'Vertical video dominates mobile-first platforms — TikTok, Reels, Shorts, Stories. Design for viewing without rotation.' },
+  { id: 603, name: '1:1 Square Video',             category: 'Video & Content', unit:'px', w:1080, h:1080, ratio:'1:1',  colorMode:'RGB', type:'digital',
+    tip:'Square video takes 78% more space in a mobile feed than landscape. Use for social ads to maximize screen presence.' },
+  { id: 604, name: '4:3 Standard Video',           category: 'Video & Content', unit:'px', w:1440, h:1080, ratio:'4:3',  colorMode:'RGB', type:'digital',
+    tip:'4:3 is a legacy broadcast format still used in presentations and older displays. Pillarbox when shown on 16:9 screens.' },
+  { id: 605, name: 'Facebook Video',               category: 'Video & Content', unit:'px', w:1280, h:720,  ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'Facebook autoplay muted in feed. Use text overlays and captions — 85% of Facebook video is watched without sound.' },
+  { id: 606, name: 'LinkedIn Video',               category: 'Video & Content', unit:'px', w:1920, h:1080, ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'LinkedIn video plays in-feed at 16:9. Add burned-in captions — LinkedIn audiences typically scroll silently.' },
+  { id: 607, name: 'Twitter/X Video',              category: 'Video & Content', unit:'px', w:1280, h:720,  ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'Twitter/X video plays inline in the feed. Hook viewers in the first 2 seconds — most watch only a few seconds before scrolling.' },
+
+  // ────────────────────────────────────────────────────────────────────────
   // WEB & UI
-  { id: 33, name: 'Website Banner (Full-width)', category: 'Web & UI', w: 1920, h: 600, ratio: '16:5', colorMode: 'RGB', tip: 'Design for 1920px but test at 1280px, 1440px, and mobile. Critical content should sit in the center 1280px.' },
-  { id: 34, name: 'Hero Section Image', category: 'Web & UI', w: 1440, h: 900, ratio: '16:10', colorMode: 'RGB', tip: 'Hero images should have focal points that work both centered and left-aligned for different layout contexts.' },
-  { id: 35, name: 'Blog Cover Image', category: 'Web & UI', w: 1600, h: 900, ratio: '16:9', colorMode: 'RGB', tip: 'Blog covers are shown at many sizes — ensure text is legible even at thumbnail scale (around 300px wide).' },
-  { id: 36, name: 'Email Header Banner', category: 'Web & UI', w: 600, h: 200, ratio: '3:1', colorMode: 'RGB', tip: 'Email clients vary — keep your email width at 600px max. Use alt text for all images in case images are blocked.' },
-  { id: 37, name: 'Open Graph / Social Preview', category: 'Web & UI', w: 1200, h: 630, ratio: '1.91:1', colorMode: 'RGB', tip: 'OG images appear when sharing links on social. Include your page title and branding for consistent unfurled previews.' },
-  { id: 38, name: 'Favicon', category: 'Web & UI', w: 32, h: 32, ratio: '1:1', colorMode: 'RGB', tip: 'Favicons are tiny — use a simple, high-contrast icon, not your full logo. Test at 16×16 to ensure readability.' },
-  { id: 39, name: 'App Icon (iOS)', category: 'Web & UI', w: 1024, h: 1024, ratio: '1:1', colorMode: 'RGB', tip: 'iOS clips app icons with a rounded rectangle. Keep key elements within the inner 90% of the canvas area.' },
-  { id: 40, name: 'App Icon (Android)', category: 'Web & UI', w: 1024, h: 1024, ratio: '1:1', colorMode: 'RGB', tip: 'Android uses adaptive icons — design with a centered 66% safe zone that works against any background.' },
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 33,  name: 'Website Banner (Full-width)',  category: 'Web & UI', unit:'px', w:1920, h:600,  ratio:'16:5',  colorMode:'RGB', type:'digital',
+    tip:'Design for 1920 px but test at 1280 px, 1440 px, and mobile. Critical content should sit in the center 1280 px.' },
+  { id: 34,  name: 'Hero Section Image',           category: 'Web & UI', unit:'px', w:1440, h:900,  ratio:'16:10', colorMode:'RGB', type:'digital',
+    tip:'Hero images should have focal points that work both centered and left-aligned for different layout contexts.' },
+  { id: 105, name: 'Landing Page Hero',            category: 'Web & UI', unit:'px', w:1440, h:800,  ratio:'9:5',   colorMode:'RGB', type:'digital',
+    tip:'Design your hero at 1440 px wide, but ensure it looks great at 1280 px and 375 px too. Use flexible, centered layouts.' },
+  { id: 106, name: 'Full-Width Website Banner',    category: 'Web & UI', unit:'px', w:1920, h:500,  ratio:'1.92:1',colorMode:'RGB', type:'digital',
+    tip:'Wide banners are usually background images. Use subtle, low-contrast imagery so foreground text stays readable.' },
+  { id: 35,  name: 'Blog Cover Image',             category: 'Web & UI', unit:'px', w:1600, h:900,  ratio:'16:9',  colorMode:'RGB', type:'digital',
+    tip:'Blog covers are shown at many sizes — ensure text is legible even at thumbnail scale (around 300 px wide).' },
+  { id: 36,  name: 'Email Header Banner',          category: 'Web & UI', unit:'px', w:600,  h:200,  ratio:'3:1',   colorMode:'RGB', type:'digital',
+    tip:'Email clients vary — keep your email width at 600 px max. Use alt text for all images in case images are blocked.' },
+  { id: 37,  name: 'Open Graph / Social Preview',  category: 'Web & UI', unit:'px', w:1200, h:630,  ratio:'1.91:1',colorMode:'RGB', type:'digital',
+    tip:'OG images appear when sharing links on social. Include your page title and branding for consistent unfurled previews.' },
+  { id: 38,  name: 'Favicon',                      category: 'Web & UI', unit:'px', w:32,   h:32,   ratio:'1:1',   colorMode:'RGB', type:'digital',
+    tip:'Favicons are tiny — use a simple, high-contrast icon, not your full logo. Test at 16×16 to ensure readability.' },
+  { id: 39,  name: 'App Icon (iOS)',                category: 'Web & UI', unit:'px', w:1024, h:1024, ratio:'1:1',   colorMode:'RGB', type:'digital',
+    tip:'iOS clips app icons with a rounded rectangle. Keep key elements within the inner 90% of the canvas area.' },
+  { id: 40,  name: 'App Icon (Android)',            category: 'Web & UI', unit:'px', w:1024, h:1024, ratio:'1:1',   colorMode:'RGB', type:'digital',
+    tip:'Android uses adaptive icons — design with a centered 66% safe zone that works against any background.' },
+  { id: 700, name: 'Website Header Image',          category: 'Web & UI', unit:'px', w:1200, h:400,  ratio:'3:1',   colorMode:'RGB', type:'digital',
+    tip:'Website header images often display differently across breakpoints. Design for a center-crop at mobile widths.' },
+  { id: 701, name: 'Google Display Ad — Leaderboard', category: 'Web & UI', unit:'px', w:728, h:90,   ratio:'8.09:1',colorMode:'RGB', type:'digital',
+    tip:'The leaderboard is one of the highest-traffic web ad slots. Keep text large, message simple — 3 seconds to read.' },
+  { id: 702, name: 'Google Display Ad — Rectangle', category: 'Web & UI', unit:'px', w:300, h:250,  ratio:'6:5',   colorMode:'RGB', type:'digital',
+    tip:'The 300×250 rectangle is the most widely used web ad unit. Works well on desktop and mobile placements.' },
+  { id: 703, name: 'Google Display Ad — Half Page', category: 'Web & UI', unit:'px', w:300, h:600,  ratio:'1:2',   colorMode:'RGB', type:'digital',
+    tip:'The half-page (300×600) ad has high visibility and large creative space. Use bold imagery and single-focus messaging.' },
+  { id: 704, name: 'Mobile App Splash Screen',      category: 'Web & UI', unit:'px', w:1290, h:2796, ratio:'19.5:9',colorMode:'RGB', type:'digital',
+    tip:'Design iPhone 14 Pro Max at 1290×2796 as your master — scale down for older devices. Keep it branded and brief.' },
+  { id: 705, name: 'Mobile Website Banner',         category: 'Web & UI', unit:'px', w:375,  h:200,  ratio:'1.88:1',colorMode:'RGB', type:'digital',
+    notes:'Common mobile viewport width — actual display varies by device.',
+    tip:'Design mobile banners for 375 px viewport. Keep text large and CTAs tap-friendly (min 44×44 px touch target).' },
 
-  // EMAIL
-  { id: 41, name: 'Email Newsletter Template', category: 'Email', w: 600, h: 800, ratio: '3:4', colorMode: 'RGB', tip: 'Email body content should be 600px wide max. Use web-safe fonts or Google Fonts with fallbacks for compatibility.' },
-  { id: 42, name: 'Email Banner Ad', category: 'Email', w: 600, h: 150, ratio: '4:1', colorMode: 'RGB', tip: 'Email ads need a strong CTA visible without scrolling. Design assumes images may be blocked — don\'t rely on them alone.' },
+  // ────────────────────────────────────────────────────────────────────────
+  // EMAIL & NEWSLETTER
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 41,  name: 'Email Newsletter Template',    category: 'Email & Newsletter', unit:'px', w:600,  h:800,  ratio:'3:4',  colorMode:'RGB', type:'digital',
+    tip:'Email body content should be 600 px wide max. Use web-safe fonts or Google Fonts with fallbacks for compatibility.' },
+  { id: 42,  name: 'Email Banner Ad',              category: 'Email & Newsletter', unit:'px', w:600,  h:150,  ratio:'4:1',  colorMode:'RGB', type:'digital',
+    tip:'Email ads need a strong CTA visible without scrolling. Design assumes images may be blocked — don\'t rely on them alone.' },
+  { id: 706, name: 'Email Footer Banner',          category: 'Email & Newsletter', unit:'px', w:600,  h:100,  ratio:'6:1',  colorMode:'RGB', type:'digital',
+    tip:'Email footers often include unsubscribe links and legal text. Keep the design minimal and not too promotional.' },
+  { id: 707, name: 'Email Signature Image',        category: 'Email & Newsletter', unit:'px', w:600,  h:150,  ratio:'4:1',  colorMode:'RGB', type:'digital',
+    tip:'Signature images should be < 100 KB. Design at 600 px wide and include alt text in case images are disabled.' },
+  { id: 708, name: 'Email Newsletter (Wide)',      category: 'Email & Newsletter', unit:'px', w:680,  h:900,  ratio:'0.76:1',colorMode:'RGB', type:'digital',
+    tip:'Some modern email clients support 680 px widths. Test thoroughly across Gmail, Outlook, and Apple Mail before sending.' },
 
+  // ────────────────────────────────────────────────────────────────────────
   // PRESENTATIONS
-  { id: 43, name: 'Presentation Slide (16:9)', category: 'Presentations', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'The standard widescreen format for modern presentations. Design at 1920×1080 for crispness on HD projectors and screens.' },
-  { id: 44, name: 'Presentation Slide (4:3)', category: 'Presentations', w: 1024, h: 768, ratio: '4:3', colorMode: 'RGB', tip: 'Classic presentation ratio. Still used for older projectors and conference rooms. Content-heavy slides work well here.' },
-  { id: 45, name: 'Google Slides', category: 'Presentations', w: 1280, h: 720, ratio: '16:9', colorMode: 'RGB', tip: 'Google Slides default is 1280×720px. Use master slides for consistent branding across your presentation deck.' },
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 43,  name: 'Presentation Slide (16:9)',    category: 'Presentations', unit:'px', w:1920, h:1080, ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'The standard widescreen format for modern presentations. Design at 1920×1080 for crispness on HD projectors and screens.' },
+  { id: 44,  name: 'Presentation Slide (4:3)',     category: 'Presentations', unit:'px', w:1024, h:768,  ratio:'4:3',  colorMode:'RGB', type:'digital',
+    tip:'Classic presentation ratio. Still used for older projectors and conference rooms. Content-heavy slides work well here.' },
+  { id: 45,  name: 'Google Slides (16:9)',         category: 'Presentations', unit:'px', w:1280, h:720,  ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'Google Slides default is 1280×720 px. Use master slides for consistent branding across your presentation deck.' },
+  { id: 709, name: 'PowerPoint (16:9)',            category: 'Presentations', unit:'px', w:1920, h:1080, ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'PowerPoint widescreen default. Export as PDF or PNG at 1920×1080 for sharing. Use vector graphics to avoid pixelation.' },
+  { id: 710, name: 'PowerPoint (4:3)',             category: 'Presentations', unit:'px', w:1024, h:768,  ratio:'4:3',  colorMode:'RGB', type:'digital',
+    tip:'Legacy PowerPoint ratio. Use when you know the venue has an older projector. Content-dense slides work well in this format.' },
+  { id: 711, name: 'Keynote (16:9)',               category: 'Presentations', unit:'px', w:1920, h:1080, ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'Keynote defaults to 1920×1080. Its animation and transition quality makes it ideal for live, polished presentations.' },
+  { id: 712, name: 'Presentation Background',      category: 'Presentations', unit:'px', w:1920, h:1080, ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'Design slide backgrounds with visual hierarchy in mind. Keep the upper-left area clear for slide titles.' },
 
-  // TIKTOK EXTRA
-  { id: 99,  name: 'TikTok Post (Feed)',   category: 'Social Media', w: 1080, h: 1350, ratio: '4:5',  colorMode: 'RGB', tip: 'TikTok feed images display at 4:5. For maximum real estate, use the tall format. Keep text away from edges.' },
-  { id: 100, name: 'TikTok Cover Photo',   category: 'Social Media', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'TikTok covers show as a still frame on your profile. Pick a frame or design one where your subject is clearly centered.' },
-  { id: 101, name: 'TikTok Profile Photo', category: 'Social Media', w: 200,  h: 200,  ratio: '1:1',  colorMode: 'RGB', tip: 'TikTok profile photos are circular. Keep your face or logo centered and leave plenty of breathing room at the edges.' },
-  // FACEBOOK EXTRA
-  { id: 102, name: 'Facebook Cover Photo (Page)', category: 'Social Media', w: 1640, h: 624, ratio: '2.63:1', colorMode: 'RGB', tip: 'Facebook Page covers display differently on desktop (820×312) vs mobile (640×360). Design for mobile crop first.' },
-  { id: 103, name: 'Facebook Event Cover', category: 'Social Media', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'Facebook event covers are cropped to 470×174px in listings. Put the event name in the center third.' },
-  // LINKEDIN EXTRA
-  { id: 104, name: 'LinkedIn Company Page Banner', category: 'Social Media', w: 1128, h: 191, ratio: '5.9:1', colorMode: 'RGB', tip: 'LinkedIn company banners are very wide and thin. Use a minimal, horizontal layout — avoid portrait-oriented elements.' },
-  // WEB EXTRAS
-  { id: 105, name: 'Landing Page Hero', category: 'Web & UI', w: 1440, h: 800, ratio: '9:5', colorMode: 'RGB', tip: 'Design your hero at 1440px wide, but ensure it looks great at 1280px and 375px too. Use flexible, centered layouts.' },
-  { id: 106, name: 'Full-Width Website Banner', category: 'Web & UI', w: 1920, h: 500, ratio: '1.92:1', colorMode: 'RGB', tip: 'Wide banners are usually background images. Use subtle, low-contrast imagery so foreground text stays readable.' },
+  // ────────────────────────────────────────────────────────────────────────
+  // STANDARD PRINT — A-SERIES (stored in mm)
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 300, name: 'A0 Poster',                    category: 'Standard Print', unit:'mm', w:841,  h:1189, ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:5,
+    tip:'A0 is a very large format. Always work at 300 DPI and use linked images rather than embedded to keep files manageable.' },
+  { id: 301, name: 'A1 Poster',                    category: 'Standard Print', unit:'mm', w:594,  h:841,  ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:5,
+    tip:'A1 is ideal for large retail posters and exhibition prints. Use vector graphics wherever possible for scalability.' },
+  { id: 302, name: 'A2 Poster',                    category: 'Standard Print', unit:'mm', w:420,  h:594,  ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'A2 is a common poster size for events and promotions. At 300 DPI the file size will be large — use PDF/X-1a for output.' },
+  { id: 303, name: 'A3 Poster',                    category: 'Standard Print', unit:'mm', w:297,  h:420,  ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'At 300 DPI, A3 is large. Ensure all images are high-resolution. Use vector graphics where possible to stay sharp.' },
+  { id: 304, name: 'A4 Document / Flyer',          category: 'Standard Print', unit:'mm', w:210,  h:297,  ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Work at 300 DPI for print quality. Add a 3 mm bleed on all sides and keep important content 5 mm from the trim edge.' },
+  { id: 305, name: 'A5 Flyer / Booklet',           category: 'Standard Print', unit:'mm', w:148,  h:210,  ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'A5 is half of A4 — great for handouts and inserts. Remember to use CMYK color mode for accurate print reproduction.' },
+  { id: 306, name: 'A6 Postcard',                  category: 'Standard Print', unit:'mm', w:105,  h:148,  ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'A6 is a popular postcard size. At 300 DPI: 1240×1748 px. Add 3 mm bleed. Keep key text 5 mm inside trim marks.' },
+  { id: 307, name: 'A7 Card',                      category: 'Standard Print', unit:'mm', w:74,   h:105,  ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:2,
+    tip:'A7 cards are used for invitations and thank-you notes. Keep designs simple — the small size limits text detail.' },
+  { id: 308, name: 'A8 Mini Card',                 category: 'Standard Print', unit:'mm', w:52,   h:74,   ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:2,
+    tip:'A8 is very small — typically used for coupons, loyalty cards, or mini stickers. Use large, bold text only.' },
 
-  // GAMING & STREAMING
-  { id: 46, name: 'Twitch Panel', category: 'Gaming & Streaming', w: 320, h: 160, ratio: '2:1', colorMode: 'RGB', tip: 'Twitch panels appear below your stream. Keep them simple and consistent for a professional channel look.' },
-  { id: 47, name: 'Twitch Offline Banner', category: 'Gaming & Streaming', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'Your offline banner is the first thing new visitors see. Make it eye-catching and include your schedule.' },
-  { id: 48, name: 'Discord Server Banner', category: 'Gaming & Streaming', w: 960, h: 540, ratio: '16:9', colorMode: 'RGB', tip: 'Discord banners are animated-friendly (GIF/MP4). A subtle animated banner makes your server feel alive.' },
-  { id: 49, name: 'Discord Server Icon', category: 'Gaming & Streaming', w: 512, h: 512, ratio: '1:1', colorMode: 'RGB', tip: 'Discord icons are displayed at tiny sizes. Use a single bold symbol or letter — avoid complex logos.' },
-  { id: 50, name: 'Steam Game Cover', category: 'Gaming & Streaming', w: 920, h: 430, ratio: '2.14:1', colorMode: 'RGB', tip: 'The Steam header capsule is your game\'s most seen image. Use dramatic lighting and bold title typography.' },
-  { id: 51, name: 'Steam Vertical Capsule', category: 'Gaming & Streaming', w: 600, h: 900, ratio: '2:3', colorMode: 'RGB', tip: 'Steam\'s vertical capsule appears in the store sidebar. Ensure the game title is readable at small sizes.' },
-  { id: 52, name: 'Itch.io Game Cover', category: 'Gaming & Streaming', w: 630, h: 500, ratio: '1.26:1', colorMode: 'RGB', tip: 'Itch.io covers appear on search and browse pages. Use contrasting colors that pop against the site background.' },
-  { id: 53, name: 'YouTube Gaming Thumbnail', category: 'Gaming & Streaming', w: 1280, h: 720, ratio: '16:9', colorMode: 'RGB', tip: 'Gaming thumbnails perform best with a reaction face, game title text, and a bold background. Contrast is key.' },
-  { id: 54, name: 'Xbox Achievement Icon', category: 'Gaming & Streaming', w: 1080, h: 1080, ratio: '1:1', colorMode: 'RGB', tip: 'Achievement icons should be instantly recognizable at 64×64px. Design for silhouette clarity first.' },
+  // US PAPER SIZES (stored in inches)
+  { id: 310, name: 'US Letter',                    category: 'Standard Print', unit:'in', w:8.5,  h:11,   ratio:'17:22', colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'The standard North American document size. At 300 DPI: 2550×3300 px. Standard bleed is 0.125 in (3.175 mm).' },
+  { id: 311, name: 'US Legal',                     category: 'Standard Print', unit:'in', w:8.5,  h:14,   ratio:'17:28', colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'US Legal is used for legal contracts and documents. Keep a 0.5 in margin on all sides for content safety.' },
+  { id: 312, name: 'US Tabloid / Ledger',          category: 'Standard Print', unit:'in', w:11,   h:17,   ratio:'11:17', colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Tabloid is double US Letter size. Popular for newspapers, posters, and large brochures. Add 0.125 in bleed.' },
+  { id: 313, name: 'US Executive',                 category: 'Standard Print', unit:'in', w:7.25, h:10.5, ratio:'29:42', colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Executive is slightly smaller than US Letter. Used in some corporate environments. Keep text well within margins.' },
+  { id: 314, name: 'US Half Letter / Statement',   category: 'Standard Print', unit:'in', w:5.5,  h:8.5,  ratio:'11:17', colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Half Letter is great for half-page flyers, notepads, and booklets. Easy to print by cutting US Letter in half.' },
 
+  // COMMON PRINT ITEMS (mixed mm / in)
+  { id: 320, name: 'Business Card (Standard US)',  category: 'Standard Print', unit:'in', w:3.5,  h:2,    ratio:'7:4',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Keep text 0.125 in from edges. Design within the 3.25×1.75 in safe area. Export as PDF with embedded fonts.' },
+  { id: 321, name: 'Business Card (EU Standard)',  category: 'Standard Print', unit:'mm', w:85,   h:55,   ratio:'17:11', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'EU standard is 85×55 mm. Add 3 mm bleed all sides. Keep key content 3 mm inside trim edge. Use CMYK for accurate colors.' },
+  { id: 322, name: 'Bookmark',                     category: 'Standard Print', unit:'in', w:2,    h:7,    ratio:'2:7',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Bookmarks are tall and narrow. Use vertical hierarchy — headline at top, design element center, URL at bottom.' },
+  { id: 323, name: 'ID Card (CR80 Standard)',      category: 'Standard Print', unit:'in', w:3.375,h:2.125,ratio:'CR80',  colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'CR80 is the ISO/IEC 7810 ID-1 standard (same as a credit card).',
+    tip:'CR80 is the global ID card standard. Corners are typically rounded (3.175 mm radius). Keep critical info 3 mm inside trim.' },
+  { id: 324, name: 'Greeting Card (A5 Landscape)', category: 'Standard Print', unit:'mm', w:210,  h:148,  ratio:'√2:1',  colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Greeting cards fold in half — design with a front panel (right half) and back panel (left half) in mind.' },
+  { id: 325, name: 'Sticker (3×3 in)',             category: 'Standard Print', unit:'in', w:3,    h:3,    ratio:'1:1',   colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Common size — custom sticker dimensions vary by printer.',
+    tip:'Sticker artwork often includes a white border "kiss-cut" area. Confirm bleed and dieline requirements with your printer.' },
+  { id: 326, name: 'Thank You Card (4×5 in)',      category: 'Standard Print', unit:'in', w:4,    h:5,    ratio:'4:5',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Thank you cards are typically unfolded singles. Keep back clean for handwriting space. Use premium paper stock.' },
+  { id: 327, name: 'Invitation Card (5×7 in)',     category: 'Standard Print', unit:'in', w:5,    h:7,    ratio:'5:7',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'5×7 is the most common invitation format. Pair with an A7 envelope. Add motif design from front on reverse.' },
+  { id: 328, name: 'Menu (A4 Portrait)',            category: 'Standard Print', unit:'mm', w:210,  h:297,  ratio:'1:√2',  colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Restaurant menus benefit from clear visual hierarchy. Use descriptive typography and high-contrast text for readability.' },
+  { id: 329, name: 'Compliment Slip (DL)',          category: 'Standard Print', unit:'mm', w:210,  h:99,   ratio:'70:33', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'DL compliment slips fit in a standard DL envelope. Keep your logo, tagline, and contact info clear and well-spaced.' },
+  { id: 330, name: 'Rack Card / DL Flyer',         category: 'Standard Print', unit:'mm', w:99,   h:210,  ratio:'33:70', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Rack cards fit in brochure displays and hotel lobbies. Portrait orientation — strong headline and image work best.' },
+  { id: 331, name: 'Door Hanger',                  category: 'Standard Print', unit:'in', w:3.5,  h:8.5,  ratio:'7:17',  colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Common size — varies by printer.',
+    tip:'Door hangers have a die-cut hole at the top. Keep the design area below the punch hole free of critical info.' },
+  { id: 332, name: 'Letterhead (US Letter)',        category: 'Standard Print', unit:'in', w:8.5,  h:11,   ratio:'17:22', colorMode:'CMYK', type:'print', bleed:0,
+    tip:'Letterheads are typically printed at home or office — avoid bleed unless professionally printed. Keep 1 in margins.' },
+  { id: 333, name: 'Postcard (4×6 in)',            category: 'Standard Print', unit:'in', w:6,    h:4,    ratio:'3:2',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Postcards are direct-mail staples. Add 0.125 in bleed. Leave the right half of the back for address and postage.' },
+  { id: 334, name: 'Postcard (5×7 in)',            category: 'Standard Print', unit:'in', w:7,    h:5,    ratio:'7:5',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Slightly larger than 4×6, ideal for promotional mailers. More space for offers, imagery, and contact details.' },
+  { id: 335, name: 'Flyer (Half Page US)',          category: 'Standard Print', unit:'in', w:5.5,  h:8.5,  ratio:'11:17', colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Half-page flyers are cost-effective — two print per Letter sheet. Great for events, promos, and announcements.' },
+  { id: 336, name: 'Square Flyer (5×5 in)',         category: 'Standard Print', unit:'in', w:5,    h:5,    ratio:'1:1',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Square flyers are visually distinctive. Good for social media previews too — design transfers well to Instagram square.' },
+  { id: 337, name: 'Calendar Page (US Letter)',     category: 'Standard Print', unit:'in', w:8.5,  h:11,   ratio:'17:22', colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Calendar pages need a clear grid. Use strong brand photography for the top image and ensure month grid is legible at small size.' },
+  { id: 338, name: 'Certificate (A4 Landscape)',    category: 'Standard Print', unit:'mm', w:297,  h:210,  ratio:'√2:1',  colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Certificates benefit from ornate borders, formal serif fonts, and gold/navy color schemes for a prestigious feel.' },
+  { id: 339, name: 'Bi-fold Brochure (A4)',         category: 'Standard Print', unit:'mm', w:420,  h:297,  ratio:'√2:1',  colorMode:'CMYK', type:'print', bleed:3,
+    tip:'A bi-fold brochure folds in half to A5. Design each half as a separate panel. Front, inside-left, inside-right, back.' },
+  { id: 340, name: 'Tri-fold Brochure (A4)',        category: 'Standard Print', unit:'mm', w:630,  h:297,  ratio:'2:1',   colorMode:'CMYK', type:'print', bleed:3,
+    tip:'A tri-fold divides into three 99 mm panels. The right panel is the cover. Design each panel to work independently.' },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // LARGE FORMAT & BANNERS (stored in feet, type:'large-format')
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 200, name: 'Banner 2 × 3 ft',              category: 'Large Format & Banners', unit:'ft', w:2,  h:3,  ratio:'2:3',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify exact specification with your printer.',
+    tip:'For small banners (under 3 ft), 200–300 DPI artwork is ideal. Use vinyl material for durability outdoors.' },
+  { id: 201, name: 'Banner 2 × 4 ft',              category: 'Large Format & Banners', unit:'ft', w:2,  h:4,  ratio:'1:2',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Good for vertical retractable displays or entrance signs. Keep text large and high-contrast for easy reading at distance.' },
+  { id: 202, name: 'Banner 3 × 5 ft',              category: 'Large Format & Banners', unit:'ft', w:3,  h:5,  ratio:'3:5',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Versatile banner size for both indoor and outdoor use. 150 DPI artwork is typically sufficient for this size.' },
+  { id: 203, name: 'Banner 3 × 6 ft',              category: 'Large Format & Banners', unit:'ft', w:3,  h:6,  ratio:'1:2',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Standard street-facing banner size. Hemmed and grommeted vinyl is the typical finish for outdoor use.' },
+  { id: 204, name: 'Banner 3 × 8 ft',              category: 'Large Format & Banners', unit:'ft', w:3,  h:8,  ratio:'3:8',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Tall and narrow — good for building-mounted or fence banners. Include only the most essential information.' },
+  { id: 205, name: 'Banner 4 × 6 ft',              category: 'Large Format & Banners', unit:'ft', w:4,  h:6,  ratio:'2:3',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'One of the most popular banner sizes. Great for trade shows, events, and storefronts. Use 150 DPI for large-format output.' },
+  { id: 206, name: 'Banner 4 × 8 ft',              category: 'Large Format & Banners', unit:'ft', w:4,  h:8,  ratio:'1:2',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Tall banner ideal for entrance gates and fences. Bold visuals with minimal text work best at this scale.' },
+  { id: 207, name: 'Banner 5 × 8 ft',              category: 'Large Format & Banners', unit:'ft', w:5,  h:8,  ratio:'5:8',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Good for storefronts and event perimeters. 150 DPI is adequate. Confirm grommet placement with your print vendor.' },
+  { id: 208, name: 'Banner 5 × 10 ft',             category: 'Large Format & Banners', unit:'ft', w:5,  h:10, ratio:'1:2',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Long horizontal banner suitable for fences, walls, and stage fronts. Design for wide viewing angle — keep content centered.' },
+  { id: 209, name: 'Banner 6 × 8 ft',              category: 'Large Format & Banners', unit:'ft', w:6,  h:8,  ratio:'3:4',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Common backdrop/banner size for photo opportunities and trade show walls. 100–150 DPI is adequate at this size.' },
+  { id: 210, name: 'Banner 6 × 10 ft',             category: 'Large Format & Banners', unit:'ft', w:6,  h:10, ratio:'3:5',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Large event banner. At 150 DPI: 10800×18000 px. Consider designing at a reduced scale (e.g., 1:4) to manage file size.' },
+  { id: 211, name: 'Banner 6 × 12 ft',             category: 'Large Format & Banners', unit:'ft', w:6,  h:12, ratio:'1:2',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Long narrow banner for fences, parking lots, and roadsides. Visibility from vehicles — keep text very large (min 6 in tall).' },
+  { id: 212, name: 'Backdrop 8 × 8 ft',            category: 'Large Format & Banners', unit:'ft', w:8,  h:8,  ratio:'1:1',   colorMode:'CMYK', type:'large-format',
+    notes:'Common photo booth / event backdrop size.',
+    tip:'8×8 ft is the most popular photo backdrop size. Ensure repeating pattern elements are tile-friendly if used as step-and-repeat.' },
+  { id: 213, name: 'Banner 8 × 10 ft',             category: 'Large Format & Banners', unit:'ft', w:8,  h:10, ratio:'4:5',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Large event banner. At 150 DPI this is 14400×18000 px. Always confirm required DPI and scale with your print vendor.' },
+  { id: 214, name: 'Banner 8 × 12 ft',             category: 'Large Format & Banners', unit:'ft', w:8,  h:12, ratio:'2:3',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Suitable for outdoor advertising and building facades. Design at 1:4 scale (24×36 in) and note scale in your file.' },
+  { id: 215, name: 'Banner 8 × 16 ft',             category: 'Large Format & Banners', unit:'ft', w:8,  h:16, ratio:'1:2',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Very large horizontal banner. Design at 1:4 scale. At 100 DPI: 9600×19200 px. Discuss DPI requirements with your vendor.' },
+  { id: 216, name: 'Banner 10 × 10 ft',            category: 'Large Format & Banners', unit:'ft', w:10, h:10, ratio:'1:1',   colorMode:'CMYK', type:'large-format',
+    notes:'Common trade show / event size.',
+    tip:'Square backdrop perfect for trade show booths and event stages. Usually printed on fabric or vinyl with pole pockets.' },
+  { id: 217, name: 'Banner 10 × 20 ft',            category: 'Large Format & Banners', unit:'ft', w:10, h:20, ratio:'1:2',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Large stage or event backdrop. Work at 1:4 scale (30×60 in canvas). Use vector artwork wherever possible.' },
+  { id: 218, name: 'Banner 10 × 30 ft',            category: 'Large Format & Banners', unit:'ft', w:10, h:30, ratio:'1:3',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Very long banner — used for building wraps, parade floats, and outdoor events. Design at 1:6 or 1:8 scale.' },
+  { id: 219, name: 'Banner 12 × 24 ft',            category: 'Large Format & Banners', unit:'ft', w:12, h:24, ratio:'1:2',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Large outdoor banner. At 100 DPI: 14400×28800 px. Always confirm bleed, DPI, and file format with your print vendor.' },
+  { id: 220, name: 'Banner 20 × 30 ft',            category: 'Large Format & Banners', unit:'ft', w:20, h:30, ratio:'2:3',   colorMode:'CMYK', type:'large-format',
+    notes:'Common size — verify with your printer.',
+    tip:'Billboard-scale banner. Design at 1:10 or 1:12 scale. At 1:10 scale: 24×36 in working canvas. 72–100 DPI typical.' },
+
+  // LARGE FORMAT PRODUCTS
+  { id: 223, name: 'Roll-up / Pull-up Banner',     category: 'Large Format & Banners', unit:'in', w:33.5, h:79.5, ratio:'~1:2.4', colorMode:'CMYK', type:'large-format',
+    notes:'Common size — dimensions vary by stand model. Always confirm exact size with your supplier.',
+    tip:'Roll-up banners retract into a base unit. Keep key content in the upper two-thirds — the bottom 10 in may be hidden by the stand.' },
+  { id: 224, name: 'X-Banner',                     category: 'Large Format & Banners', unit:'in', w:23.6, h:63,   ratio:'~1:2.7', colorMode:'CMYK', type:'large-format',
+    notes:'Common X-banner size (60×160 cm). Confirm exact size with your supplier.',
+    tip:'X-banners use an X-frame stand. Design must accommodate corner grommets at all four corners — keep key content central.' },
+  { id: 225, name: 'L-Banner',                     category: 'Large Format & Banners', unit:'in', w:23.6, h:63,   ratio:'~1:2.7', colorMode:'CMYK', type:'large-format',
+    notes:'Common size — confirm with your supplier.',
+    tip:'L-banners attach at top and bottom with a support arm. Similar design principles to roll-ups — keep content in the upper zone.' },
+  { id: 226, name: 'Step & Repeat Backdrop (8×8 ft)',   category: 'Large Format & Banners', unit:'ft', w:8,  h:8,  ratio:'1:1',  colorMode:'CMYK', type:'large-format',
+    tip:'Step-and-repeat patterns should have logos at consistent 18–24 in spacing. Test that logos are legible at 6 ft viewing distance.' },
+  { id: 227, name: 'Step & Repeat Backdrop (10×8 ft)',  category: 'Large Format & Banners', unit:'ft', w:10, h:8,  ratio:'5:4',  colorMode:'CMYK', type:'large-format',
+    tip:'Most event photo walls use 10×8 ft. Center the most prominent logo at eye level (~5 ft from ground).' },
+  { id: 228, name: 'Step & Repeat Backdrop (20×8 ft)',  category: 'Large Format & Banners', unit:'ft', w:20, h:8,  ratio:'5:2',  colorMode:'CMYK', type:'large-format',
+    tip:'Used for red carpet and press events. Logos should be placed at consistent intervals across the full width.' },
+  { id: 229, name: 'Photo Booth Backdrop (8×8 ft)',     category: 'Large Format & Banners', unit:'ft', w:8,  h:8,  ratio:'1:1',  colorMode:'CMYK', type:'large-format',
+    tip:'Photo booth backdrops need strong visual contrast so subjects stand out clearly in photos. Avoid busy small patterns.' },
+  { id: 230, name: 'Event Backdrop (10×8 ft)',          category: 'Large Format & Banners', unit:'ft', w:10, h:8,  ratio:'5:4',  colorMode:'CMYK', type:'large-format',
+    tip:'Keep branding elements within the center 8×8 ft — most event photos capture only the center area.' },
+  { id: 231, name: 'Billboard (US Standard 14×48 ft)',  category: 'Large Format & Banners', unit:'ft', w:48, h:14, ratio:'24:7', colorMode:'CMYK', type:'large-format',
+    notes:'Standard US bulletin billboard. Verify exact size with your outdoor advertising vendor.',
+    tip:'Billboards are read at 65+ mph. Use max 7 words, a single image, and no phone numbers. DPI at full size: 10–25 DPI typical.' },
+  { id: 232, name: 'Yard Sign (18×24 in)',          category: 'Large Format & Banners', unit:'in', w:18,  h:24,   ratio:'3:4',  colorMode:'CMYK', type:'large-format',
+    notes:'Common yard sign size — verify with your printer.',
+    tip:'Yard signs are read from moving vehicles. Use max 4 words in large bold fonts. Single-sided or double-sided H-stake mount.' },
+  { id: 233, name: 'A-Frame / Sandwich Board Sign', category: 'Large Format & Banners', unit:'in', w:24,  h:36,   ratio:'2:3',  colorMode:'CMYK', type:'large-format',
+    notes:'Common A-frame size — dimensions vary by frame manufacturer.',
+    tip:'A-frames are placed at ground level. Keep key content in the upper two-thirds. Use weather-resistant materials outdoors.' },
+  { id: 234, name: 'Trade Show Display (10×8 ft)',  category: 'Large Format & Banners', unit:'ft', w:10,  h:8,    ratio:'5:4',  colorMode:'CMYK', type:'large-format',
+    notes:'Standard 10×10 ft booth backdrop. Confirm your exact frame size with your display vendor.',
+    tip:'Trade show displays compete with neighboring booths. Use your brand colors boldly and ensure your name/logo is visible from 30 ft.' },
+  { id: 235, name: 'Media Wall (10×8 ft)',          category: 'Large Format & Banners', unit:'ft', w:10,  h:8,    ratio:'5:4',  colorMode:'CMYK', type:'large-format',
+    tip:'Media walls for press events should have logos tiled at consistent spacing. Test photo angles before the event.' },
+  { id: 236, name: 'Red Carpet / VIP Backdrop',    category: 'Large Format & Banners', unit:'ft', w:8,   h:8,    ratio:'1:1',  colorMode:'CMYK', type:'large-format',
+    notes:'Size varies by event — 8×8 ft and 10×8 ft are most common. Confirm with your event planner.',
+    tip:'Red carpet backdrops must photograph well under bright event lighting. Test logos for flare and glare before printing.' },
+  { id: 237, name: 'Outdoor Vinyl Banner (4×8 ft)', category: 'Large Format & Banners', unit:'ft', w:4,   h:8,    ratio:'1:2',  colorMode:'CMYK', type:'large-format',
+    notes:'Common outdoor banner size — verify with your printer.',
+    tip:'Outdoor vinyl should be 13 oz or 18 oz material. Include wind pockets or mesh perforation for windy locations.' },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // EVENTS & BRANDING
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 400, name: 'Event Ticket',                  category: 'Events & Branding', unit:'in', w:5.5,  h:2,    ratio:'11:4',  colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Common event ticket size — dimensions vary.',
+    tip:'Tickets need a stub perforated at ~1.5 in from the left. Include barcode/QR, event name, date, time, and seat info clearly.' },
+  { id: 401, name: 'Wristband (Paper / Tyvek)',     category: 'Events & Branding', unit:'in', w:10,   h:1,    ratio:'10:1',  colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Standard Tyvek wristband size — verify with your supplier.',
+    tip:'Wristbands are worn and stretched — keep designs simple and bold. Tyvek material is water-resistant and tear-resistant.' },
+  { id: 402, name: 'Name Badge / Tag (4×3 in)',     category: 'Events & Branding', unit:'in', w:4,    h:3,    ratio:'4:3',   colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Common badge size — varies by badge holder.',
+    tip:'Name badges need large, readable text — minimum 18 pt for names. Keep the visual hierarchy: name most prominent, then role.' },
+  { id: 403, name: 'Table Tent Card',               category: 'Events & Branding', unit:'in', w:4,    h:6,    ratio:'2:3',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Table tents fold to stand upright. Design both front and back panels. Keep info concise — menus, offers, or QR codes work well.' },
+  { id: 404, name: 'Lanyard ID Card',               category: 'Events & Branding', unit:'in', w:4,    h:6,    ratio:'2:3',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Lanyard cards are viewed at chest height — ensure name and role are large enough to read from 2 ft away.' },
+  { id: 405, name: 'Gift Voucher',                  category: 'Events & Branding', unit:'in', w:7,    h:3.5,  ratio:'2:1',   colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Common size — dimensions vary by brand.',
+    tip:'Gift vouchers benefit from premium paper stock and a unique code or serial number. Include clear expiry date and T&Cs.' },
+  { id: 406, name: 'VIP / Loyalty Card',            category: 'Events & Branding', unit:'in', w:3.5,  h:2,    ratio:'7:4',   colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'VIP cards use the same CR80 dimensions as credit cards. Premium finishes (soft-touch, foil, embossing) add perceived value.' },
+  { id: 407, name: 'T-Shirt Print — Back',          category: 'Events & Branding', unit:'in', w:12,   h:14,   ratio:'6:7',   colorMode:'CMYK', type:'print', bleed:0,
+    notes:'Common full-back print area — varies by garment and printer.',
+    tip:'Garment printing areas vary — always request print template from your garment supplier. Design at 300 DPI minimum.' },
+  { id: 408, name: 'T-Shirt Print — Front Chest',   category: 'Events & Branding', unit:'in', w:4,    h:4,    ratio:'1:1',   colorMode:'CMYK', type:'print', bleed:0,
+    notes:'Common left-chest logo size — varies by garment and printer.',
+    tip:'Left-chest logos are typically 3–4 in wide. Keep the design simple and ensure it reads well at 4 in size.' },
+  { id: 409, name: 'Event Programme (A5)',           category: 'Events & Branding', unit:'mm', w:148,  h:210,  ratio:'1:√2',  colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Event programmes unfold — design as folded A5 booklets. Use consistent typography and include a clear running order.' },
+  { id: 410, name: 'Award Plaque / Certificate',    category: 'Events & Branding', unit:'in', w:8.5,  h:11,   ratio:'17:22', colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Common size — dimensions vary widely.',
+    tip:'Award designs should exude prestige. Use formal serif fonts, premium color palettes (gold, navy, black), and elegant layout.' },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // DOCUMENTS & OFFICE
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 84,  name: 'Resume / CV (US Letter)',        category: 'Documents & Office', unit:'px', w:2550, h:3300, ratio:'17:22', colorMode:'RGB',  type:'digital',
+    tip:'Design resumes at 300 DPI for print quality. Keep margins 0.5 in minimum and use PDF export for distribution.' },
+  { id: 85,  name: 'Resume / CV (A4)',               category: 'Documents & Office', unit:'px', w:2480, h:3508, ratio:'1:√2',  colorMode:'RGB',  type:'digital',
+    tip:'A4 is the global standard outside North America. Single-page resumes perform better for most roles under 10 years experience.' },
+  { id: 86,  name: 'Invoice Template',               category: 'Documents & Office', unit:'px', w:2550, h:3300, ratio:'17:22', colorMode:'RGB',  type:'digital',
+    tip:'Keep invoice layouts clean: company info top-right, bill-to top-left, line items center, totals bottom-right.' },
+  { id: 87,  name: 'Certificate (Landscape)',        category: 'Documents & Office', unit:'px', w:3300, h:2550, ratio:'22:17', colorMode:'CMYK', type:'print',
+    tip:'Certificates benefit from ornate borders, formal serif fonts, and gold/navy color schemes for a prestigious feel.' },
+  { id: 450, name: 'Report Cover (US Letter)',       category: 'Documents & Office', unit:'in', w:8.5,  h:11,   ratio:'17:22', colorMode:'CMYK', type:'print', bleed:0.125,
+    tip:'Report covers set the tone for your document. Use company branding consistently and include title, subtitle, date.' },
+  { id: 451, name: 'Proposal Document (A4)',         category: 'Documents & Office', unit:'mm', w:210,  h:297,  ratio:'1:√2',  colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Proposals should be well-structured with a clear hierarchy. Use consistent typography and a branded color palette throughout.' },
+  { id: 452, name: 'Workbook / Booklet (A5)',        category: 'Documents & Office', unit:'mm', w:148,  h:210,  ratio:'1:√2',  colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Workbooks are typically saddle-stitched. Design page spreads (left and right pages together) for consistent inner margins.' },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // PACKAGING (custom/manufacturer-dependent)
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 500, name: 'Product Label (Custom)',         category: 'Packaging', unit:'mm', w:100,  h:60,   ratio:'5:3',  colorMode:'CMYK', type:'packaging', custom:true,
+    notes:'Custom/manufacturer-dependent — always obtain a dieline from your label printer before designing.',
+    tip:'Label dimensions vary by product and printer. Request the exact dieline/template from your supplier. Work within their bleed and safe-zone specs.' },
+  { id: 501, name: 'Bottle Label — Wrap-around',    category: 'Packaging', unit:'mm', w:200,  h:80,   ratio:'5:2',  colorMode:'CMYK', type:'packaging', custom:true,
+    notes:'Custom — dimensions vary by bottle size and shape. Always obtain the specific dieline from your label supplier.',
+    tip:'Wrap-around labels need to account for bottle curvature. Print suppliers provide specific templates — never design from estimates.' },
+  { id: 502, name: 'Jar Label (Standard)',           category: 'Packaging', unit:'mm', w:120,  h:80,   ratio:'3:2',  colorMode:'CMYK', type:'packaging', custom:true,
+    notes:'Custom — varies by jar manufacturer and size. Obtain the exact specification from your jar supplier.',
+    tip:'Jar labels must account for the curved surface. Front and back panels need exact dielines. Confirm all bleed requirements.' },
+  { id: 503, name: 'Food Packaging (Custom)',        category: 'Packaging', unit:'mm', w:150,  h:100,  ratio:'3:2',  colorMode:'CMYK', type:'packaging', custom:true,
+    notes:'Custom/manufacturer-dependent — dimensions vary widely by product. Request the dieline from your packaging supplier.',
+    tip:'Food packaging must comply with food safety regulations including font size requirements for ingredients and allergen labelling.' },
+  { id: 504, name: 'Paper Bag (Custom)',             category: 'Packaging', unit:'mm', w:250,  h:320,  ratio:'25:32',colorMode:'CMYK', type:'packaging', custom:true,
+    notes:'Custom — bag sizes vary. Request flat dieline from your supplier for accurate artwork setup.',
+    tip:'Bag artwork wraps around. Request a 3D preview from your printer before final sign-off. Ensure handles area is accounted for.' },
+  { id: 505, name: 'Product Box (Custom)',           category: 'Packaging', unit:'mm', w:300,  h:200,  ratio:'3:2',  colorMode:'CMYK', type:'packaging', custom:true,
+    notes:'Custom/manufacturer-dependent — box dimensions vary entirely by product. Always obtain the flat dieline from your box manufacturer.',
+    tip:'Box artwork is a flat dieline that folds into a 3D form. Never design a box without the manufacturer\'s exact structural template.' },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // MARKETING & ADVERTISING
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 63,  name: 'Google Display Ad — Leaderboard', category: 'Marketing & Advertising', unit:'px', w:728, h:90,   ratio:'8.09:1', colorMode:'RGB', type:'digital',
+    tip:'The leaderboard is one of the highest-traffic ad slots. Keep text large and CTA minimal — 3 seconds to read.' },
+  { id: 64,  name: 'Google Display Ad — Rectangle', category: 'Marketing & Advertising', unit:'px', w:300, h:250,  ratio:'6:5',   colorMode:'RGB', type:'digital',
+    tip:'The 300×250 rectangle is the most widely used web ad unit. Design works well across desktop and mobile placements.' },
+  { id: 65,  name: 'Google Display Ad — Half Page', category: 'Marketing & Advertising', unit:'px', w:300, h:600,  ratio:'1:2',   colorMode:'RGB', type:'digital',
+    tip:'The half-page (300×600) ad has high visibility and large creative space. Use bold imagery and single-focus messaging.' },
+  { id: 66,  name: 'Google Display Ad — Billboard', category: 'Marketing & Advertising', unit:'px', w:970, h:250,  ratio:'3.88:1',colorMode:'RGB', type:'digital',
+    tip:'Billboard ads appear at the top of pages above the fold. Horizontal composition with left-to-right reading flow works best.' },
+  { id: 67,  name: 'Instagram Ad (Feed)',            category: 'Marketing & Advertising', unit:'px', w:1080, h:1080, ratio:'1:1',  colorMode:'RGB', type:'digital',
+    tip:'Instagram feed ads blend with organic content. Avoid overly "ad-like" designs — native-style images perform better.' },
+  { id: 68,  name: 'Facebook Ad — Stories',          category: 'Marketing & Advertising', unit:'px', w:1080, h:1920, ratio:'9:16', colorMode:'RGB', type:'digital',
+    tip:'Stories ads take over the full screen. Use motion if possible — video Stories ads see 3× more engagement.' },
+  { id: 69,  name: 'LinkedIn Sponsored Content',    category: 'Marketing & Advertising', unit:'px', w:1200, h:628,  ratio:'1.91:1',colorMode:'RGB', type:'digital',
+    tip:'LinkedIn ads reach professionals — use data-driven headlines and industry-specific language for best CTR.' },
+  { id: 70,  name: 'YouTube Video Ad',               category: 'Marketing & Advertising', unit:'px', w:1920, h:1080, ratio:'16:9', colorMode:'RGB', type:'digital',
+    tip:'For skippable ads, put your brand and core message in the first 5 seconds before viewers can skip.' },
+  { id: 800, name: 'Promotional Flyer (A5)',         category: 'Marketing & Advertising', unit:'mm', w:148,  h:210, ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Promotional flyers need a strong single message — use the 3-second rule: headline, image, CTA must register instantly.' },
+  { id: 801, name: 'Coupon / Voucher',               category: 'Marketing & Advertising', unit:'in', w:3.66, h:2,  ratio:'~1.83:1',colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Common coupon size (1/3 of US Letter width). Dimensions vary.',
+    tip:'Coupons need clear expiry dates, T&Cs, and a unique code or barcode. Ensure barcode will scan at the print size.' },
+  { id: 802, name: 'Magazine Ad (Full Page)',        category: 'Marketing & Advertising', unit:'in', w:8.375,h:10.875,ratio:'~3:4',colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Common full-page magazine trim size — always request the publication\'s exact specs and bleed requirements.',
+    tip:'Magazine ads should bleed to trim edges. Request exact specs from the publication — trim, bleed, and live area all vary.' },
+  { id: 803, name: 'Magazine Ad (Half Page)',        category: 'Marketing & Advertising', unit:'in', w:7.875,h:5.125,ratio:'~3:2',colorMode:'CMYK', type:'print', bleed:0.125,
+    notes:'Common half-page magazine size — request exact specs from the publication.',
+    tip:'Half-page ads compete for attention in a busy spread. Use a strong focal point and clear, simple headline.' },
+  { id: 804, name: 'Newspaper Ad (Half Page)',       category: 'Marketing & Advertising', unit:'in', w:10.25,h:10.75,ratio:'~1:1',colorMode:'CMYK', type:'print', bleed:0,
+    notes:'Broadsheet newspaper half-page — dimensions vary significantly by publication. Always request column specs from the newspaper.',
+    tip:'Newspaper printing has lower resolution than commercial print. Use bold, high-contrast designs and avoid fine details.' },
+  { id: 805, name: 'Product Catalogue Page (A4)',   category: 'Marketing & Advertising', unit:'mm', w:210,  h:297, ratio:'1:√2', colorMode:'CMYK', type:'print', bleed:3,
+    tip:'Catalogue pages should balance product images with pricing and specifications. Use a modular grid for consistency across pages.' },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // GAMING & STREAMING (keep existing)
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 23,  name: 'Twitch Profile Banner',         category: 'Gaming & Streaming', unit:'px', w:1920, h:480,  ratio:'4:1',   colorMode:'RGB', type:'digital',
+    tip:'Twitch banners are ultrawide and often partially cropped. Put your channel name and key art in the center strip.' },
+  { id: 46,  name: 'Twitch Panel',                  category: 'Gaming & Streaming', unit:'px', w:320,  h:160,  ratio:'2:1',   colorMode:'RGB', type:'digital',
+    tip:'Twitch panels appear below your stream. Keep them simple and consistent for a professional channel look.' },
+  { id: 47,  name: 'Twitch Offline Banner',         category: 'Gaming & Streaming', unit:'px', w:1920, h:1080, ratio:'16:9',  colorMode:'RGB', type:'digital',
+    tip:'Your offline banner is the first thing new visitors see. Make it eye-catching and include your schedule.' },
+  { id: 48,  name: 'Discord Server Banner',         category: 'Gaming & Streaming', unit:'px', w:960,  h:540,  ratio:'16:9',  colorMode:'RGB', type:'digital',
+    tip:'Discord banners are animated-friendly (GIF/MP4). A subtle animated banner makes your server feel alive.' },
+  { id: 49,  name: 'Discord Server Icon',           category: 'Gaming & Streaming', unit:'px', w:512,  h:512,  ratio:'1:1',   colorMode:'RGB', type:'digital',
+    tip:'Discord icons are displayed at tiny sizes. Use a single bold symbol or letter — avoid complex logos.' },
+  { id: 50,  name: 'Steam Game Cover',              category: 'Gaming & Streaming', unit:'px', w:920,  h:430,  ratio:'2.14:1',colorMode:'RGB', type:'digital',
+    tip:'The Steam header capsule is your game\'s most seen image. Use dramatic lighting and bold title typography.' },
+  { id: 51,  name: 'Steam Vertical Capsule',        category: 'Gaming & Streaming', unit:'px', w:600,  h:900,  ratio:'2:3',   colorMode:'RGB', type:'digital',
+    tip:'Steam\'s vertical capsule appears in the store sidebar. Ensure the game title is readable at small sizes.' },
+  { id: 52,  name: 'Itch.io Game Cover',            category: 'Gaming & Streaming', unit:'px', w:630,  h:500,  ratio:'1.26:1',colorMode:'RGB', type:'digital',
+    tip:'Itch.io covers appear on search and browse pages. Use contrasting colors that pop against the site background.' },
+  { id: 53,  name: 'YouTube Gaming Thumbnail',      category: 'Gaming & Streaming', unit:'px', w:1280, h:720,  ratio:'16:9',  colorMode:'RGB', type:'digital',
+    tip:'Gaming thumbnails perform best with a reaction face, game title text, and a bold background. Contrast is key.' },
+
+  // ────────────────────────────────────────────────────────────────────────
   // E-COMMERCE
-  { id: 55, name: 'Amazon Product Image', category: 'E-Commerce', w: 2000, h: 2000, ratio: '1:1', colorMode: 'RGB', tip: 'Amazon requires a pure white background for main product images. Use 2000px minimum to enable zoom.' },
-  { id: 56, name: 'Shopify Product Image', category: 'E-Commerce', w: 2048, h: 2048, ratio: '1:1', colorMode: 'RGB', tip: 'Consistent square product images create a clean, professional storefront grid. Use consistent backgrounds.' },
-  { id: 57, name: 'Etsy Listing Photo', category: 'E-Commerce', w: 2700, h: 2025, ratio: '4:3', colorMode: 'RGB', tip: 'Etsy crops listing thumbnails to square. Keep your product centered. Lifestyle shots outperform plain white.' },
-  { id: 58, name: 'Etsy Shop Banner', category: 'E-Commerce', w: 3360, h: 840, ratio: '4:1', colorMode: 'RGB', tip: 'The Etsy shop banner is ultrawide. Design the center 1200px as your primary focus area for all devices.' },
-  { id: 59, name: 'WooCommerce Product Image', category: 'E-Commerce', w: 800, h: 800, ratio: '1:1', colorMode: 'RGB', tip: 'WooCommerce themes vary, but square products work best universally. Enable lightbox for detail views.' },
-  { id: 60, name: 'eBay Listing Image', category: 'E-Commerce', w: 1600, h: 1600, ratio: '1:1', colorMode: 'RGB', tip: 'eBay recommends 1600px+ for best zoom quality. Avoid borders, watermarks, or text over images.' },
-  { id: 61, name: 'Product Infographic', category: 'E-Commerce', w: 800, h: 2000, ratio: '2:5', colorMode: 'RGB', tip: 'Vertical infographic images rank well in Amazon and Pinterest search. Use a clear visual hierarchy and bold headlines.' },
-  { id: 62, name: 'Shopify Email Banner', category: 'E-Commerce', w: 600, h: 200, ratio: '3:1', colorMode: 'RGB', tip: 'E-commerce email headers should be 600px wide. Keep CTA above the fold and repeat it as a text link below.' },
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 55,  name: 'Amazon Product Image',          category: 'E-Commerce', unit:'px', w:2000, h:2000, ratio:'1:1',   colorMode:'RGB', type:'digital',
+    tip:'Amazon requires a pure white background for main product images. Use 2000 px minimum to enable zoom.' },
+  { id: 56,  name: 'Shopify Product Image',         category: 'E-Commerce', unit:'px', w:2048, h:2048, ratio:'1:1',   colorMode:'RGB', type:'digital',
+    tip:'Consistent square product images create a clean, professional storefront grid. Use consistent backgrounds.' },
+  { id: 57,  name: 'Etsy Listing Photo',            category: 'E-Commerce', unit:'px', w:2700, h:2025, ratio:'4:3',   colorMode:'RGB', type:'digital',
+    tip:'Etsy crops listing thumbnails to square. Keep your product centered. Lifestyle shots outperform plain white.' },
+  { id: 58,  name: 'Etsy Shop Banner',              category: 'E-Commerce', unit:'px', w:3360, h:840,  ratio:'4:1',   colorMode:'RGB', type:'digital',
+    tip:'The Etsy shop banner is ultrawide. Design the center 1200 px as your primary focus area for all devices.' },
+  { id: 59,  name: 'WooCommerce Product Image',     category: 'E-Commerce', unit:'px', w:800,  h:800,  ratio:'1:1',   colorMode:'RGB', type:'digital',
+    tip:'WooCommerce themes vary, but square products work best universally. Enable lightbox for detail views.' },
+  { id: 60,  name: 'eBay Listing Image',            category: 'E-Commerce', unit:'px', w:1600, h:1600, ratio:'1:1',   colorMode:'RGB', type:'digital',
+    tip:'eBay recommends 1600 px+ for best zoom quality. Avoid borders, watermarks, or text over images.' },
 
-  // ADVERTISING
-  { id: 63, name: 'Google Display Ad — Leaderboard', category: 'Advertising', w: 728, h: 90, ratio: '8.09:1', colorMode: 'RGB', tip: 'The leaderboard is one of the highest-traffic ad slots. Keep text large and CTA minimal — 3 seconds to read.' },
-  { id: 64, name: 'Google Display Ad — Rectangle', category: 'Advertising', w: 300, h: 250, ratio: '6:5', colorMode: 'RGB', tip: 'The 300×250 rectangle is the most widely used web ad unit. Design works well across desktop and mobile placements.' },
-  { id: 65, name: 'Google Display Ad — Half Page', category: 'Advertising', w: 300, h: 600, ratio: '1:2', colorMode: 'RGB', tip: 'The half-page (300×600) ad has high visibility and large creative space. Use bold imagery and single-focus messaging.' },
-  { id: 66, name: 'Google Display Ad — Billboard', category: 'Advertising', w: 970, h: 250, ratio: '3.88:1', colorMode: 'RGB', tip: 'Billboard ads appear at the top of pages above the fold. Horizontal composition with left-to-right reading flow works best.' },
-  { id: 67, name: 'Instagram Ad (Feed)', category: 'Advertising', w: 1080, h: 1080, ratio: '1:1', colorMode: 'RGB', tip: 'Instagram feed ads blend with organic content. Avoid overly "ad-like" designs — native-style images perform better.' },
-  { id: 68, name: 'Facebook Ad — Stories', category: 'Advertising', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Stories ads take over the full screen. Use motion if possible — video Stories ads see 3× more engagement.' },
-  { id: 69, name: 'LinkedIn Sponsored Content', category: 'Advertising', w: 1200, h: 628, ratio: '1.91:1', colorMode: 'RGB', tip: 'LinkedIn ads reach professionals — use data-driven headlines and industry-specific language for best CTR.' },
-  { id: 70, name: 'YouTube Video Ad', category: 'Advertising', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'For skippable ads, put your brand and core message in the first 5 seconds before viewers can skip.' },
-
+  // ────────────────────────────────────────────────────────────────────────
   // PODCAST & AUDIO
-  { id: 71, name: 'Podcast Cover Art', category: 'Podcast & Audio', w: 3000, h: 3000, ratio: '1:1', colorMode: 'RGB', tip: 'Apple Podcasts requires minimum 1400×1400px. Design at 3000px for future-proofing. Text must be readable at 55px.' },
-  { id: 72, name: 'Spotify Podcast Cover', category: 'Podcast & Audio', w: 3000, h: 3000, ratio: '1:1', colorMode: 'RGB', tip: 'Spotify shows podcast art at very small sizes in most views. Test legibility at 60×60px before publishing.' },
-  { id: 73, name: 'SoundCloud Banner', category: 'Podcast & Audio', w: 2480, h: 520, ratio: '4.77:1', colorMode: 'RGB', tip: 'SoundCloud banners are cropped on mobile to a square crop from the left. Put key content in the left-center area.' },
-  { id: 74, name: 'Podcast Episode Thumbnail', category: 'Podcast & Audio', w: 1280, h: 720, ratio: '16:9', colorMode: 'RGB', tip: 'Episode thumbnails appear in video podcast feeds (YouTube, Spotify). Include episode number and guest name clearly.' },
-  { id: 75, name: 'Spotify Canvas (Loop)', category: 'Podcast & Audio', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Spotify Canvas is a looping visual that plays behind a track. Keep it abstract and atmospheric — 3–8 second loops work best.' },
-  { id: 76, name: 'Apple Music Artist Image', category: 'Podcast & Audio', w: 1200, h: 1200, ratio: '1:1', colorMode: 'RGB', tip: 'Artist images should be clean, high-resolution photography. Avoid text or logos — Apple may reject those images.' },
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 71,  name: 'Podcast Cover Art',             category: 'Podcast & Audio', unit:'px', w:3000, h:3000, ratio:'1:1',  colorMode:'RGB', type:'digital',
+    tip:'Apple Podcasts requires minimum 1400×1400 px. Design at 3000 px for future-proofing. Text must be readable at 55 px.' },
+  { id: 72,  name: 'Spotify Podcast Cover',         category: 'Podcast & Audio', unit:'px', w:3000, h:3000, ratio:'1:1',  colorMode:'RGB', type:'digital',
+    tip:'Spotify shows podcast art at very small sizes in most views. Test legibility at 60×60 px before publishing.' },
+  { id: 73,  name: 'SoundCloud Banner',             category: 'Podcast & Audio', unit:'px', w:2480, h:520,  ratio:'4.77:1',colorMode:'RGB', type:'digital',
+    tip:'SoundCloud banners are cropped on mobile to a square crop from the left. Put key content in the left-center area.' },
 
+  // ────────────────────────────────────────────────────────────────────────
   // MOBILE & APP
-  { id: 77, name: 'iOS Splash Screen', category: 'Mobile & App', w: 1290, h: 2796, ratio: '19.5:9', colorMode: 'RGB', tip: 'Design iPhone 14 Pro Max at 1290×2796 as your master — scale down for older devices. Keep it branded and brief.' },
-  { id: 78, name: 'Android Splash Screen', category: 'Mobile & App', w: 1080, h: 2400, ratio: '20:9', colorMode: 'RGB', tip: 'Android splash screens vary by device. Use a centered logo on a solid brand color for the safest cross-device result.' },
-  { id: 79, name: 'App Store Screenshot (iOS)', category: 'Mobile & App', w: 1290, h: 2796, ratio: '19.5:9', colorMode: 'RGB', tip: 'App Store screenshots are your sales pitch. Show the core feature in the first screenshot with a bold headline.' },
-  { id: 80, name: 'Google Play Screenshot', category: 'Mobile & App', w: 1080, h: 1920, ratio: '9:16', colorMode: 'RGB', tip: 'Play Store screenshots display at small sizes in search results. Use clear UI mockups with descriptive captions above.' },
-  { id: 81, name: 'App Store Feature Graphic', category: 'Mobile & App', w: 1024, h: 500, ratio: '2.05:1', colorMode: 'RGB', tip: 'The Google Play feature graphic is the large banner at the top of your store listing. Bold, clean branding works best.' },
-  { id: 82, name: 'Mobile Push Notification Image', category: 'Mobile & App', w: 1440, h: 720, ratio: '2:1', colorMode: 'RGB', tip: 'Push notification images appear at very small sizes. Use a single strong visual element and no text in the image itself.' },
-  { id: 83, name: 'Apple Watch Face', category: 'Mobile & App', w: 396, h: 484, ratio: '0.82:1', colorMode: 'RGB', tip: 'Watch faces need extreme simplicity. Design for 44mm case. Only essential information should be visible at a glance.' },
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 77,  name: 'iOS Splash Screen',             category: 'Mobile & App', unit:'px', w:1290, h:2796, ratio:'19.5:9',colorMode:'RGB', type:'digital',
+    tip:'Design iPhone 14 Pro Max at 1290×2796 as your master — scale down for older devices. Keep it branded and brief.' },
+  { id: 78,  name: 'Android Splash Screen',         category: 'Mobile & App', unit:'px', w:1080, h:2400, ratio:'20:9',  colorMode:'RGB', type:'digital',
+    tip:'Android splash screens vary by device. Use a centered logo on a solid brand color for the safest cross-device result.' },
+  { id: 79,  name: 'App Store Screenshot (iOS)',    category: 'Mobile & App', unit:'px', w:1290, h:2796, ratio:'19.5:9',colorMode:'RGB', type:'digital',
+    tip:'App Store screenshots are your sales pitch. Show the core feature in the first screenshot with a bold headline.' },
+  { id: 80,  name: 'Google Play Screenshot',        category: 'Mobile & App', unit:'px', w:1080, h:1920, ratio:'9:16',  colorMode:'RGB', type:'digital',
+    tip:'Play Store screenshots display at small sizes in search results. Use clear UI mockups with descriptive captions above.' },
+  { id: 81,  name: 'App Store Feature Graphic',     category: 'Mobile & App', unit:'px', w:1024, h:500,  ratio:'2.05:1',colorMode:'RGB', type:'digital',
+    tip:'The Google Play feature graphic is the large banner at the top of your store listing. Bold, clean branding works best.' },
 
-  // DOCUMENT & RESUME
-  { id: 84, name: 'Resume / CV (US Letter)', category: 'Documents', w: 2550, h: 3300, ratio: '17:22', colorMode: 'RGB', tip: 'Design resumes at 300 DPI for print quality. Keep margins 0.5in minimum and use PDF export for distribution.' },
-  { id: 85, name: 'Resume / CV (A4)', category: 'Documents', w: 2480, h: 3508, ratio: '√2:1', colorMode: 'RGB', tip: 'A4 is the global standard outside North America. Single-page resumes perform better for most roles under 10 years experience.' },
-  { id: 86, name: 'Invoice Template', category: 'Documents', w: 2550, h: 3300, ratio: '17:22', colorMode: 'RGB', tip: 'Keep invoice layouts clean: company info top-right, bill-to top-left, line items center, totals bottom-right.' },
-  { id: 87, name: 'Certificate (Landscape)', category: 'Documents', w: 3300, h: 2550, ratio: '22:17', colorMode: 'CMYK', tip: 'Certificates benefit from ornate borders, formal serif fonts, and gold/navy color schemes for a prestigious feel.' },
-  { id: 88, name: 'Ebook Cover', category: 'Documents', w: 1600, h: 2560, ratio: '5:8', colorMode: 'RGB', tip: 'Amazon KDP recommends a 1.6:2.56 ratio. High contrast and bold typography are essential for small thumbnail visibility.' },
-  { id: 89, name: 'Report Cover Page', category: 'Documents', w: 2480, h: 3508, ratio: '√2:1', colorMode: 'CMYK', tip: 'Corporate report covers use bold geometric design and brand colors. The company name and report title must be clear.' },
+  // ────────────────────────────────────────────────────────────────────────
+  // WALLPAPERS
+  // ────────────────────────────────────────────────────────────────────────
+  { id: 900, name: 'Desktop Wallpaper (1920×1080)', category: 'Wallpapers', unit:'px', w:1920, h:1080, ratio:'16:9',  colorMode:'RGB', type:'digital',
+    tip:'The most common desktop resolution. Design with safe zones 100 px from each edge to avoid desktop icon overlap.' },
+  { id: 901, name: 'Desktop Wallpaper (2560×1440)', category: 'Wallpapers', unit:'px', w:2560, h:1440, ratio:'16:9',  colorMode:'RGB', type:'digital',
+    tip:'2K / QHD resolution for high-DPI monitors. All source assets should be at least this resolution for sharpness.' },
+  { id: 902, name: 'Desktop Wallpaper (3840×2160)', category: 'Wallpapers', unit:'px', w:3840, h:2160, ratio:'16:9',  colorMode:'RGB', type:'digital',
+    tip:'4K wallpaper. Only use at this resolution if all source assets are 4K — upscaling creates visible blurring.' },
+  { id: 903, name: 'Mobile Wallpaper (iPhone)',     category: 'Wallpapers', unit:'px', w:1290, h:2796, ratio:'19.5:9',colorMode:'RGB', type:'digital',
+    tip:'iPhone 14 Pro Max resolution. Keep main artwork in the center — the status bar and dock will overlay top and bottom.' },
+  { id: 904, name: 'Mobile Wallpaper (Android)',    category: 'Wallpapers', unit:'px', w:1080, h:2400, ratio:'20:9',  colorMode:'RGB', type:'digital',
+    tip:'Common Android wallpaper resolution. Keep primary visuals centered — Android may pan the wallpaper when switching home screens.' },
+  { id: 905, name: 'Dual Monitor Wallpaper',        category: 'Wallpapers', unit:'px', w:3840, h:1080, ratio:'32:9',  colorMode:'RGB', type:'digital',
+    tip:'Dual 1920×1080 monitor wallpaper. Treat each half as a separate visual zone or design a single panoramic scene that spans both.' },
 
-  // WALLPAPERS & BACKGROUNDS
-  { id: 90, name: 'Desktop Wallpaper (1080p)', category: 'Wallpapers', w: 1920, h: 1080, ratio: '16:9', colorMode: 'RGB', tip: 'Keep main subject in the center-right — most desktop UIs have icons on the left. Leave space for dock/taskbar.' },
-  { id: 91, name: 'Desktop Wallpaper (4K)', category: 'Wallpapers', w: 3840, h: 2160, ratio: '16:9', colorMode: 'RGB', tip: 'Design 4K wallpapers at full 3840px — low-res images look terrible on high-DPI screens when stretched.' },
-  { id: 92, name: 'Desktop Wallpaper (Ultrawide)', category: 'Wallpapers', w: 3440, h: 1440, ratio: '21:9', colorMode: 'RGB', tip: 'Ultrawide wallpapers need a panoramic composition. Design with the center 16:9 area as the visual focus.' },
-  { id: 93, name: 'iPhone Wallpaper', category: 'Wallpapers', w: 1290, h: 2796, ratio: '19.5:9', colorMode: 'RGB', tip: 'iOS blurs wallpaper edges for depth effect. Design with the center 80% as your focal area. Avoid busy patterns.' },
-  { id: 94, name: 'Android Phone Wallpaper', category: 'Wallpapers', w: 1080, h: 2400, ratio: '20:9', colorMode: 'RGB', tip: 'Android launchers pan wallpapers horizontally. Add extra width (2160px) so the image looks great while panning.' },
-
-  // NFT & DIGITAL ART
-  { id: 95, name: 'NFT Square Art', category: 'Digital Art & NFT', w: 3000, h: 3000, ratio: '1:1', colorMode: 'RGB', tip: 'Most NFT marketplaces display square images. Maximize resolution for collector appeal and zoomed detail viewing.' },
-  { id: 96, name: 'OpenSea Banner', category: 'Digital Art & NFT', w: 1400, h: 400, ratio: '3.5:1', colorMode: 'RGB', tip: 'OpenSea collection banners are cropped on mobile. Keep your collection name and key art in the center 600px.' },
-  { id: 97, name: 'Digital Art Print (A2)', category: 'Digital Art & NFT', w: 4961, h: 7016, ratio: '√2:1', colorMode: 'CMYK', tip: 'For gallery-quality prints, export at 300 DPI minimum. Use Photoshop\'s soft-proof feature to preview CMYK output.' },
-  { id: 98, name: 'Sticker Sheet', category: 'Digital Art & NFT', w: 3300, h: 2550, ratio: '22:17', colorMode: 'CMYK', tip: 'Design sticker sheets on US Letter or A4 landscape. Add 3mm bleed and cut lines for professional printing.' },
 ];
 
 // ═══════════════════════════════════════
@@ -1664,100 +2659,255 @@ const designDB = [
 // ═══════════════════════════════════════
 const INCH_TO_MM = 25.4;
 const INCH_TO_CM = 2.54;
-const PRINT_DPI = 300;
+const PRINT_DPI  = 300;
 
-function pxToInchPrint(px) { return (px / PRINT_DPI).toFixed(2); }
-function pxToMmPrint(px)   { return (px / PRINT_DPI * INCH_TO_MM).toFixed(2); }
-function pxToCmPrint(px)   { return (px / PRINT_DPI * INCH_TO_CM).toFixed(2); }
+function getDimensions(design, dpi) {
+  dpi = dpi || currentDPI;
+  const w    = design.w;
+  const h    = design.h;
+  const unit = design.unit || 'px';
 
-function pxToInchScreen(px) { return (px / PPI).toFixed(2); }
-function pxToMmScreen(px)   { return (px / PPI * INCH_TO_MM).toFixed(2); }
-function pxToCmScreen(px)   { return (px / PPI * INCH_TO_CM).toFixed(2); }
-
-function pxToFtPrint(px)  { return (px / PRINT_DPI / 12).toFixed(4); }
-function pxToFtScreen(px) { return (px / PPI / 12).toFixed(4); }
-
-function getDimensions(design) {
-  const isprint = design.colorMode === 'CMYK';
-  const convert = isprint
-    ? { inch: pxToInchPrint, mm: pxToMmPrint, cm: pxToCmPrint, ft: pxToFtPrint }
-    : { inch: pxToInchScreen, mm: pxToMmScreen, cm: pxToCmScreen, ft: pxToFtScreen };
-  return {
-    px:   `${design.w} × ${design.h}`,
-    mm:   `${convert.mm(design.w)} × ${convert.mm(design.h)}`,
-    cm:   `${convert.cm(design.w)} × ${convert.cm(design.h)}`,
-    in:   `${convert.inch(design.w)} × ${convert.inch(design.h)}`,
-    ft:   `${convert.ft(design.w)} × ${convert.ft(design.h)}`,
-  };
+  if (unit === 'px') {
+    const baseDpi = (design.colorMode === 'CMYK') ? dpi : PPI;
+    return {
+      px:  `${w} \u00d7 ${h}`,
+      mm:  `${(w / baseDpi * 25.4).toFixed(2)} \u00d7 ${(h / baseDpi * 25.4).toFixed(2)}`,
+      cm:  `${(w / baseDpi * 2.54).toFixed(2)} \u00d7 ${(h / baseDpi * 2.54).toFixed(2)}`,
+      in:  `${(w / baseDpi).toFixed(2)} \u00d7 ${(h / baseDpi).toFixed(2)}`,
+      ft:  `${(w / baseDpi / 12).toFixed(4)} \u00d7 ${(h / baseDpi / 12).toFixed(4)}`,
+      nativeUnit: 'px',
+      nativeDim:  `${w} \u00d7 ${h} px`,
+    };
+  }
+  if (unit === 'mm') {
+    const pxW = Math.round(w / 25.4 * dpi);
+    const pxH = Math.round(h / 25.4 * dpi);
+    return {
+      px:  `${pxW} \u00d7 ${pxH}`,
+      mm:  `${w} \u00d7 ${h}`,
+      cm:  `${(w / 10).toFixed(1)} \u00d7 ${(h / 10).toFixed(1)}`,
+      in:  `${(w / 25.4).toFixed(2)} \u00d7 ${(h / 25.4).toFixed(2)}`,
+      ft:  `${(w / 304.8).toFixed(3)} \u00d7 ${(h / 304.8).toFixed(3)}`,
+      nativeUnit: 'mm',
+      nativeDim:  `${w} \u00d7 ${h} mm`,
+    };
+  }
+  if (unit === 'in') {
+    const pxW = Math.round(w * dpi);
+    const pxH = Math.round(h * dpi);
+    return {
+      px:  `${pxW} \u00d7 ${pxH}`,
+      mm:  `${(w * 25.4).toFixed(1)} \u00d7 ${(h * 25.4).toFixed(1)}`,
+      cm:  `${(w * 2.54).toFixed(2)} \u00d7 ${(h * 2.54).toFixed(2)}`,
+      in:  `${w} \u00d7 ${h}`,
+      ft:  `${(w / 12).toFixed(3)} \u00d7 ${(h / 12).toFixed(3)}`,
+      nativeUnit: 'in',
+      nativeDim:  `${w} \u00d7 ${h} in`,
+    };
+  }
+  if (unit === 'ft') {
+    const pxW = Math.round(w * 12 * dpi);
+    const pxH = Math.round(h * 12 * dpi);
+    return {
+      px:  `${pxW} \u00d7 ${pxH}`,
+      mm:  `${(w * 304.8).toFixed(0)} \u00d7 ${(h * 304.8).toFixed(0)}`,
+      cm:  `${(w * 30.48).toFixed(1)} \u00d7 ${(h * 30.48).toFixed(1)}`,
+      in:  `${Math.round(w * 12)} \u00d7 ${Math.round(h * 12)}`,
+      ft:  `${w} \u00d7 ${h}`,
+      nativeUnit: 'ft',
+      nativeDim:  `${w} ft \u00d7 ${h} ft`,
+    };
+  }
+  return { px:'', mm:'', cm:'', in:'', ft:'', nativeUnit:'px', nativeDim:'' };
 }
 
 function getDisplayDim(design) {
-  const unit = (document.getElementById('unitSelect') || { value: 'px' }).value;
-  const dims = getDimensions(design);
-  if (unit === 'px') return { primary: dims.px, unit: 'px', showPx: false };
-  return { primary: dims[unit], unit, showPx: true };
+  const select   = document.getElementById('unitSelect');
+  const chosen   = select ? select.value : 'px';
+  const nativeU  = design.unit || 'px';
+  const dims     = getDimensions(design);
+
+  // When user has px selected but item is stored in physical units,
+  // show the physical native unit so dimensions are meaningful
+  let dispUnit = chosen;
+  if (chosen === 'px' && nativeU !== 'px') dispUnit = nativeU;
+
+  const showRef  = dispUnit !== nativeU;
+  const ref      = showRef ? `${dims[nativeU]} ${nativeU}` : '';
+
+  return { primary: dims[dispUnit], unit: dispUnit, showRef, ref };
 }
+
 
 // ═══════════════════════════════════════
 // ALIAS / ABBREVIATION MAP
 // ═══════════════════════════════════════
 const ALIASES = {
   // Instagram
-  'ig': 'instagram', 'insta': 'instagram', 'gram': 'instagram',
-  'ig post': 'instagram post', 'ig story': 'instagram story',
-  'ig reel': 'instagram reel', 'ig portrait': 'instagram portrait',
-  'insta post': 'instagram post', 'insta story': 'instagram story',
-  'insta reel': 'instagram reel', 'insta portrait': 'instagram portrait',
-  'reels': 'reel', 'stories': 'story',
+  'ig':'instagram','insta':'instagram','gram':'instagram',
+  'ig post':'instagram post','ig story':'instagram story',
+  'ig reel':'instagram reel','ig portrait':'instagram portrait',
+  'insta post':'instagram post','insta story':'instagram story',
+  'insta reel':'instagram reel','insta portrait':'instagram portrait',
+  'reels':'reel','stories':'story','ig carousel':'instagram carousel',
+  'insta highlight':'instagram highlight','highlight cover':'instagram highlight',
   // YouTube
-  'yt': 'youtube', 'tube': 'youtube',
-  'yt thumbnail': 'youtube thumbnail', 'yt thumb': 'youtube thumbnail',
-  'yt banner': 'youtube banner', 'yt shorts': 'youtube shorts',
-  'yt channel': 'youtube channel',
-  'thumb': 'thumbnail', 'thumbs': 'thumbnail',
+  'yt':'youtube','tube':'youtube',
+  'yt thumbnail':'youtube thumbnail','yt thumb':'youtube thumbnail',
+  'yt banner':'youtube banner','yt shorts':'youtube shorts',
+  'yt channel':'youtube channel','thumb':'thumbnail','thumbs':'thumbnail',
+  'youtube community':'youtube community post',
   // TikTok
-  'tt': 'tiktok', 'tik tok': 'tiktok', 'tik-tok': 'tiktok',
-  'tt post': 'tiktok post', 'tt cover': 'tiktok cover',
+  'tt':'tiktok','tik tok':'tiktok','tik-tok':'tiktok',
+  'tt post':'tiktok post','tt cover':'tiktok cover',
+  'tiktok ad':'tiktok video',
   // Facebook
-  'fb': 'facebook', 'fb post': 'facebook post', 'fb cover': 'facebook cover',
-  'fb story': 'facebook story', 'fb ad': 'facebook ad',
+  'fb':'facebook','fb post':'facebook post','fb cover':'facebook cover',
+  'fb story':'facebook story','fb ad':'facebook ad',
+  'facebook flyer':'facebook post',
   // Twitter / X
-  'tw': 'twitter', 'x post': 'twitter post', 'tweet': 'twitter post',
-  'x banner': 'twitter header', 'twitter banner': 'twitter header',
+  'tw':'twitter','x post':'twitter post','tweet':'twitter post',
+  'x banner':'twitter header','twitter banner':'twitter header',
+  'x header':'twitter header','x profile':'twitter profile picture',
   // LinkedIn
-  'li': 'linkedin', 'ln': 'linkedin',
-  'li post': 'linkedin post', 'li banner': 'linkedin banner',
+  'li':'linkedin','ln':'linkedin',
+  'li post':'linkedin post','li banner':'linkedin banner',
+  'linkedin company':'linkedin company page banner',
   // Pinterest
-  'pin': 'pinterest pin', 'pins': 'pinterest pin',
+  'pin':'pinterest pin','pins':'pinterest pin',
+  'pinterest story':'pinterest idea pin','idea pin':'pinterest idea pin',
   // Snapchat
-  'snap': 'snapchat',
-  // Print / Flyers
-  'a4': 'a4 flyer', 'a5': 'a5 flyer', 'a3': 'a3 poster',
-  'flyer a4': 'a4 flyer', 'flyer a5': 'a5 flyer', 'a4 flyer': 'a4 flyer',
-  'biz card': 'business card', 'bizcard': 'business card',
-  'namecard': 'business card', 'name card': 'business card',
-  'tri fold': 'brochure', 'trifold': 'brochure',
-  'rollup': 'roll-up', 'roll up': 'roll-up', 'pull up': 'roll-up',
-  'pullup': 'roll-up', 'banner stand': 'roll-up',
+  'snap':'snapchat','snap story':'snapchat story',
+  // WhatsApp
+  'wa':'whatsapp','whatsapp':'whatsapp',
+  // Threads
+  'threads':'threads post',
+  // Print / A-Series
+  'a0':'a0 poster','a1':'a1 poster','a2':'a2 poster',
+  'a3':'a3 poster','a4':'a4 document','a5':'a5 flyer',
+  'a6':'a6 postcard','a7':'a7 card','a8':'a8 mini card',
+  'flyer a4':'a4 document','flyer a5':'a5 flyer','a4 flyer':'a4 document',
+  'a3 flyer':'a3 poster','a3 poster':'a3 poster',
+  // US paper sizes
+  'letter':'us letter','us letter':'us letter','legal':'us legal',
+  'tabloid':'us tabloid','ledger':'us tabloid',
+  'half letter':'us half letter','statement':'us half letter',
+  // Business card
+  'biz card':'business card','bizcard':'business card',
+  'namecard':'business card','name card':'business card',
+  'visiting card':'business card','visit card':'business card',
+  // Brochures
+  'tri fold':'tri-fold brochure','trifold':'tri-fold brochure',
+  'bifold':'bi-fold brochure','bi fold':'bi-fold brochure',
+  'brochure':'brochure','leaflet':'a5 flyer',
+  // Other print
+  'rack card':'rack card / dl flyer','dl flyer':'rack card / dl flyer',
+  'dl':'rack card / dl flyer','compliment slip':'compliment slip',
+  'comp slip':'compliment slip','letterhead':'letterhead',
+  'bookmark':'bookmark','door hanger':'door hanger',
+  'sticker':'sticker','label':'product label',
+  'postcard':'postcard','post card':'postcard',
+  'invitation':'invitation card','invite':'invitation card',
+  'greeting card':'greeting card','thank you':'thank you card',
+  'thank-you':'thank you card','certificate':'certificate',
+  'award':'award plaque','menu':'menu',
+  'id card':'id card','identity card':'id card',
+  // Large format — banner sizes
+  '2x3':'banner 2 × 3 ft','2 x 3':'banner 2 × 3 ft','2by3':'banner 2 × 3 ft',
+  '2x4':'banner 2 × 4 ft','2 x 4':'banner 2 × 4 ft',
+  '3x5':'banner 3 × 5 ft','3 x 5':'banner 3 × 5 ft',
+  '3x6':'banner 3 × 6 ft','3 x 6':'banner 3 × 6 ft',
+  '3x8':'banner 3 × 8 ft','3 x 8':'banner 3 × 8 ft',
+  '4x6':'banner 4 × 6 ft','4 x 6':'banner 4 × 6 ft',
+  '4x8':'banner 4 × 8 ft','4 x 8':'banner 4 × 8 ft',
+  '5x8':'banner 5 × 8 ft','5 x 8':'banner 5 × 8 ft',
+  '5x10':'banner 5 × 10 ft','5 x 10':'banner 5 × 10 ft',
+  '6x8':'banner 6 × 8 ft','6 x 8':'banner 6 × 8 ft',
+  '6x10':'banner 6 × 10 ft','6 x 10':'banner 6 × 10 ft',
+  '6x12':'banner 6 × 12 ft','6 x 12':'banner 6 × 12 ft',
+  '8x8':'backdrop 8 × 8 ft','8 x 8':'backdrop 8 × 8 ft',
+  '8x10':'banner 8 × 10 ft','8 x 10':'banner 8 × 10 ft','8 by 10':'banner 8 × 10 ft',
+  '8x10 banner':'banner 8 × 10 ft','8x10 backdrop':'backdrop 8 × 8 ft',
+  '8x12':'banner 8 × 12 ft','8 x 12':'banner 8 × 12 ft',
+  '8x16':'banner 8 × 16 ft','8 x 16':'banner 8 × 16 ft',
+  '10x10':'banner 10 × 10 ft','10 x 10':'banner 10 × 10 ft',
+  '10x20':'banner 10 × 20 ft','10 x 20':'banner 10 × 20 ft',
+  '10x30':'banner 10 × 30 ft','10 x 30':'banner 10 × 30 ft',
+  '12x24':'banner 12 × 24 ft','12 x 24':'banner 12 × 24 ft',
+  '20x30':'banner 20 × 30 ft','20 x 30':'banner 20 × 30 ft',
+  // Large format products
+  'rollup':'roll-up','roll up':'roll-up','pull up':'roll-up',
+  'pullup':'roll-up','pull-up':'roll-up','retractable banner':'roll-up',
+  'banner stand':'roll-up','pop up banner':'roll-up',
+  'xbanner':'x-banner','x banner':'x-banner',
+  'lbanner':'l-banner','l banner':'l-banner',
+  'step repeat':'step & repeat','step and repeat':'step & repeat',
+  'steprepeat':'step & repeat','step-repeat':'step & repeat',
+  'photo booth':'photo booth backdrop','photobooth':'photo booth backdrop',
+  'backdrop':'event backdrop','event backdrop':'event backdrop',
+  'stage backdrop':'event backdrop','red carpet':'red carpet / vip backdrop',
+  'media wall':'media wall','press wall':'media wall',
+  'billboard':'billboard','hoarding':'billboard',
+  'yard sign':'yard sign (18×24 in)','lawn sign':'yard sign',
+  'a frame':'a-frame','sandwich board':'a-frame','aframe':'a-frame',
+  'trade show':'trade show display','booth':'trade show display',
+  'exhibition':'trade show display',
+  // Large format general
+  'large banner':'large format','large format':'large format',
+  'outdoor banner':'outdoor vinyl banner','vinyl banner':'outdoor vinyl banner',
+  'banner':'banner','event banner':'banner',
   // Web / UI
-  'hero': 'hero section', 'banner': 'banner',
-  'og': 'open graph', 'og image': 'open graph',
-  'favicon ico': 'favicon',
-  'app icon': 'app icon', 'ios icon': 'app icon (ios)',
-  'android icon': 'app icon (android)',
+  'hero':'hero section image','banner web':'website banner',
+  'og':'open graph','og image':'open graph','social share':'open graph',
+  'favicon ico':'favicon','favicon':'favicon',
+  'app icon':'app icon','ios icon':'app icon (ios)',
+  'android icon':'app icon (android)','splash screen':'ios splash screen',
+  'display ad':'google display ad','web ad':'google display ad',
+  'leaderboard':'google display ad — leaderboard',
   // Presentations
-  'slide': 'presentation', 'slides': 'presentation',
-  'ppt': 'presentation', 'keynote': 'presentation',
-  'deck': 'presentation', 'pitch deck': 'presentation',
-  'google slides': 'google slides',
-  // Streaming / Gaming
-  'twitch': 'twitch', 'discord': 'discord', 'stream': 'twitch',
+  'slide':'presentation','slides':'presentation',
+  'ppt':'powerpoint','pptx':'powerpoint','keynote':'keynote',
+  'deck':'presentation','pitch deck':'powerpoint',
+  'google slides':'google slides (16:9)','g slides':'google slides (16:9)',
+  // Events & branding
+  'event ticket':'event ticket','ticket':'event ticket',
+  'wristband':'wristband','name badge':'name badge',
+  'name tag':'name badge / tag','badge':'name badge',
+  'table tent':'table tent card','tent card':'table tent card',
+  'lanyard':'lanyard id card','lanyard card':'lanyard id card',
+  'gift voucher':'gift voucher','voucher':'gift voucher',
+  'vip card':'vip / loyalty card','loyalty card':'vip / loyalty card',
+  'tshirt':'t-shirt print','t shirt':'t-shirt print','shirt':'t-shirt print',
+  'programme':'event programme','program':'event programme',
+  // Documents
+  'cv':'resume','resume':'resume','curriculum vitae':'resume',
+  'invoice':'invoice template','letterhead':'letterhead',
+  'certificate':'certificate','proposal':'proposal',
+  // Packaging
+  'label':'product label','product label':'product label',
+  'bottle label':'bottle label','jar label':'jar label',
+  'food packaging':'food packaging','paper bag':'paper bag',
+  'shopping bag':'paper bag','box':'product box','packaging':'product box',
+  // Video
+  '16:9':'16:9 video canvas','9:16':'9:16 vertical video',
+  '1:1 video':'1:1 square video','square video':'1:1 square video',
+  'vertical video':'9:16 vertical video','landscape video':'16:9 video canvas',
+  'facebook video':'facebook video','linkedin video':'linkedin video',
+  // E-commerce
+  'amazon':'amazon product image','shopify':'shopify product image',
+  'etsy':'etsy listing photo','product image':'amazon product image',
+  // Gaming
+  'twitch':'twitch profile banner','discord':'discord server banner',
+  'steam':'steam game cover','stream':'twitch profile banner',
+  // Podcast
+  'podcast':'podcast cover art','soundcloud':'soundcloud banner',
   // Misc
-  'wallpaper': 'wallpaper', 'wp': 'wallpaper',
-  'nft': 'nft', 'digital art': 'digital art',
-  'email': 'email', 'newsletter': 'email newsletter',
-  'portrait': 'portrait', 'landscape': 'landscape', 'square': 'square',
+  'wallpaper':'desktop wallpaper','wp':'desktop wallpaper',
+  'nft':'podcast cover art','digital art':'desktop wallpaper',
+  'email':'email newsletter template','newsletter':'email newsletter template',
+  'portrait':'portrait','landscape':'landscape','square':'square',
 };
+
 
 
 // ═══════════════════════════════════════
@@ -1931,23 +3081,115 @@ function showDetail(id) {
   const design = designDB.find(d => d.id === id);
   if (!design) return;
 
-  // Update active card
   document.querySelectorAll('.result-card').forEach(c => c.classList.remove('active'));
   const activeCard = document.getElementById(`card-${id}`);
   if (activeCard) activeCard.classList.add('active');
   activeId = id;
   saveRecent(id);
 
-  const dims = getDimensions(design);
-  const isprint = design.colorMode === 'CMYK';
-  const dpiNote = isprint ? ' (300 DPI)' : ' (96 PPI)';
+  const dims      = getDimensions(design);
+  const nativeU   = design.unit || 'px';
+  const type      = design.type || 'digital';
+  const isPrint   = (type === 'print' || type === 'large-format' || type === 'packaging');
+  const isLarge   = (type === 'large-format');
+  const isPkg     = (type === 'packaging');
+  const selUnit   = (document.getElementById('unitSelect') || {value:'px'}).value;
 
-  // Calculate preview proportions
+  // Canvas preview proportions
   const maxW = 120, maxH = 90;
   let pw = maxW, ph = maxH;
   const aspect = design.w / design.h;
   if (aspect > maxW / maxH) ph = Math.round(maxW / aspect);
   else pw = Math.round(maxH * aspect);
+
+  // Header dimension label
+  const headerDim = nativeU === 'ft'
+    ? `${design.w} ft × ${design.h} ft`
+    : nativeU === 'mm'
+      ? `${design.w} × ${design.h} mm`
+      : nativeU === 'in'
+        ? `${design.w} × ${design.h} in`
+        : `${design.w} × ${design.h} px`;
+
+  // DPI selector (print + large format)
+  const dpiSelector = isPrint ? `
+    <div class="dpi-selector-row">
+      <span class="dpi-label">Pixel calc DPI:</span>
+      <div class="dpi-btns">
+        ${[72, 96, 150, 200, 300].map(d => `
+          <button class="dpi-btn ${currentDPI === d ? 'active' : ''}" onclick="setDPI(${d}, ${id})">${d}</button>
+        `).join('')}
+      </div>
+    </div>` : '';
+
+  // All-units grid
+  const unitLabels = { px:'Pixels', mm:'Millimeters', cm:'Centimeters', in:'Inches', ft:'Feet' };
+  const unitsGrid = ['px','mm','cm','in','ft'].map(u => {
+    const isNative  = (u === nativeU);
+    const isChosen  = (u === selUnit);
+    const highlight = (isNative || isChosen)
+      ? 'style="border-color:var(--border-hover);background:var(--accent-dim)"'
+      : '';
+    const tag = isNative ? '<span class="native-tag">native</span>' : '';
+    return `<div class="unit-block" ${highlight}>
+      <div class="unit-label">${unitLabels[u]}${tag}</div>
+      <div class="unit-value" id="dv-${u}-${id}">${dims[u]} <small>${u}</small></div>
+    </div>`;
+  }).join('');
+
+  // Bleed note
+  const bleedNote = design.bleed
+    ? `<div class="bleed-note">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+        Recommended bleed: <strong>${nativeU === 'in' ? design.bleed + ' in' : design.bleed + ' mm'}</strong> on all sides
+      </div>`
+    : '';
+
+  // Designing at scale (large format only)
+  const scales     = [1, 0.5, 0.25, 0.1];
+  const scaleTable = isLarge ? `
+    <div class="scale-section">
+      <div class="scale-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        Designing at Scale
+      </div>
+      <p class="scale-intro">Very large artwork is typically designed at a reduced scale. Below are common working scales for <strong>${design.w} ft × ${design.h} ft</strong>.</p>
+      <div class="scale-table">
+        <div class="scale-row scale-head">
+          <span>Scale</span><span>Working Size (ft)</span><span>Working Size (in)</span><span>Working Size (cm)</span>
+        </div>
+        ${scales.map(s => {
+          const wf = (design.w * s).toFixed(2).replace(/\.00$/,'');
+          const hf = (design.h * s).toFixed(2).replace(/\.00$/,'');
+          const wi = Math.round(design.w * s * 12);
+          const hi = Math.round(design.h * s * 12);
+          const wc = (design.w * s * 30.48).toFixed(1);
+          const hc = (design.h * s * 30.48).toFixed(1);
+          const label = s === 1 ? 'Full size (1:1)' : `1:${Math.round(1/s)}`;
+          return `<div class="scale-row ${s===1?'scale-full':''}">
+            <span>${label}</span>
+            <span>${wf} × ${hf} ft</span>
+            <span>${wi} × ${hi} in</span>
+            <span>${wc} × ${hc} cm</span>
+          </div>`;
+        }).join('')}
+      </div>
+      <p class="scale-warning">⚠ Always confirm the required scale, bleed, resolution, and file specification with your printer before designing.</p>
+    </div>` : '';
+
+  // Packaging custom note
+  const pkgNote = isPkg ? `
+    <div class="pkg-note">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div>
+        <strong>Custom / Manufacturer-Dependent</strong>
+        The dimensions shown are common references only. Packaging artwork must be designed using the exact dieline or structural template provided by your packaging manufacturer. Never design from estimated dimensions.
+      </div>
+    </div>` : '';
+
+  // Extra notes
+  const extraNote = design.notes ? `
+    <div class="extra-note">${design.notes}</div>` : '';
 
   const panel = document.getElementById('detailPanel');
   const card  = document.getElementById('detailCard');
@@ -1957,96 +3199,102 @@ function showDetail(id) {
       <div class="detail-title-block">
         <div class="detail-cat">${design.category}</div>
         <div class="detail-name">${design.name}</div>
-        <div class="detail-px">${design.w} × ${design.h} px</div>
+        <div class="detail-px">${headerDim}</div>
+        ${extraNote}
       </div>
       <div class="detail-visual">
         <div class="canvas-preview" style="width:${pw}px;height:${ph}px">
-          <span class="canvas-label">${design.ratio}</span>
+          <span class="canvas-label">${design.ratio || ''}</span>
         </div>
       </div>
     </div>
-
     <div class="detail-body">
-      <p class="section-label" style="margin-bottom:14px">Dimensions in all units${dpiNote}</p>
-      <div class="units-grid">
-        ${['px','mm','cm','in','ft'].map(u => {
-          const labels = {px:'Pixels',mm:'Millimeters',cm:'Centimeters',in:'Inches',ft:'Feet'};
-          const val = u === 'px' ? `${design.w} × ${design.h}` : dims[u];
-          const sel = (document.getElementById('unitSelect')||{value:'px'}).value;
-          const highlight = u === sel ? 'border-color:var(--border-hover);background:var(--accent-dim)' : '';
-          return `<div class="unit-block" style="${highlight}">
-            <div class="unit-label">${labels[u]}</div>
-            <div class="unit-value">${val} <small>${u}</small></div>
-          </div>`;
-        }).join('')}
-      </div>
-
+      <p class="section-label" style="margin-bottom:10px">
+        All units ${isPrint ? `(pixels at ${currentDPI} DPI)` : '(screen 96 PPI)'}
+      </p>
+      ${dpiSelector}
+      <div class="units-grid" id="units-grid-${id}">${unitsGrid}</div>
+      ${bleedNote}
       <div class="detail-meta-row">
         <div class="detail-meta-item">
           <div class="dmi-label">Aspect Ratio</div>
-          <div class="dmi-value">${design.ratio}</div>
+          <div class="dmi-value">${design.ratio || '—'}</div>
         </div>
         <div class="detail-meta-item">
           <div class="dmi-label">Color Mode</div>
-          <div class="dmi-value">${design.colorMode}</div>
+          <div class="dmi-value">${design.colorMode || 'RGB'}</div>
         </div>
         <div class="detail-meta-item">
-          <div class="dmi-label">Resolution</div>
-          <div class="dmi-value">${isprint ? '300 DPI' : '72 / 96 PPI'}</div>
+          <div class="dmi-label">Native Unit</div>
+          <div class="dmi-value">${nativeU.toUpperCase()}</div>
         </div>
-        <div class="detail-meta-item">
+        ${isPrint ? `<div class="detail-meta-item">
+          <div class="dmi-label">DPI Guidance</div>
+          <div class="dmi-value">${isLarge ? '72–150 DPI typical' : '300 DPI recommended'}</div>
+        </div>` : `<div class="detail-meta-item">
           <div class="dmi-label">Category</div>
           <div class="dmi-value">${design.category}</div>
-        </div>
+        </div>`}
       </div>
-
+      ${pkgNote}
+      ${scaleTable}
       <div class="tip-block">
         <span class="tip-icon">💡</span>
         <div class="tip-text">
           <strong>Pro Tip</strong>
-          ${design.tip}
+          ${design.tip || 'Always test your design at the actual output size before finalising.'}
         </div>
       </div>
-
       <div class="action-row">
-        <button class="btn btn-primary" onclick="copyPixels(${id})">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-          Copy Pixel Size
+        <button class="btn btn-primary" onclick="copyNative(${id})">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          Copy Size
         </button>
-        <button class="btn btn-ghost" id="copyAllBtn" onclick="copyAll(${id})">
+        <button class="btn btn-ghost" onclick="copyAll(${id})">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Copy All Dimensions
         </button>
       </div>
-    </div>
-  `;
+    </div>`;
 
   panel.classList.add('visible');
-
-  setTimeout(() => {
-    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 100);
+  setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 80);
 }
 
-function copyPixels(id) {
+function setDPI(dpi, id) {
+  currentDPI = dpi;
+  showDetail(id);
+}
+
+function copyNative(id) {
   const design = designDB.find(d => d.id === id);
-  const text = `${design.w} × ${design.h} px`;
-  copyToClipboard(text, 'Pixel size copied!');
+  if (!design) return;
+  const nativeU = design.unit || 'px';
+  const dims    = getDimensions(design);
+  const text    = nativeU === 'ft'
+    ? `${design.w} ft × ${design.h} ft`
+    : `${dims[nativeU]} ${nativeU}`;
+  copyToClipboard(text, 'Size copied!');
 }
 
 function copyAll(id) {
-  const design = designDB.find(d => d.id === id);
-  const dims = getDimensions(design);
-  const isprint = design.colorMode === 'CMYK';
+  const design  = designDB.find(d => d.id === id);
+  if (!design) return;
+  const dims    = getDimensions(design);
+  const isprint = (design.type === 'print' || design.type === 'large-format');
+  const nativeU = design.unit || 'px';
   const text = `${design.name}
-─────────────────────
-Pixels:       ${dims.px}
-Millimeters:  ${dims.mm}
-Centimeters:  ${dims.cm}
-Inches:       ${dims.inch}
-Aspect Ratio: ${design.ratio}
-Color Mode:   ${design.colorMode}
-Resolution:   ${isprint ? '300 DPI' : '96 PPI'}`;
+─────────────────────────
+Pixels:       ${dims.px} px${isprint ? ` (at ${currentDPI} DPI)` : ''}
+Millimeters:  ${dims.mm} mm
+Centimeters:  ${dims.cm} cm
+Inches:       ${dims.in} in
+Feet:         ${dims.ft} ft
+─────────────────────────
+Aspect Ratio: ${design.ratio || '—'}
+Color Mode:   ${design.colorMode || 'RGB'}
+Native Unit:  ${nativeU.toUpperCase()}
+Category:     ${design.category}${design.bleed ? `\nBleed:        ${design.bleed} ${nativeU === 'in' ? 'in' : 'mm'}` : ''}${design.notes ? `\nNote:         ${design.notes}` : ''}`;
   copyToClipboard(text, 'All dimensions copied!');
 }
 
@@ -2064,7 +3312,14 @@ function showToast(msg) {
 // ═══════════════════════════════════════
 // CATEGORIES BROWSER
 // ═══════════════════════════════════════
-const categories = [...new Set(designDB.map(d => d.category))];
+const CATEGORY_ORDER = [
+  'Social Media','Video & Content','Web & UI','Email & Newsletter',
+  'Presentations','Standard Print','Large Format & Banners',
+  'Marketing & Advertising','Events & Branding','Documents & Office',
+  'Packaging','Gaming & Streaming','E-Commerce','Mobile & App',
+  'Podcast & Audio','Wallpapers'
+];
+const categories = CATEGORY_ORDER.filter(c => designDB.some(d => d.category === c));
 let activeCategory = categories[0];
 
 function renderCategoryTabs() {
@@ -2106,30 +3361,28 @@ function browseItem(id) {
 // UNIT CHANGE
 // ═══════════════════════════════════════
 function onUnitChange() {
-  // Re-render all visible result cards with new unit
   const grid = document.getElementById('resultsGrid');
   if (!grid || !document.getElementById('resultsSection').classList.contains('visible')) return;
   grid.querySelectorAll('.result-card').forEach(card => {
     const id = parseInt(card.id.replace('card-', ''));
     const d = designDB.find(x => x.id === id);
     if (!d) return;
-    const { primary, unit, showPx } = getDisplayDim(d);
+    const { primary, unit, showRef, ref } = getDisplayDim(d);
     const dimPrimary = card.querySelector('.card-dim-primary');
-    const dimPx      = card.querySelector('.card-dim-px');
+    const dimRef     = card.querySelector('.card-dim-px');
     if (dimPrimary) dimPrimary.innerHTML = `${primary}<span> ${unit}</span>`;
-    if (showPx) {
-      if (dimPx) dimPx.textContent = `${d.w} × ${d.h} px`;
+    if (showRef) {
+      if (dimRef) dimRef.textContent = ref;
       else {
-        const px = document.createElement('div');
-        px.className = 'card-dim-px';
-        px.textContent = `${d.w} × ${d.h} px`;
-        dimPrimary.after(px);
+        const el = document.createElement('div');
+        el.className = 'card-dim-px';
+        el.textContent = ref;
+        dimPrimary.after(el);
       }
     } else {
-      if (dimPx) dimPx.remove();
+      if (dimRef) dimRef.remove();
     }
   });
-  // Also refresh detail panel if open
   if (activeId) showDetail(activeId);
 }
 
@@ -2190,6 +3443,213 @@ function toggleTheme() {
     label.textContent = 'Dark';
     thumb.textContent = '🌙';
   }
+}
+
+// ═══════════════════════════════════════
+// SIZE CALCULATOR
+// ═══════════════════════════════════════
+let calcDPI = 300; // independent from currentDPI so it doesn't affect existing detail panels
+let calcLastResult = null; // store for copy
+
+function scrollToCalc() {
+  document.getElementById('calcSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => document.getElementById('calcWidth').focus(), 500);
+}
+
+function setCalcDPI(dpi) {
+  calcDPI = dpi;
+  // Update button active states
+  document.querySelectorAll('#calcDpiBtns .dpi-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.textContent) === dpi);
+  });
+  // Update DPI hint and large-format warning based on current unit
+  calcUnitChanged(); // already calls updateCalcLFWarning()
+  // Re-run if results already showing
+  if (document.getElementById('calcResults').classList.contains('visible')) {
+    runCalculator();
+  }
+}
+
+function updateCalcLFWarning() {
+  const unit = document.getElementById('calcUnit').value;
+  const el   = document.getElementById('calcLfWarning');
+  if (el) el.classList.toggle('visible', unit === 'ft' && calcDPI >= 200);
+}
+
+function calcUnitChanged() {
+  const unit = document.getElementById('calcUnit').value;
+  const hint = document.getElementById('calcDpiHint');
+  const hints = {
+    px: `px → physical uses ${calcDPI} DPI`,
+    mm: `mm → px uses ${calcDPI} DPI`,
+    cm: `cm → px uses ${calcDPI} DPI`,
+    in: `in → px uses ${calcDPI} DPI`,
+    ft: `ft → px uses ${calcDPI} DPI`,
+  };
+  if (hint) hint.textContent = hints[unit] || `Affects pixel ↔ physical conversion`;
+  // Clear error when unit changes
+  hideCalcError();
+  // Show large-format DPI advisory if needed
+  updateCalcLFWarning();
+}
+
+function showCalcError(msg) {
+  const el  = document.getElementById('calcError');
+  const msg_el = document.getElementById('calcErrorMsg');
+  if (msg_el) msg_el.textContent = msg;
+  el.classList.add('visible');
+}
+
+function hideCalcError() {
+  document.getElementById('calcError').classList.remove('visible');
+}
+
+// Core pure-math conversion — mirrors getDimensions() exactly but
+// uses calcDPI throughout (no PPI / colorMode coupling)
+function calcConvert(w, h, unit, dpi) {
+  switch (unit) {
+    case 'px': {
+      return {
+        px:  { val: `${w} × ${h}`,                                              unit: 'px' },
+        mm:  { val: `${(w/dpi*25.4).toFixed(2)} × ${(h/dpi*25.4).toFixed(2)}`, unit: 'mm' },
+        cm:  { val: `${(w/dpi*2.54).toFixed(2)} × ${(h/dpi*2.54).toFixed(2)}`, unit: 'cm' },
+        in:  { val: `${(w/dpi).toFixed(3)} × ${(h/dpi).toFixed(3)}`,            unit: 'in' },
+        ft:  { val: `${(w/dpi/12).toFixed(4)} × ${(h/dpi/12).toFixed(4)}`,     unit: 'ft' },
+      };
+    }
+    case 'mm': {
+      return {
+        px:  { val: `${Math.round(w/25.4*dpi)} × ${Math.round(h/25.4*dpi)}`,   unit: 'px' },
+        mm:  { val: `${w} × ${h}`,                                               unit: 'mm' },
+        cm:  { val: `${(w/10).toFixed(2)} × ${(h/10).toFixed(2)}`,              unit: 'cm' },
+        in:  { val: `${(w/25.4).toFixed(3)} × ${(h/25.4).toFixed(3)}`,         unit: 'in' },
+        ft:  { val: `${(w/304.8).toFixed(4)} × ${(h/304.8).toFixed(4)}`,       unit: 'ft' },
+      };
+    }
+    case 'cm': {
+      return {
+        px:  { val: `${Math.round(w/2.54*dpi)} × ${Math.round(h/2.54*dpi)}`,   unit: 'px' },
+        mm:  { val: `${(w*10).toFixed(1)} × ${(h*10).toFixed(1)}`,              unit: 'mm' },
+        cm:  { val: `${w} × ${h}`,                                               unit: 'cm' },
+        in:  { val: `${(w/2.54).toFixed(3)} × ${(h/2.54).toFixed(3)}`,         unit: 'in' },
+        ft:  { val: `${(w/30.48).toFixed(4)} × ${(h/30.48).toFixed(4)}`,       unit: 'ft' },
+      };
+    }
+    case 'in': {
+      return {
+        px:  { val: `${Math.round(w*dpi)} × ${Math.round(h*dpi)}`,              unit: 'px' },
+        mm:  { val: `${(w*25.4).toFixed(2)} × ${(h*25.4).toFixed(2)}`,         unit: 'mm' },
+        cm:  { val: `${(w*2.54).toFixed(3)} × ${(h*2.54).toFixed(3)}`,         unit: 'cm' },
+        in:  { val: `${w} × ${h}`,                                               unit: 'in' },
+        ft:  { val: `${(w/12).toFixed(4)} × ${(h/12).toFixed(4)}`,             unit: 'ft' },
+      };
+    }
+    case 'ft': {
+      return {
+        px:  { val: `${Math.round(w*12*dpi)} × ${Math.round(h*12*dpi)}`,        unit: 'px' },
+        mm:  { val: `${(w*304.8).toFixed(1)} × ${(h*304.8).toFixed(1)}`,       unit: 'mm' },
+        cm:  { val: `${(w*30.48).toFixed(2)} × ${(h*30.48).toFixed(2)}`,       unit: 'cm' },
+        in:  { val: `${Math.round(w*12)} × ${Math.round(h*12)}`,               unit: 'in' },
+        ft:  { val: `${w} × ${h}`,                                               unit: 'ft' },
+      };
+    }
+  }
+  return {};
+}
+
+function runCalculator() {
+  hideCalcError();
+  const wRaw  = document.getElementById('calcWidth').value.trim();
+  const hRaw  = document.getElementById('calcHeight').value.trim();
+  const unit  = document.getElementById('calcUnit').value;
+
+  // ── Validation ──────────────────────────────────────────────
+  if (wRaw === '' || hRaw === '') {
+    showCalcError('Please enter both a width and height.');
+    return;
+  }
+  const w = parseFloat(wRaw);
+  const h = parseFloat(hRaw);
+
+  if (isNaN(w) || isNaN(h)) {
+    showCalcError('Width and height must be valid numbers.');
+    return;
+  }
+  if (w <= 0 || h <= 0) {
+    showCalcError('Width and height must be greater than zero.');
+    return;
+  }
+  if (!isFinite(w) || !isFinite(h)) {
+    showCalcError('Please enter realistic dimensions.');
+    return;
+  }
+
+  // ── Convert ─────────────────────────────────────────────────
+  const result = calcConvert(w, h, unit, calcDPI);
+  calcLastResult = { w, h, unit, dpi: calcDPI, result };
+
+  // ── Render original ─────────────────────────────────────────
+  const unitSuffix = unit === 'ft' ? 'ft' : unit;
+  document.getElementById('calcOriginalDim').innerHTML =
+    `${w} × ${h} <small>${unitSuffix}</small>`;
+  document.getElementById('calcDpiBadge').textContent = `${calcDPI} DPI`;
+
+  // ── Render conversion grid ───────────────────────────────────
+  const unitLabels = { px:'Pixels', mm:'Millimeters', cm:'Centimeters', in:'Inches', ft:'Feet' };
+  const order      = ['px','mm','cm','in','ft'];
+  const grid       = document.getElementById('calcConvGrid');
+
+  grid.innerHTML = order.map(u => {
+    const isSource = (u === unit);
+    const { val }  = result[u];
+    const pxNote   = (u === 'px' && unit !== 'px')
+      ? `<div class="calc-px-note">at ${calcDPI} DPI</div>`
+      : (u !== 'px' && unit === 'px')
+        ? `<div class="calc-px-note">from ${calcDPI} DPI</div>`
+        : '';
+    return `<div class="calc-conv-row ${isSource ? 'is-source' : ''}">
+      <div class="calc-conv-label">
+        ${unitLabels[u]}
+        ${isSource ? '<span class="source-tag">input</span>' : ''}
+      </div>
+      <div class="calc-conv-value">${val} <small>${u}</small></div>
+      ${pxNote}
+    </div>`;
+  }).join('');
+
+  // ── Show results ─────────────────────────────────────────────
+  const resultsEl = document.getElementById('calcResults');
+  resultsEl.classList.add('visible');
+  setTimeout(() => {
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 60);
+}
+
+function calcCopyAll() {
+  if (!calcLastResult) return;
+  const { w, h, unit, dpi, result } = calcLastResult;
+  const lines = [
+    `Size Calculator Result — ${w} × ${h} ${unit} (${dpi} DPI)`,
+    '─────────────────────────',
+    `Pixels:        ${result.px.val} px`,
+    `Millimeters:   ${result.mm.val} mm`,
+    `Centimeters:   ${result.cm.val} cm`,
+    `Inches:        ${result.in.val} in`,
+    `Feet:          ${result.ft.val} ft`,
+  ];
+  copyToClipboard(lines.join('\n'), 'Dimensions copied!');
+}
+
+function clearCalculator() {
+  document.getElementById('calcWidth').value  = '';
+  document.getElementById('calcHeight').value = '';
+  document.getElementById('calcResults').classList.remove('visible');
+  document.getElementById('calcConvGrid').innerHTML = '';
+  hideCalcError();
+  const lfW = document.getElementById('calcLfWarning');
+  if (lfW) lfW.classList.remove('visible');
+  calcLastResult = null;
+  document.getElementById('calcWidth').focus();
 }
 
 // ═══════════════════════════════════════
